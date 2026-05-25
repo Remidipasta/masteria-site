@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
@@ -44,6 +45,9 @@
   <div class="hero-glow"></div>
   <div class="hero-glow-gold"></div>
   <div class="hero-content">
+    <div class="hero-badge-pill reveal">
+      <i class="fa-solid fa-layer-group"></i> Formation Premium Investissement
+    </div>
     <h1 class="reveal reveal-d1">
       Devenez un investisseur<br><span style="background:linear-gradient(90deg, #2563eb 0%, #7c3aed 40%, #d4af37 75%, #e8c84a 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">autonome et performant</span>
     </h1>
@@ -149,15 +153,15 @@
         <h3>L'inflation travaille contre vous</h3>
         <p>Votre Livret A rapporte moins que l'inflation. Votre argent dort — et pendant ce temps, les prix montent. Votre pouvoir d'achat recule chaque année, même en épargnant.</p>
         <div class="why-stat-row">
-          <div class="why-stat-item"><div class="why-stat-big red">≈3%</div><div class="why-stat-sub">Inflation annuelle</div></div>
-          <div class="why-stat-item"><div class="why-stat-big" style="color:var(--text-muted)">1.7%</div><div class="why-stat-sub">Livret A</div></div>
+          <div class="why-stat-item"><div class="why-stat-big red"><i class="fa-solid fa-arrow-trend-up" style="font-size:20px;margin-right:6px;opacity:.6"></i>≈3%</div><div class="why-stat-sub">Inflation annuelle</div></div>
+          <div class="why-stat-item"><div class="why-stat-big" style="color:var(--text-muted)"><i class="fa-solid fa-arrow-trend-down" style="font-size:20px;margin-right:6px;opacity:.4"></i>1.7%</div><div class="why-stat-sub">Livret A</div></div>
         </div>
       </div>
       <div class="why-card reveal-right">
         <h3>Les marchés montent sur le long terme</h3>
         <p>L'économie évolue, les entreprises innovent et créent de la valeur. Des indices comme le S&P 500 affichent une trajectoire haussière depuis plus de 200 ans — malgré les crises, guerres et krachs.</p>
         <div class="why-stat-row">
-          <div class="why-stat-item"><div class="why-stat-big gold">≈10%</div><div class="why-stat-sub">Rendement S&P 500 / an</div></div>
+          <div class="why-stat-item"><div class="why-stat-big gold"><i class="fa-solid fa-chart-line" style="font-size:22px;margin-right:8px;opacity:.7"></i>≈10%</div><div class="why-stat-sub">Rendement S&P 500 / an</div></div>
         </div>
       </div>
       <div class="why-card wide reveal-scale">
@@ -179,7 +183,11 @@
       <div class="bento-card card-accent reveal-left">
         <div class="bento-num">01</div>
         <h3>Décisions émotionnelles</h3>
-        <p>Acheter dans l'euphorie, vendre dans la panique. Sans cadre décisionnel solide, chaque cycle de marché érode le capital. La discipline bat le talent — toujours.</p>
+        <p>Acheter dans l'euphorie, vendre dans la panique. Sans cadre décisionnel solide, chaque cycle de marché érode le capital.</p>
+        <div class="info-box rose" style="margin-top:16px">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <div><h4>Le piège classique</h4><p>90% des investisseurs particuliers sous-performent le marché à cause de biais émotionnels — la discipline bat le talent, toujours.</p></div>
+        </div>
       </div>
       <div class="bento-card reveal-right">
         <div class="bento-num">02</div>
@@ -198,7 +206,13 @@
       </div>
     </div>
     <div class="problem-insight reveal reveal-d5">
-      <p>MasterInvest corrige ces erreurs méthodiquement — module après module, avec des stratégies issues de la recherche académique, des backtests sur 30 ans de données, et de la pratique professionnelle.</p>
+      <div class="info-box emerald" style="border:none;background:none;padding:0;margin:0">
+        <i class="fa-solid fa-bullseye" style="font-size:20px"></i>
+        <div>
+          <h4 style="font-size:16px;margin-bottom:8px">MasterInvest corrige ces erreurs méthodiquement</h4>
+          <p style="font-size:16px">Module après module, avec des stratégies issues de la recherche académique, des backtests sur 30 ans de données, et de la pratique professionnelle.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -212,23 +226,141 @@
       <h2 class="section-title reveal reveal-d1">10 modules + 1 bonus pour devenir<br><span class="gradient-blue-gold">un investisseur d'élite</span></h2>
       <p class="section-desc reveal reveal-d2">Un parcours progressif de 40h+, de l'essentiel aux stratégies avancées des pros, basées sur la recherche et la science.</p>
     </div>
-    <div class="modules-grid">
-      <div class="module-card"><div class="module-num">01</div><div class="module-body"><h3>Adopter les grands principes des investisseurs millionnaires</h3></div></div>
-      <div class="module-card"><div class="module-num">02</div><div class="module-body"><h3>Les bases essentielles pour performer en bourse + Fiscalité</h3></div></div>
-      <div class="module-card"><div class="module-num">03</div><div class="module-body"><h3>Maîtriser les stratégies de gestion et utiliser le pouvoir des ETF</h3></div></div>
-      <div class="module-card"><div class="module-num">04</div><div class="module-body"><h3>Construire un portefeuille robuste, performant et équilibré</h3></div></div>
-      <div class="module-card"><div class="module-num">05</div><div class="module-body"><h3>Traverser les cycles baissiers sans paniquer : protéger son patrimoine</h3></div></div>
-      <div class="module-card"><div class="module-num">06</div><div class="module-body"><h3>L'art de battre le marché : les stratégies des pros et de la recherche académique</h3></div></div>
-      <div class="module-card"><div class="module-num">07</div><div class="module-body"><h3>Construire son portefeuille stratégique et optimal</h3></div></div>
-      <div class="module-card"><div class="module-num">08</div><div class="module-body"><h3>Personnaliser sa stratégie globale et assurer son avenir</h3></div></div>
-      <div class="module-card"><div class="module-num">09</div><div class="module-body"><h3>Dans l'ombre de Wall Street : investir comme un stratège et viser le x10</h3></div></div>
-      <div class="module-card"><div class="module-num">10</div><div class="module-body"><h3>Devenir un investisseur global : piloter son patrimoine selon les cycles économiques</h3></div></div>
-      <div class="module-card bonus"><div class="module-num">★</div><div class="module-body"><h3>Bonus — Module 11 : L'investissement en cryptomonnaies</h3></div></div>
+    <div class="brique-grid">
+      <div class="brique-card c-emerald reveal">
+        <div class="brique-icon"><i class="fa-solid fa-gem"></i></div>
+        <div><span class="brique-tag">Module 01 · Mindset</span><h3>Adopter les grands principes des investisseurs millionnaires</h3></div>
+      </div>
+      <div class="brique-card c-blue reveal">
+        <div class="brique-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div><span class="brique-tag">Module 02 · Fondamentaux</span><h3>Les bases essentielles pour performer en bourse + Fiscalité</h3></div>
+      </div>
+      <div class="brique-card c-violet reveal">
+        <div class="brique-icon"><i class="fa-solid fa-chart-pie"></i></div>
+        <div><span class="brique-tag">Module 03 · Stratégies ETF</span><h3>Maîtriser les stratégies de gestion et utiliser le pouvoir des ETF</h3></div>
+      </div>
+      <div class="brique-card c-fuchsia reveal">
+        <div class="brique-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <div><span class="brique-tag">Module 04 · Portefeuille</span><h3>Construire un portefeuille robuste, performant et équilibré</h3></div>
+      </div>
+      <div class="brique-card c-rose reveal">
+        <div class="brique-icon"><i class="fa-solid fa-umbrella"></i></div>
+        <div><span class="brique-tag">Module 05 · Protection</span><h3>Traverser les cycles baissiers sans paniquer : protéger son patrimoine</h3></div>
+      </div>
+      <div class="brique-card c-gold reveal">
+        <div class="brique-icon"><i class="fa-solid fa-trophy"></i></div>
+        <div><span class="brique-tag">Module 06 · Surperformance</span><h3>L'art de battre le marché : les stratégies des pros et de la recherche académique</h3></div>
+      </div>
+      <div class="brique-card c-amber reveal">
+        <div class="brique-icon"><i class="fa-solid fa-bullseye"></i></div>
+        <div><span class="brique-tag">Module 07 · Construction</span><h3>Construire son portefeuille stratégique et optimal</h3></div>
+      </div>
+      <div class="brique-card c-blue reveal">
+        <div class="brique-icon"><i class="fa-solid fa-sliders"></i></div>
+        <div><span class="brique-tag">Module 08 · Personnalisation</span><h3>Personnaliser sa stratégie globale et assurer son avenir</h3></div>
+      </div>
+      <div class="brique-card c-violet reveal">
+        <div class="brique-icon"><i class="fa-solid fa-rocket"></i></div>
+        <div><span class="brique-tag">Module 09 · Stratège</span><h3>Dans l'ombre de Wall Street : investir comme un stratège et viser le x10</h3></div>
+      </div>
+      <div class="brique-card c-emerald reveal">
+        <div class="brique-icon"><i class="fa-solid fa-globe"></i></div>
+        <div><span class="brique-tag">Module 10 · Patrimoine Global</span><h3>Devenir un investisseur global : piloter son patrimoine selon les cycles économiques</h3></div>
+      </div>
+      <div class="brique-card bonus-wide reveal">
+        <div class="brique-icon"><i class="fa-solid fa-star"></i></div>
+        <div><span class="brique-tag" style="color:var(--blue)">Module Bonus · Crypto</span><h3>Bonus — Module 11 : L'investissement en cryptomonnaies</h3></div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ═══════ CE QUI EST INCLUS ═══════ -->
+<div class="section-sep"></div>
+
+<!-- ═══════ PERFORMANCES PROUVÉES (from Module7 DNA) ═══════ -->
+<section class="section section-glow-gold" id="performances">
+  <div class="container" style="position:relative;z-index:1">
+    <div style="text-align:center">
+      <div class="section-label gold reveal"><i class="fa-solid fa-chart-line" style="margin-right:6px"></i> La preuve par les chiffres</div>
+      <h2 class="section-title reveal reveal-d1">Des stratégies <span class="gradient-blue-gold">backtestées et validées</span></h2>
+      <p class="section-desc reveal reveal-d2" style="margin:0 auto">Nos méthodes s'appuient sur la recherche académique et des décennies de données historiques réelles.</p>
+    </div>
+    <div class="perf-grid">
+      <div class="perf-stat c-gold reveal">
+        <div class="perf-val gold-text">15,1%</div>
+        <div class="perf-label">Rendement annualisé</div>
+        <div class="perf-sub">Stratégie Momentum Accéléré (DMA)</div>
+      </div>
+      <div class="perf-stat c-emerald reveal reveal-d1">
+        <div class="perf-val" style="color:var(--green)">−20%</div>
+        <div class="perf-label">Max Drawdown</div>
+        <div class="perf-sub">vs −55% pour le S&P500 en 2008</div>
+      </div>
+      <div class="perf-stat c-blue reveal reveal-d2">
+        <div class="perf-val gradient-blue">0,91</div>
+        <div class="perf-label">Ratio de Sharpe</div>
+        <div class="perf-sub">vs 0,57 pour le S&P500 seul</div>
+      </div>
+    </div>
+    <table class="compare-table reveal" style="margin-top:40px">
+      <thead>
+        <tr>
+          <th>Stratégie enseignée</th>
+          <th>CAGR</th>
+          <th>Volatilité</th>
+          <th>Max DD</th>
+          <th>Sharpe</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="compare-badge" style="background:rgba(148,163,184,0.1);color:var(--text-muted)">Benchmark</span> S&P500</td>
+          <td>8,7%</td>
+          <td>15,2%</td>
+          <td style="color:var(--red);font-weight:700">−55%</td>
+          <td>0,57</td>
+        </tr>
+        <tr>
+          <td><span class="compare-badge" style="background:rgba(16,185,129,0.08);color:#10b981">Défensif</span> Portefeuille Zen</td>
+          <td style="font-weight:600">8−10%</td>
+          <td>8%</td>
+          <td style="color:var(--green);font-weight:600">−18%</td>
+          <td>0,85</td>
+        </tr>
+        <tr>
+          <td><span class="compare-badge" style="background:rgba(37,99,235,0.08);color:#2563eb">Équilibré</span> Risk Parity</td>
+          <td style="font-weight:600">9,7%</td>
+          <td>8,3%</td>
+          <td style="color:#f59e0b;font-weight:600">−20%</td>
+          <td>0,85</td>
+        </tr>
+        <tr>
+          <td><span class="compare-badge" style="background:rgba(139,92,246,0.08);color:#8b5cf6">Avancé</span> Dual Momentum</td>
+          <td style="font-weight:600">13,1%</td>
+          <td>12,4%</td>
+          <td style="color:#f59e0b;font-weight:600">−25%</td>
+          <td>0,88</td>
+        </tr>
+        <tr class="highlight-row">
+          <td><span class="compare-badge" style="background:rgba(184,149,42,0.1);color:#b8952a"><i class="fa-solid fa-star" style="font-size:10px;margin-right:4px"></i>Central</span> DMA Accéléré</td>
+          <td style="font-weight:800;color:var(--gold)">15,1%</td>
+          <td>13,7%</td>
+          <td style="color:var(--green);font-weight:700">−20%</td>
+          <td style="font-weight:700;color:var(--blue)">0,91</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="info-box amber-box reveal" style="margin-top:24px;max-width:760px;margin-left:auto;margin-right:auto">
+      <i class="fa-solid fa-circle-info"></i>
+      <div>
+        <h4>Données historiques (1998–2022)</h4>
+        <p>Backtests réalisés en euros, sur des ETF éligibles PEA, frais de transaction inclus. Les performances passées ne garantissent pas les résultats futurs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <div class="section-sep"></div>
 <section class="section alt" id="includes">
   <div class="container">
@@ -237,29 +369,29 @@
     <p class="section-desc reveal reveal-d2">En rejoignant MasterInvest, vous accédez à un accompagnement global pour accélérer votre progression.</p>
     <div class="includes-grid">
       <div class="include-card reveal-left">
-        <div class="include-icon gold">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#b8952a" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        <div class="include-icon-fa gold-grad">
+          <i class="fa-solid fa-users"></i>
         </div>
         <h3>Club privé MasterInvest</h3>
         <p>Une communauté d'investisseurs motivés sur Discord, un environnement bienveillant pour poser vos questions, partager des retours d'expérience et rester discipliné.</p>
       </div>
       <div class="include-card reveal-right">
-        <div class="include-icon blue">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.5" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <div class="include-icon-fa blue-grad">
+          <i class="fa-solid fa-comments"></i>
         </div>
         <h3>Coaching et accompagnement</h3>
         <p>Analyse personnalisée de votre situation financière, conseils adaptés à votre profil, budget et objectifs. Un suivi humain et structuré pour passer de la théorie à l'action.</p>
       </div>
       <div class="include-card reveal-left reveal-d1">
-        <div class="include-icon purple">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+        <div class="include-icon-fa violet-grad">
+          <i class="fa-solid fa-wallet"></i>
         </div>
         <h3>Portefeuilles crypto du club</h3>
         <p>3 portefeuilles prêts-à-l'emploi (conservateur, équilibré, offensif) avec des mises à jour régulières pour naviguer les cycles — un cadre clair même si vous n'y connaissez rien.</p>
       </div>
       <div class="include-card reveal-right reveal-d1">
-        <div class="include-icon green">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <div class="include-icon-fa emerald-grad">
+          <i class="fa-solid fa-video"></i>
         </div>
         <h3>Lives et mises à jour mensuels</h3>
         <p>Sessions en direct pour analyser les marchés, études de cas réels, Q&A avec Rémi. Replays disponibles pour avancer à votre rythme. Mises à jour à vie incluses.</p>
@@ -278,30 +410,30 @@
     <div class="mastery-bento">
       <div class="mastery-card featured reveal-scale">
         <div>
-          <div class="mastery-icon blue"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg></div>
+          <div class="mastery-icon blue"><i class="fa-solid fa-layer-group" style="font-size:20px;stroke:none"></i></div>
           <h3>Portefeuille<br>100% autonome</h3>
           <p>Construisez et gérez votre portefeuille sans dépendre d'un conseiller — une allocation fondée sur la recherche académique, les meilleures pratiques institutionnelles, et adaptée à votre profil.</p>
         </div>
       </div>
       <div class="mastery-card reveal-flip">
-        <div class="mastery-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
+        <div class="mastery-icon"><i class="fa-solid fa-bolt" style="font-size:20px;stroke:none"></i></div>
         <h3>Surperformance durable</h3>
         <p>Appliquez des stratégies quantitatives et factorielles (Value, Momentum, DCA) testées sur plus de 30 ans de données.</p>
       </div>
       <div class="mastery-card reveal-right reveal-d1">
-        <div class="mastery-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+        <div class="mastery-icon"><i class="fa-solid fa-gauge-high" style="font-size:20px;stroke:none"></i></div>
         <h3>Discipline macro</h3>
         <p>Lisez les cycles économiques et ajustez votre exposition — au lieu de subir la volatilité, vous la pilotez.</p>
       </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px">
       <div class="mastery-card reveal-left reveal-d1">
-        <div class="mastery-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+        <div class="mastery-icon"><i class="fa-solid fa-shield-halved" style="font-size:20px;stroke:none"></i></div>
         <h3>Résilience en bear market</h3>
         <p>Traversez les krachs avec des protocoles clairs, sans céder à la panique ni aux biais cognitifs.</p>
       </div>
       <div class="mastery-card reveal-right reveal-d2">
-        <div class="mastery-icon blue"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18M9 21V9"></path></svg></div>
+        <div class="mastery-icon blue"><i class="fa-solid fa-chart-pie" style="font-size:20px;stroke:none"></i></div>
         <h3>Patrimoine global optimisé</h3>
         <p>Intégrez actions, ETF, obligations et crypto dans une stratégie cohérente. Automatisez et faites croître votre capital, même avec 50 à 200€ par mois.</p>
       </div>
@@ -318,11 +450,35 @@
       <h2 class="section-title reveal reveal-d1">Comment fonctionne MasterInvest</h2>
       <p class="section-desc reveal reveal-d2">Un parcours structuré, à votre rythme, des fondamentaux aux stratégies avancées.</p>
     </div>
-    <div class="journey-grid">
-      <div class="journey-card reveal"><div class="journey-num">01</div><h3>Poser les fondations</h3><p>Mindset, principes des investisseurs qui réussissent, fiscalité et outils essentiels.</p></div>
-      <div class="journey-card reveal reveal-d1"><div class="journey-num">02</div><h3>Construire votre portefeuille</h3><p>Allocation robuste avec ETF, diversification intelligente, équilibre rendement-risque.</p></div>
-      <div class="journey-card reveal reveal-d2"><div class="journey-num">03</div><h3>Stratégies avancées</h3><p>Factoriel, stock-picking discipliné, lecture macro — les méthodes des professionnels.</p></div>
-      <div class="journey-card reveal reveal-d3"><div class="journey-num">04</div><h3>Personnaliser et piloter</h3><p>Adaptez à vos objectifs de vie, automatisez et prenez le contrôle total de votre avenir.</p></div>
+    <div class="timeline-grid">
+      <div class="timeline-step reveal">
+        <div class="timeline-num">01</div>
+        <div class="timeline-content">
+          <h3>Poser les fondations</h3>
+          <p>Mindset, principes des investisseurs qui réussissent, fiscalité et outils essentiels.</p>
+        </div>
+      </div>
+      <div class="timeline-step reveal reveal-d1">
+        <div class="timeline-num">02</div>
+        <div class="timeline-content">
+          <h3>Construire votre portefeuille</h3>
+          <p>Allocation robuste avec ETF, diversification intelligente, équilibre rendement-risque.</p>
+        </div>
+      </div>
+      <div class="timeline-step reveal reveal-d2">
+        <div class="timeline-num">03</div>
+        <div class="timeline-content">
+          <h3>Stratégies avancées</h3>
+          <p>Factoriel, stock-picking discipliné, lecture macro — les méthodes des professionnels.</p>
+        </div>
+      </div>
+      <div class="timeline-step reveal reveal-d3">
+        <div class="timeline-num">04</div>
+        <div class="timeline-content">
+          <h3>Personnaliser et piloter</h3>
+          <p>Adaptez à vos objectifs de vie, automatisez et prenez le contrôle total de votre avenir.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -337,7 +493,7 @@
     </div>
     <div class="for-who-grid">
       <div class="for-who-card yes reveal-left">
-        <h3><span style="font-size:22px">✓</span> Ce programme est fait pour vous si…</h3>
+        <h3><i class="fa-solid fa-circle-check" style="font-size:20px;color:var(--green)"></i> Ce programme est fait pour vous si…</h3>
         <ul>
           <li>Vous êtes jeune actif et ne voulez pas dépendre d'une retraite d'État incertaine</li>
           <li>Vous souhaitez protéger l'épargne d'une vie sans produits bancaires inefficients</li>
@@ -348,7 +504,7 @@
         </ul>
       </div>
       <div class="for-who-card no reveal-right">
-        <h3><span style="font-size:22px">✗</span> Ce programme n'est pas pour vous si…</h3>
+        <h3><i class="fa-solid fa-circle-xmark" style="font-size:20px;color:var(--red)"></i> Ce programme n'est pas pour vous si…</h3>
         <ul>
           <li>Vous espérez une solution miracle sans le moindre effort d'apprentissage</li>
           <li>Vous voulez « devenir rentier » en six mois avec 2 000 € et zéro discipline</li>
@@ -388,7 +544,7 @@
       </ul>
       <a href="#" class="btn-neon light" style="width:100%;justify-content:center">Rejoindre MasterInvest — 754€</a>
       <div class="pricing-guarantee">
-        🔒 Paiement sécurisé (Stripe/PayPal) · Accès immédiat · 14 jours satisfait ou remboursé
+        <i class="fa-solid fa-lock" style="margin-right:6px"></i> Paiement sécurisé (Stripe/PayPal) · Accès immédiat · 14 jours satisfait ou remboursé
       </div>
     </div>
   </div>

@@ -51,8 +51,8 @@
     reveals.forEach(el => el.classList.add('visible'));
   }
 
-  /* ── Module card stagger ── */
-  const mCards = document.querySelectorAll('.module-card');
+  /* ── Module card stagger (brique cards) ── */
+  const mCards = document.querySelectorAll('.brique-card');
   if ('IntersectionObserver' in window && mCards.length) {
     const mObs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
