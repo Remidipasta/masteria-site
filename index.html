@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Masteria — MasterInvest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="beams-bg">
+  <div class="beam b1"></div>
+  <div class="beam b2"></div>
+  <div class="beam b3"></div>
+  <div class="beam b4"></div>
+  <div class="beam b5"></div>
+  <div class="beam b6"></div>
+  <div class="beam b7"></div>
+  <div class="beam b8"></div>
+</div>
+
+<!-- ═══════ NAVIGATION ═══════ -->
+<nav class="nav" role="navigation">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo"><img src="logo-masteria.png" alt="Masteria" style="height:28px;width:auto;"></a>
+    <div class="nav-links">
+      <a href="#programme">Programme</a>
+      <a href="#mastery">Résultats</a>
+      <a href="#tarif">Tarif</a>
+      <a href="#faq">FAQ</a>
+      <a href="#cta" class="nav-cta">Rejoindre</a>
+    </div>
+    <button class="nav-menu-btn" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero" id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow-gold"></div>
+  <div class="hero-content">
+    <h1 class="reveal reveal-d1">
+      Devenez un investisseur<br><span style="background:linear-gradient(90deg, #2563eb 0%, #7c3aed 40%, #d4af37 75%, #e8c84a 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">autonome et performant</span>
+    </h1>
+    <p class="hero-sub reveal reveal-d2">
+      Le condensé de 6 années d'expériences intensives, de recherches et de pratique 
+      sur les marchés — une méthodologie claire, structurée et immédiatement actionnable 
+      pour faire travailler votre argent, même en partant de zéro.
+    </p>
+    <div class="hero-btns reveal reveal-d3">
+      <a href="#tarif" class="btn-glow primary" style="background:linear-gradient(135deg,#2563eb,#3b82f6)">Rejoindre MasterInvest</a>
+      <a href="#programme" class="btn-liquid">Voir le programme</a>
+    </div>
+  </div>
+
+  <!-- Dashboard mockup -->
+  <div class="hero-mockup reveal reveal-d4">
+    <div class="hero-mockup-inner">
+      <div class="mockup-topbar">
+        <div class="mockup-dots">
+          <div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div>
+        </div>
+        <div class="mockup-tabs">
+          <div class="mockup-tab active">Portefeuille</div>
+          <div class="mockup-tab">Analyse</div>
+          <div class="mockup-tab">Allocation</div>
+          <div class="mockup-tab">Macro</div>
+        </div>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-panel">
+          <div class="mockup-panel-title">Valeur totale</div>
+          <div class="mockup-stat-row">
+            <div class="mockup-stat-big gold-text">€247,830</div>
+          </div>
+          <div class="mockup-stat-badge" style="margin-bottom:14px">+18.4% YTD</div>
+          <div class="mockup-mini-card">
+            <div class="mockup-mini-label">ETF World</div>
+            <div class="mockup-mini-val" style="color:var(--blue)">42%</div>
+          </div>
+          <div class="mockup-mini-card">
+            <div class="mockup-mini-label">Momentum</div>
+            <div class="mockup-mini-val" style="color:var(--gold)">28%</div>
+          </div>
+          <div class="mockup-mini-card">
+            <div class="mockup-mini-label">Obligations</div>
+            <div class="mockup-mini-val">18%</div>
+          </div>
+        </div>
+        <div class="mockup-panel">
+          <div class="mockup-panel-title">Performance 12 mois</div>
+          <div class="mockup-chart-area">
+            <svg class="mockup-chart-line" viewBox="0 0 400 80" preserveAspectRatio="none" fill="none">
+              <defs>
+                <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="rgba(184,149,42,0.2)"/>
+                  <stop offset="100%" stop-color="rgba(184,149,42,0)"/>
+                </linearGradient>
+                <linearGradient id="cb" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="rgba(37,99,235,0.12)"/>
+                  <stop offset="100%" stop-color="rgba(37,99,235,0)"/>
+                </linearGradient>
+              </defs>
+              <path d="M0,65 Q30,60 60,55 T120,42 T180,38 T240,28 T300,22 T360,15 L400,10" stroke="#b8952a" stroke-width="2" opacity="0.8"/>
+              <path d="M0,65 Q30,60 60,55 T120,42 T180,38 T240,28 T300,22 T360,15 L400,10 L400,80 L0,80Z" fill="url(#cg)"/>
+              <path d="M0,65 Q40,62 80,58 T160,52 T240,45 T320,38 L400,32" stroke="#2563eb" stroke-width="1.5" opacity="0.4" stroke-dasharray="4,3"/>
+              <path d="M0,65 Q40,62 80,58 T160,52 T240,45 T320,38 L400,32 L400,80 L0,80Z" fill="url(#cb)"/>
+            </svg>
+          </div>
+          <div style="display:flex;gap:20px;margin-top:12px">
+            <div style="display:flex;align-items:center;gap:6px"><div style="width:10px;height:3px;border-radius:2px;background:var(--gold)"></div><span style="font-size:11px;color:var(--text-muted)">Votre portefeuille</span></div>
+            <div style="display:flex;align-items:center;gap:6px"><div style="width:10px;height:3px;border-radius:2px;background:var(--blue);opacity:.5"></div><span style="font-size:11px;color:var(--text-muted)">MSCI World</span></div>
+          </div>
+        </div>
+        <div class="mockup-panel">
+          <div class="mockup-panel-title">Indicateurs</div>
+          <div class="mockup-mini-card"><div class="mockup-mini-label">Sharpe Ratio</div><div class="mockup-mini-val" style="color:var(--green)">1.82</div></div>
+          <div class="mockup-mini-card"><div class="mockup-mini-label">Max Drawdown</div><div class="mockup-mini-val" style="color:#f97316">-8.3%</div></div>
+          <div class="mockup-mini-card"><div class="mockup-mini-label">Volatilité</div><div class="mockup-mini-val">11.2%</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-stats reveal reveal-d5">
+    <div class="hero-stat"><div class="hero-stat-val gradient-blue">400+</div><div class="hero-stat-label">Membres formés</div></div>
+    <div class="hero-stat"><div class="hero-stat-val gradient-blue">40h+</div><div class="hero-stat-label">De contenu premium</div></div>
+    <div class="hero-stat"><div class="hero-stat-val gradient-blue">11</div><div class="hero-stat-label">Modules complets</div></div>
+  </div>
+</section>
+
+<!-- ═══════ POURQUOI INVESTIR ═══════ -->
+<div class="section-sep"></div>
+<section class="section" id="why-invest">
+  <div class="container">
+    <div class="section-label reveal">Le constat</div>
+    <h2 class="section-title reveal reveal-d1">Pourquoi investir aujourd'hui<br><span class="gradient-blue">est une</span> <span class="gold-text">nécessité</span></h2>
+    <p class="section-desc reveal reveal-d2">
+      Chaque jour sans investir, votre argent perd de la valeur. 
+      Le système est conçu comme ça — savoir investir n'est plus un luxe, c'est une compétence vitale.
+    </p>
+    <div class="why-grid">
+      <div class="why-card reveal-left">
+        <h3>L'inflation travaille contre vous</h3>
+        <p>Votre Livret A rapporte moins que l'inflation. Votre argent dort — et pendant ce temps, les prix montent. Votre pouvoir d'achat recule chaque année, même en épargnant.</p>
+        <div class="why-stat-row">
+          <div class="why-stat-item"><div class="why-stat-big red">≈3%</div><div class="why-stat-sub">Inflation annuelle</div></div>
+          <div class="why-stat-item"><div class="why-stat-big" style="color:var(--text-muted)">1.7%</div><div class="why-stat-sub">Livret A</div></div>
+        </div>
+      </div>
+      <div class="why-card reveal-right">
+        <h3>Les marchés montent sur le long terme</h3>
+        <p>L'économie évolue, les entreprises innovent et créent de la valeur. Des indices comme le S&P 500 affichent une trajectoire haussière depuis plus de 200 ans — malgré les crises, guerres et krachs.</p>
+        <div class="why-stat-row">
+          <div class="why-stat-item"><div class="why-stat-big gold">≈10%</div><div class="why-stat-sub">Rendement S&P 500 / an</div></div>
+        </div>
+      </div>
+      <div class="why-card wide reveal-scale">
+        <h3>L'écart se creuse entre ceux qui agissent et ceux qui attendent</h3>
+        <p>Chaque mois sans investir, ce sont des intérêts composés perdus, du pouvoir d'achat érodé, et une dépendance financière qui s'installe. Investir, c'est simplement mettre votre argent au bon endroit pour qu'il travaille à votre place — sans devenir trader, sans y passer des heures, sans prendre de risques insensés.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ PROBLÈME ═══════ -->
+<div class="section-sep"></div>
+<section class="section alt" id="problem">
+  <div class="container">
+    <div class="section-label gold reveal">Le problème</div>
+    <h2 class="section-title reveal reveal-d1">Pourquoi la majorité des investisseurs<br><span style="background:linear-gradient(90deg,#dc2626,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">sous-performent</span> <span class="gradient-blue">le marché</span></h2>
+    <p class="section-desc reveal reveal-d2">La majorité des particuliers obtiennent des rendements faibles, souvent en dessous des indices. Les erreurs sont prévisibles — et évitables.</p>
+    <div class="problem-bento">
+      <div class="bento-card card-accent reveal-left">
+        <div class="bento-num">01</div>
+        <h3>Décisions émotionnelles</h3>
+        <p>Acheter dans l'euphorie, vendre dans la panique. Sans cadre décisionnel solide, chaque cycle de marché érode le capital. La discipline bat le talent — toujours.</p>
+      </div>
+      <div class="bento-card reveal-right">
+        <div class="bento-num">02</div>
+        <h3>Absence de stratégie structurée</h3>
+        <p>Passer d'un conseil YouTube à un autre ne constitue pas un plan. La performance exige méthode et cohérence.</p>
+      </div>
+      <div class="bento-card reveal-scale">
+        <div class="bento-num">03</div>
+        <h3>Méconnaissance des cycles</h3>
+        <p>Ignorer les dynamiques macro, c'est naviguer à l'aveugle. Les cycles dictent les opportunités — et les risques.</p>
+      </div>
+      <div class="bento-card card-gold reveal-flip">
+        <div class="bento-num">04</div>
+        <h3>Dépendance aux conseils biaisés</h3>
+        <p>Déléguer sans comprendre, c'est subir les frais et les conflits d'intérêts. L'autonomie est la clé de la surperformance long terme.</p>
+      </div>
+    </div>
+    <div class="problem-insight reveal reveal-d5">
+      <p>MasterInvest corrige ces erreurs méthodiquement — module après module, avec des stratégies issues de la recherche académique, des backtests sur 30 ans de données, et de la pratique professionnelle.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ PROGRAMME ═══════ -->
+<div class="section-sep"></div>
+<section class="section" id="programme">
+  <div class="container">
+    <div class="programme-header">
+      <div class="section-label reveal">Le programme</div>
+      <h2 class="section-title reveal reveal-d1">10 modules + 1 bonus pour devenir<br><span class="gradient-blue-gold">un investisseur d'élite</span></h2>
+      <p class="section-desc reveal reveal-d2">Un parcours progressif de 40h+, de l'essentiel aux stratégies avancées des pros, basées sur la recherche et la science.</p>
+    </div>
+    <div class="modules-grid">
+      <div class="module-card"><div class="module-num">01</div><div class="module-body"><h3>Adopter les grands principes des investisseurs millionnaires</h3></div></div>
+      <div class="module-card"><div class="module-num">02</div><div class="module-body"><h3>Les bases essentielles pour performer en bourse + Fiscalité</h3></div></div>
+      <div class="module-card"><div class="module-num">03</div><div class="module-body"><h3>Maîtriser les stratégies de gestion et utiliser le pouvoir des ETF</h3></div></div>
+      <div class="module-card"><div class="module-num">04</div><div class="module-body"><h3>Construire un portefeuille robuste, performant et équilibré</h3></div></div>
+      <div class="module-card"><div class="module-num">05</div><div class="module-body"><h3>Traverser les cycles baissiers sans paniquer : protéger son patrimoine</h3></div></div>
+      <div class="module-card"><div class="module-num">06</div><div class="module-body"><h3>L'art de battre le marché : les stratégies des pros et de la recherche académique</h3></div></div>
+      <div class="module-card"><div class="module-num">07</div><div class="module-body"><h3>Construire son portefeuille stratégique et optimal</h3></div></div>
+      <div class="module-card"><div class="module-num">08</div><div class="module-body"><h3>Personnaliser sa stratégie globale et assurer son avenir</h3></div></div>
+      <div class="module-card"><div class="module-num">09</div><div class="module-body"><h3>Dans l'ombre de Wall Street : investir comme un stratège et viser le x10</h3></div></div>
+      <div class="module-card"><div class="module-num">10</div><div class="module-body"><h3>Devenir un investisseur global : piloter son patrimoine selon les cycles économiques</h3></div></div>
+      <div class="module-card bonus"><div class="module-num">★</div><div class="module-body"><h3>Bonus — Module 11 : L'investissement en cryptomonnaies</h3></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ CE QUI EST INCLUS ═══════ -->
+<div class="section-sep"></div>
+<section class="section alt" id="includes">
+  <div class="container">
+    <div class="section-label reveal">Tout est inclus</div>
+    <h2 class="section-title reveal reveal-d1">Bien plus qu'une formation :<br><span class="gradient-blue" data-comment-anchor="401924492b-span">un écosystème</span> <span class="gold-text">complet</span></h2>
+    <p class="section-desc reveal reveal-d2">En rejoignant MasterInvest, vous accédez à un accompagnement global pour accélérer votre progression.</p>
+    <div class="includes-grid">
+      <div class="include-card reveal-left">
+        <div class="include-icon gold">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#b8952a" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>Club privé MasterInvest</h3>
+        <p>Une communauté d'investisseurs motivés sur Discord, un environnement bienveillant pour poser vos questions, partager des retours d'expérience et rester discipliné.</p>
+      </div>
+      <div class="include-card reveal-right">
+        <div class="include-icon blue">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.5" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <h3>Coaching et accompagnement</h3>
+        <p>Analyse personnalisée de votre situation financière, conseils adaptés à votre profil, budget et objectifs. Un suivi humain et structuré pour passer de la théorie à l'action.</p>
+      </div>
+      <div class="include-card reveal-left reveal-d1">
+        <div class="include-icon purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+        </div>
+        <h3>Portefeuilles crypto du club</h3>
+        <p>3 portefeuilles prêts-à-l'emploi (conservateur, équilibré, offensif) avec des mises à jour régulières pour naviguer les cycles — un cadre clair même si vous n'y connaissez rien.</p>
+      </div>
+      <div class="include-card reveal-right reveal-d1">
+        <div class="include-icon green">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h3>Lives et mises à jour mensuels</h3>
+        <p>Sessions en direct pour analyser les marchés, études de cas réels, Q&A avec Rémi. Replays disponibles pour avancer à votre rythme. Mises à jour à vie incluses.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ RÉSULTATS ═══════ -->
+<div class="section-sep"></div>
+<section class="section" id="mastery">
+  <div class="container">
+    <div class="section-label reveal">Résultats</div>
+    <h2 class="section-title reveal reveal-d1">Ce que vous allez maîtriser</h2>
+    <p class="section-desc reveal reveal-d2">Des compétences concrètes qui vous placent dans le top 1% des investisseurs éclairés.</p>
+    <div class="mastery-bento">
+      <div class="mastery-card featured reveal-scale">
+        <div>
+          <div class="mastery-icon blue"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg></div>
+          <h3>Portefeuille<br>100% autonome</h3>
+          <p>Construisez et gérez votre portefeuille sans dépendre d'un conseiller — une allocation fondée sur la recherche académique, les meilleures pratiques institutionnelles, et adaptée à votre profil.</p>
+        </div>
+      </div>
+      <div class="mastery-card reveal-flip">
+        <div class="mastery-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
+        <h3>Surperformance durable</h3>
+        <p>Appliquez des stratégies quantitatives et factorielles (Value, Momentum, DCA) testées sur plus de 30 ans de données.</p>
+      </div>
+      <div class="mastery-card reveal-right reveal-d1">
+        <div class="mastery-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+        <h3>Discipline macro</h3>
+        <p>Lisez les cycles économiques et ajustez votre exposition — au lieu de subir la volatilité, vous la pilotez.</p>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px">
+      <div class="mastery-card reveal-left reveal-d1">
+        <div class="mastery-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+        <h3>Résilience en bear market</h3>
+        <p>Traversez les krachs avec des protocoles clairs, sans céder à la panique ni aux biais cognitifs.</p>
+      </div>
+      <div class="mastery-card reveal-right reveal-d2">
+        <div class="mastery-icon blue"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18M9 21V9"></path></svg></div>
+        <h3>Patrimoine global optimisé</h3>
+        <p>Intégrez actions, ETF, obligations et crypto dans une stratégie cohérente. Automatisez et faites croître votre capital, même avec 50 à 200€ par mois.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ MÉTHODE ═══════ -->
+<div class="section-sep"></div>
+<section class="section alt" id="journey">
+  <div class="container">
+    <div class="journey-header">
+      <div class="section-label reveal">Méthode</div>
+      <h2 class="section-title reveal reveal-d1">Comment fonctionne MasterInvest</h2>
+      <p class="section-desc reveal reveal-d2">Un parcours structuré, à votre rythme, des fondamentaux aux stratégies avancées.</p>
+    </div>
+    <div class="journey-grid">
+      <div class="journey-card reveal"><div class="journey-num">01</div><h3>Poser les fondations</h3><p>Mindset, principes des investisseurs qui réussissent, fiscalité et outils essentiels.</p></div>
+      <div class="journey-card reveal reveal-d1"><div class="journey-num">02</div><h3>Construire votre portefeuille</h3><p>Allocation robuste avec ETF, diversification intelligente, équilibre rendement-risque.</p></div>
+      <div class="journey-card reveal reveal-d2"><div class="journey-num">03</div><h3>Stratégies avancées</h3><p>Factoriel, stock-picking discipliné, lecture macro — les méthodes des professionnels.</p></div>
+      <div class="journey-card reveal reveal-d3"><div class="journey-num">04</div><h3>Personnaliser et piloter</h3><p>Adaptez à vos objectifs de vie, automatisez et prenez le contrôle total de votre avenir.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ POUR QUI ═══════ -->
+<div class="section-sep"></div>
+<section class="section" id="for-who">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px">
+      <div class="section-label reveal">Pour qui ?</div>
+      <h2 class="section-title reveal reveal-d1">MasterInvest est-il fait pour vous ?</h2>
+    </div>
+    <div class="for-who-grid">
+      <div class="for-who-card yes reveal-left">
+        <h3><span style="font-size:22px">✓</span> Ce programme est fait pour vous si…</h3>
+        <ul>
+          <li>Vous êtes jeune actif et ne voulez pas dépendre d'une retraite d'État incertaine</li>
+          <li>Vous souhaitez protéger l'épargne d'une vie sans produits bancaires inefficients</li>
+          <li>Vous êtes très pris (10 min/mois) et cherchez un plan simple et automatisé</li>
+          <li>Vous investissez déjà mais voulez une stratégie claire et structurée</li>
+          <li>Vous êtes frustré de vos placements actuels (fonds chers, livrets sous-payés)</li>
+          <li>Vous avez un patrimoine confortable mais ne faites plus confiance aux banques privées</li>
+        </ul>
+      </div>
+      <div class="for-who-card no reveal-right">
+        <h3><span style="font-size:22px">✗</span> Ce programme n'est pas pour vous si…</h3>
+        <ul>
+          <li>Vous espérez une solution miracle sans le moindre effort d'apprentissage</li>
+          <li>Vous voulez « devenir rentier » en six mois avec 2 000 € et zéro discipline</li>
+          <li>Vous voulez parier sur le « dernier truc à la mode » pour faire x10 du jour au lendemain</li>
+          <li>Vous refusez d'y consacrer au moins quelques heures pour suivre le programme</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ TARIF ═══════ -->
+<div class="section-sep"></div>
+<section class="section alt" id="tarif">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="section-label gold reveal">Tarif</div>
+      <h2 class="section-title reveal reveal-d1">Investissez dans votre<br><span class="gradient-gold-royal">liberté financière</span></h2>
+    </div>
+    <div class="pricing-card reveal reveal-d2">
+      <div class="pricing-label">Accès illimité à vie</div>
+      <div class="pricing-title">MasterInvest — Programme complet</div>
+      <div class="pricing-sub">Tous les modules, outils et mises à jour inclus à vie</div>
+      <div class="pricing-amount">
+        <div class="pricing-old">954€</div>
+        <div class="pricing-current gradient-blue-gold" style="font-size:56px">754€</div>
+      </div>
+      <div class="pricing-period">Paiement en 3x possible · Offre à durée limitée</div>
+      <ul class="pricing-features">
+        <li>10 modules exclusifs + bonus crypto (40h+ de vidéo)</li>
+        <li>Coaching et accompagnement personnalisé avec Rémi</li>
+        <li>Club privé d'investisseurs engagés + Discord actif</li>
+        <li>3 portefeuilles cryptos prêts-à-l'emploi</li>
+        <li>Feuilles de route, listes ETF/Actions, outils premium</li>
+        <li>Mises à jour et nouveaux modules offerts à vie</li>
+        <li>Accès aux replays de tous les lives et ateliers</li>
+      </ul>
+      <a href="#" class="btn-neon light" style="width:100%;justify-content:center">Rejoindre MasterInvest — 754€</a>
+      <div class="pricing-guarantee">
+        🔒 Paiement sécurisé (Stripe/PayPal) · Accès immédiat · 14 jours satisfait ou remboursé
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FONDATEUR ═══════ -->
+<div class="section-sep"></div>
+<section class="section" id="founder">
+  <div class="container">
+    <div class="section-label reveal">Le fondateur</div>
+    <h2 class="section-title reveal reveal-d1">Qui est derrière MasterInvest ?</h2>
+    <div class="founder-grid reveal reveal-d2">
+      <div class="founder-photo">Photo — Rémi Beauvineau</div>
+      <div class="founder-bio">
+        <h3>Rémi Beauvineau</h3>
+        <div class="founder-role">Ingénieur INSA · Investisseur · Formateur</div>
+        <p>Issu d'un milieu modeste, Rémi investit ses premiers 200€ en 2019 et découvre le pouvoir des intérêts composés. Ingénieur de formation (INSA Toulouse), il combine la rigueur analytique avec une passion intense pour les marchés financiers.</p>
+        <p>Après avoir été coaché par des professionnels de BNP, Citi et Goldman Sachs en salle de marché, il développe une méthodologie alliant recherche académique, backtests sur des décennies de données, et pratique terrain. Il organise des conférences de 20 à 900 participants et accompagne des centaines d'investisseurs.</p>
+        <p>MasterInvest est le fruit de 6 années d'expériences intensives — une méthode validée par le terrain, expliquée avec passion, pour rendre chacun maître de son capital.</p>
+        <div class="founder-stats">
+          <div><div class="founder-stat-val">400+</div><div class="founder-stat-label">Accompagnements</div></div>
+          <div><div class="founder-stat-val">6 ans</div><div class="founder-stat-label">D'expérience</div></div>
+          <div><div class="founder-stat-val">900</div><div class="founder-stat-label">Participants en conf.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ TÉMOIGNAGES ═══════ -->
+<div class="section-sep"></div>
+<section class="section alt" id="testimonials">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px">
+      <div class="section-label reveal">Témoignages</div>
+      <h2 class="section-title reveal reveal-d1">Ils en parlent mieux que nous</h2>
+      <p class="section-desc reveal reveal-d2" style="margin:0 auto">Déjà adoptée par des centaines d'investisseurs francophones.</p>
+    </div>
+    <div class="testimonials-marquee">
+      <div class="marquee-track">
+        <!-- Set 1 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">« Le programme m'a permis de structurer ma stratégie d'investissement. J'ai enfin un plan clair et je ne panique plus quand le marché baisse. »</div>
+          <div class="testimonial-author"><div class="testimonial-avatar">T</div><div><div class="testimonial-name">Thomas L.</div><div class="testimonial-role">Jeune actif, investisseur depuis 1 an</div></div></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">« La qualité du contenu est exceptionnelle. 40h de vidéo et chaque minute est utile. Rémi vulgarise des concepts complexes avec une clarté rare. »</div>
+          <div class="testimonial-author"><div class="testimonial-avatar">S</div><div><div class="testimonial-name">Sophie M.</div><div class="testimonial-role">Entrepreneure, membre depuis 6 mois</div></div></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">« J'investissais depuis 3 ans sans méthode. MasterInvest m'a donné les stratégies professionnelles que je n'aurais jamais trouvées seul. »</div>
+          <div class="testimonial-author"><div class="testimonial-avatar">K</div><div><div class="testimonial-name">Karim D.</div><div class="testimonial-role">Cadre, investisseur intermédiaire</div></div></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">« En partant de zéro, j'ai construit un portefeuille diversifié en moins de 2 mois. Les outils fournis sont concrets et immédiatement actionnables. »</div>
+          <div class="testimonial-author"><div class="testimonial-avatar">L</div><div><div class="testimonial-name">Laura B.</div><div class="testimonial-role">Infirmière, débutante en investissement</div></div></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">« Le module sur les cycles baissiers m'a sauvé pendant la correction de mars. J'avais un protocole, pas de panique. Exactement ce dont j'avais besoin. »</div>
+          <div class="testimonial-author"><div class="testimonial-avatar">A</div><div><div class="testimonial-name">Antoine R.</div><div class="testimonial-role">Développeur, investisseur depuis 2 ans</div></div></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">« La communauté Discord est un vrai plus. On échange, on s'entraide, et Rémi est toujours disponible pour répondre. Un accompagnement humain et pro. »</div>
+          <div class="testimonial-author"><div class="testimonial-avatar">M</div><div><div class="testimonial-name">Marie C.</div><div class="testimonial-role">Consultante, membre depuis 1 an</div></div></div>
+        </div>
+        <!-- Set 2 (duplicate for seamless loop) -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">« Le programme m'a permis de structurer ma stratégie d'investissement. J'ai enfin un plan clair et je ne panique plus quand le marché baisse. »</div>
+          <div class="testimonial-author"><div class="testimonial-avatar">T</div><div><div class="testimonial-name">Thomas L.</div><div class="testimonial-role">Jeune actif, investisseur depuis 1 an</div></div></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">« La qualité du contenu est exceptionnelle. 40h de vidéo et chaque minute est utile. Rémi vulgarise des concepts complexes avec une clarté rare. »</div>
+          <div class="testimonial-author"><div class="testimonial-avatar">S</div><div><div class="testimonial-name">Sophie M.</div><div class="testimonial-role">Entrepreneure, membre depuis 6 mois</div></div></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">« J'investissais depuis 3 ans sans méthode. MasterInvest m'a donné les stratégies professionnelles que je n'aurais jamais trouvées seul. »</div>
+          <div class="testimonial-author"><div class="testimonial-avatar">K</div><div><div class="testimonial-name">Karim D.</div><div class="testimonial-role">Cadre, investisseur intermédiaire</div></div></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">« En partant de zéro, j'ai construit un portefeuille diversifié en moins de 2 mois. Les outils fournis sont concrets et immédiatement actionnables. »</div>
+          <div class="testimonial-author"><div class="testimonial-avatar">L</div><div><div class="testimonial-name">Laura B.</div><div class="testimonial-role">Infirmière, débutante en investissement</div></div></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">« Le module sur les cycles baissiers m'a sauvé pendant la correction de mars. J'avais un protocole, pas de panique. Exactement ce dont j'avais besoin. »</div>
+          <div class="testimonial-author"><div class="testimonial-avatar">A</div><div><div class="testimonial-name">Antoine R.</div><div class="testimonial-role">Développeur, investisseur depuis 2 ans</div></div></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">« La communauté Discord est un vrai plus. On échange, on s'entraide, et Rémi est toujours disponible pour répondre. Un accompagnement humain et pro. »</div>
+          <div class="testimonial-author"><div class="testimonial-avatar">M</div><div><div class="testimonial-name">Marie C.</div><div class="testimonial-role">Consultante, membre depuis 1 an</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FAQ ═══════ -->
+<div class="section-sep"></div>
+<section class="section" id="faq">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="section-label reveal">FAQ</div>
+      <h2 class="section-title reveal reveal-d1">Questions fréquentes</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal"><button class="faq-q">Qu'est-ce que MasterInvest exactement ?<svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 7.5l5 5 5-5"/></svg></button><div class="faq-a"><p>MasterInvest est un programme premium en 11 modules vidéo + ressources qui vous apprend à devenir un investisseur particulier autonome et performant : ouvrir votre compte, choisir vos ETF/actions selon votre profil, construire une stratégie adaptée, automatiser vos virements et optimiser vos impôts.</p></div></div>
+
+      <div class="faq-item reveal"><button class="faq-q">Je n'ai aucune connaissance en finance, puis-je suivre le programme ?<svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 7.5l5 5 5-5"/></svg></button><div class="faq-a"><p>Absolument. Le programme est conçu par Rémi, ingénieur de formation, qui a l'art de vulgariser des concepts complexes. Tous les cours combinent approche pratique et théorique solide, du débutant complet à l'investisseur confirmé.</p></div></div>
+
+      <div class="faq-item reveal"><button class="faq-q">Pendant combien de temps ai-je accès au contenu ?<svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 7.5l5 5 5-5"/></svg></button><div class="faq-a"><p>Votre accès est illimité et à vie. Toutes les futures mises à jour — nouveaux modules, études de cas, outils — sont offertes. Vous n'aurez jamais à « racheter » la version suivante.</p></div></div>
+
+      <div class="faq-item reveal"><button class="faq-q">Je n'ai pas beaucoup de temps à consacrer à la formation<svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 7.5l5 5 5-5"/></svg></button><div class="faq-a"><p>Le programme est 100% en ligne et accessible à votre rythme. Vous pouvez revoir les modules autant de fois que nécessaire. De nombreux membres avec un emploi du temps chargé ont réussi à se former — l'objectif est de vous donner les outils pour transformer votre temps en richesse, sans stress.</p></div></div>
+
+      <div class="faq-item reveal"><button class="faq-q">Pourquoi MasterInvest se distingue des autres formations ?<svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 7.5l5 5 5-5"/></svg></button><div class="faq-a"><p>MasterInvest s'appuie sur des travaux de recherche académique, des séries de données historiques et des backtests statistiques. L'approche est globale (10 modules structurés), la pédagogie premium (40h+ de vidéo), et la communauté vivante. Plus de 400 membres l'ont appliquée et ont affiné chaque module.</p></div></div>
+
+      <div class="faq-item reveal"><button class="faq-q">Quelle garantie de réussite ?<svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 7.5l5 5 5-5"/></svg></button><div class="faq-a"><p>Explorez la formation 14 jours : si vous n'êtes pas convaincu, un simple e-mail et vous êtes remboursé. Aucune prise de risque — suivez le plan pendant un mois et vous verrez déjà votre argent travailler.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FINAL CTA ═══════ -->
+<div class="section-sep"></div>
+<section class="section final-cta" id="cta" style="position:relative">
+  <div class="final-cta-bg"></div>
+  <div class="container">
+    <div class="section-label reveal">Le moment, c'est maintenant</div>
+    <h2 class="section-title reveal reveal-d1">Prenez le contrôle<br><span class="gradient-gold-royal">de votre avenir financier</span></h2>
+    <p class="section-desc reveal reveal-d2">
+      Rejoignez une méthode validée par le terrain, adoptée par 400+ investisseurs francophones, 
+      et commencez à bâtir un patrimoine qui grandit pendant que vous dormez.
+    </p>
+    <div class="reveal reveal-d3">
+      <a href="#tarif" class="btn-neon light" style="font-size:18px;padding:18px 44px">Rejoindre MasterInvest — 754€</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo"><img src="logo-masteria.png" alt="Masteria" style="height:24px;width:auto;"></div>
+      <div class="footer-links">
+        <a href="#programme">Programme</a>
+        <a href="#tarif">Tarif</a>
+        <a href="#">Mentions légales</a>
+        <a href="#">CGV</a>
+        <a href="#">Confidentialité</a>
+      </div>
+    </div>
+    <div class="footer-copy">© 2026 Masteria. Tous droits réservés.</div>
+    <div class="footer-disclaimer">Les performances passées ne préjugent pas des performances futures. Investir comporte des risques, y compris un risque de perte en capital. Les données présentées le sont à titre informatif et ne constituent pas une garantie de résultats.</div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
