@@ -1368,3 +1368,135 @@ ul { list-style:none; }
   .compare-table { font-size:13px; }
   .compare-table th, .compare-table td { padding:12px 14px; }
 }
+
+/* ═══════ FLOATING SCREENSHOTS — 3D EFFECTS ═══════ */
+
+/* ── Performance screenshots ── */
+.perf-screenshots {
+  margin-top: 56px;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 40px;
+}
+.perf-screenshot-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+}
+.perf-screenshot-main {
+  width: 100%;
+  border-radius: 16px;
+  border: 3px solid #fff;
+  box-shadow: 0 24px 72px rgba(0,0,0,0.1), 0 4px 16px rgba(0,0,0,0.06);
+  transform: rotate(-1deg);
+  transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s;
+  display: block;
+}
+.perf-screenshot-main:hover {
+  transform: rotate(0deg) translateY(-6px);
+  box-shadow: 0 36px 90px rgba(0,0,0,0.14);
+}
+.perf-screenshot-overlay {
+  position: absolute;
+  bottom: -32px;
+  right: -24px;
+  width: 42%;
+  border-radius: 14px;
+  border: 3px solid #fff;
+  box-shadow: 0 20px 56px rgba(0,0,0,0.16);
+  transform: rotate(2.5deg);
+  transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s;
+}
+.perf-screenshot-overlay:hover {
+  transform: rotate(0deg) translateY(-6px);
+  box-shadow: 0 28px 70px rgba(0,0,0,0.2);
+}
+
+/* ── Include cards floating images ── */
+.include-card-img-wrap {
+  overflow: visible !important;
+  position: relative;
+}
+.include-float-img {
+  position: absolute;
+  width: 160px;
+  border-radius: 12px;
+  border: 3px solid #fff;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.14);
+  transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s;
+  z-index: 5;
+}
+.include-float-right {
+  bottom: -18px;
+  right: -18px;
+  transform: rotate(3deg);
+}
+.include-float-left {
+  bottom: -18px;
+  left: -18px;
+  transform: rotate(-3deg);
+}
+.include-float-img:hover {
+  transform: rotate(0deg) translateY(-5px) !important;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+}
+
+/* ── Founder photo ── */
+.founder-photo-wrap {
+  position: relative;
+}
+.founder-img {
+  width: 100%;
+  border-radius: var(--radius);
+  border: 3px solid #fff;
+  box-shadow: var(--shadow-lg);
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+.founder-img-overlay {
+  position: absolute;
+  bottom: -24px;
+  right: -20px;
+  width: 58%;
+  border-radius: 12px;
+  border: 3px solid #fff;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+  transform: rotate(2deg);
+  transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s;
+}
+.founder-img-overlay:hover {
+  transform: rotate(0deg) translateY(-5px);
+  box-shadow: 0 28px 72px rgba(0,0,0,0.22);
+}
+
+/* ── Testimonial image cards ── */
+.testimonial-img-card {
+  flex-shrink: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  transition: transform .3s, box-shadow .3s;
+}
+.testimonial-img-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.testimonial-img-card img {
+  display: block;
+  width: 360px;
+  height: auto;
+}
+
+@media(max-width:900px) {
+  .include-float-img { display: none; }
+  .perf-screenshot-overlay { bottom: -16px; right: -10px; width: 48%; }
+  .founder-img-overlay { width: 50%; right: -10px; }
+}
+@media(max-width:600px) {
+  .perf-screenshot-overlay { display: none; }
+  .founder-img-overlay { display: none; }
+}
