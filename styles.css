@@ -1825,16 +1825,24 @@ ul { list-style:none; }
   .hfc-1 { left: -8px; }
   .hfc-2 { right: -8px; }
   /* Autres */
-  .include-float-img { display: none; }
-  .include-card-img-wrap:has(.include-float-right) { padding-right: 32px; }
-  .include-card-img-wrap:has(.include-float-left)  { padding-left:  32px; }
+  .include-float-img { display: block; width: 82px; top: 14px; right: 14px; }
+  .include-float-left { left: 14px; right: auto; }
+  .include-card-img-wrap:has(.include-float-right) { padding-right: 104px; }
+  .include-card-img-wrap:has(.include-float-left)  { padding-left:  104px; }
   .perf-screenshot-overlay { bottom: -16px; right: -10px; width: 48%; }
   .founder-img-overlay { width: 50%; right: -10px; }
   .marquee-rev { display:none; }
   .testimonial-img-card img { width: 300px; }
 }
 @media(max-width:600px) {
-  .perf-screenshot-overlay { display: none; }
+  .perf-screenshot-wrap { display: flex; flex-direction: column; align-items: center; }
+  .perf-screenshot-overlay {
+    display: block;
+    position: static;
+    width: 78%;
+    margin: 18px auto 0;
+    transform: rotate(1deg);
+  }
   .founder-img-overlay { display: none; }
   .marquee-3 { display:none; }
   .testimonial-img-card img { width: 260px; }
