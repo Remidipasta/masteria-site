@@ -24,16 +24,38 @@
   /* ── Mobile menu ── */
   const menuBtn = document.querySelector('.nav-menu-btn');
   const navLinks = document.querySelector('.nav-links');
+  const navInner = document.querySelector('.nav-inner');
+
+  // Safari/WebKit: backdrop-filter on .nav clips position:fixed children.
+  // Move nav-links to body before opening so it escapes the compositing context.
+  function openMenu() {
+    document.body.appendChild(navLinks);
+    navLinks.classList.add('open');
+    menuBtn.classList.add('active');
+    menuBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    navLinks.classList.remove('open');
+    menuBtn.classList.remove('active');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    navInner.insertBefore(navLinks, menuBtn);
+  }
+
   if (menuBtn) {
-    menuBtn.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-      document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navLinks.classList.contains('open') ? closeMenu() : openMenu();
     });
     navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        document.body.style.overflow = '';
-      });
+      link.addEventListener('click', closeMenu);
+    });
+    navLinks.addEventListener('click', (e) => {
+      if (e.target === navLinks) closeMenu();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
     });
   }
 
@@ -85,8 +107,77 @@
       const t = document.querySelector(this.getAttribute('href'));
       if (t) {
         e.preventDefault();
-        window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+        const navOffset = nav && getComputedStyle(nav).display !== 'none' ? nav.offsetHeight + 8 : 0;
+        window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - navOffset, behavior: 'smooth' });
       }
     });
   });
+
+  /* ── Liquid Glass Bottom Nav ── */
+  const liquidNav = document.getElementById('liquidNav');
+  if (liquidNav) {
+    const bubble = document.getElementById('lnavBubble');
+    const inner = liquidNav.querySelector('.liquid-nav-inner');
+    let lastScrollY = window.scrollY;
+    let navTicking = false;
+    const navSections = [
+      { id: 'hero',         link: liquidNav.querySelector('[href="#hero"]') },
+      { id: 'programme',    link: liquidNav.querySelector('[href="#programme"]') },
+      { id: 'performances', link: liquidNav.querySelector('[href="#performances"]') },
+      { id: 'faq',          link: liquidNav.querySelector('[href="#faq"]') },
+    ];
+
+    function moveBubble(activeLink) {
+      if (!bubble || !activeLink || activeLink.classList.contains('lnav-cta')) {
+        if (bubble) bubble.style.opacity = '0';
+        return;
+      }
+      const innerRect = inner.getBoundingClientRect();
+      const linkRect  = activeLink.getBoundingClientRect();
+      bubble.style.left    = (linkRect.left - innerRect.left) + 'px';
+      bubble.style.width   = linkRect.width + 'px';
+      bubble.style.opacity = '1';
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!navTicking) {
+        requestAnimationFrame(() => {
+          const currentY = window.scrollY;
+
+          // Shrink on scroll down
+          if (currentY > lastScrollY + 8 && currentY > 120) {
+            liquidNav.classList.add('lnav-shrunk');
+          } else if (currentY < lastScrollY - 8) {
+            liquidNav.classList.remove('lnav-shrunk');
+          }
+          lastScrollY = currentY;
+
+          // Active state + bulle
+          let activeLink = null;
+          navSections.forEach(({ id, link }) => {
+            if (!link) return;
+            const el = document.getElementById(id);
+            if (!el) return;
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= 120 && rect.bottom >= 120) {
+              link.classList.add('lnav-active');
+              activeLink = link;
+            } else {
+              link.classList.remove('lnav-active');
+            }
+          });
+          moveBubble(activeLink);
+
+          navTicking = false;
+        });
+        navTicking = true;
+      }
+    });
+
+    // Init bubble on page load
+    setTimeout(() => {
+      const first = liquidNav.querySelector('[href="#hero"]');
+      if (first) moveBubble(first);
+    }, 100);
+  }
 })();
