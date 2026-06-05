@@ -247,7 +247,7 @@ ul { list-style:none; }
   display: flex; align-items: center; gap: 12px; z-index: 10;
 }
 .hfc-1 {
-  top: 20%; left: -44px;
+  top: 38%; left: -44px;
   animation: hfcFloat1 4.5s ease-in-out infinite;
 }
 .hfc-2 {
@@ -1338,8 +1338,19 @@ ul { list-style:none; }
     aspect-ratio: 4/5;
     border-radius: 20px;
   }
-  /* Cards flottantes masquées sur mobile (trop petits) */
-  .hfc-1, .hfc-2, .hero-photo-badge { display: none; }
+  /* Cards flottantes — réduites et repositionnées sur mobile */
+  .hero-photo-badge { display: none; }
+  .hfc-1, .hfc-2 {
+    display: flex;
+    padding: 9px 12px;
+    gap: 8px;
+    border-radius: 12px;
+  }
+  .hfc-1 { left: -6px; top: 58%; }
+  .hfc-2 { right: -6px; bottom: 12%; }
+  .hfc-icon  { width: 32px; height: 32px; font-size: 14px; flex-shrink: 0; }
+  .hfc-val   { font-size: 12px !important; }
+  .hfc-label { font-size: 10px; }
   /* Logo plus petit */
   .hero-program-logo-img { height: 36px; }
   .hero-program-logo { margin-bottom: 16px; }
@@ -1856,6 +1867,41 @@ ul { list-style:none; }
   .timeline-grid::before { display: none; }
   .founder-bio h3 { font-size: 22px; }
   .footer-links { flex-wrap: wrap; gap: 12px; }
+
+  /* ── Include cards : images repositionnées sur mobile ── */
+  .include-card-img-wrap:has(.include-float-right) { padding-right: 0; }
+  .include-card-img-wrap:has(.include-float-left)  { padding-left: 0; }
+  .include-float-img {
+    position: static;
+    display: block;
+    width: 100%;
+    max-width: 260px;
+    margin: 20px auto 0;
+    transform: none !important;
+    border-radius: 14px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+  }
+
+  /* ── Mastery : layout grid icon + titre+texte sur mobile ── */
+  .mastery-orbit-wrap { gap: 10px; }
+  .mastery-orbit-center,
+  .mastery-orbit-item {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 14px;
+    row-gap: 4px;
+    align-items: center;
+    padding: 18px 16px;
+    text-align: left;
+  }
+  .mastery-orbit-center .moc-icon,
+  .mastery-orbit-item .moc-icon { grid-column: 1; grid-row: 1 / span 2; align-self: center; margin: 0; }
+  .mastery-orbit-center h3,
+  .mastery-orbit-item h4 { grid-column: 2; grid-row: 1; margin: 0; font-size: 15px; }
+  .mastery-orbit-center h3 { font-size: 16px; }
+  .mastery-orbit-center p,
+  .mastery-orbit-item p { grid-column: 2; grid-row: 2; font-size: 13px; line-height: 1.5; margin: 0; min-width: 0; }
 }
 
 /* ══════════════════════════════════════════════════
