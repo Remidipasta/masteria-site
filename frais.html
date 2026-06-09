@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La carte des frais cachés — Masteria</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #050914;
+      --bg2:    #0a1020;
+      --gold:   #d4af37;
+      --gold-l: #f3e5ab;
+      --gold-d: #aa7c11;
+      --blue:   #3b82f6;
+      --blue-l: #93c5fd;
+      --slate:  #64748b;
+      --muted:  #94a3b8;
+      --text:   #e2e8f0;
+      --border: rgba(212,175,55,0.08);
+      --green:  #10b981;
+      --red:    #f87171;
+    }
+
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      background: var(--bg);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.65;
+    }
+
+    /* ── UTILS ── */
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+    .label-tag {
+      display: block; font-size: .7rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--gold-l);
+      margin-bottom: .4rem;
+    }
+    .text-gold {
+      background: linear-gradient(135deg, #fff 10%, #f3e5ab 50%, #d4af37 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .section { padding: 80px 0; }
+    .section-title {
+      font-family: 'Outfit', sans-serif; font-weight: 700;
+      font-size: clamp(1.45rem, 3vw, 2.1rem);
+      line-height: 1.2; letter-spacing: -.01em;
+      margin-bottom: .7rem;
+    }
+    .section-sub {
+      font-size: .9rem; color: var(--muted);
+      max-width: 520px; line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(5,9,20,.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      height: 64px;
+    }
+    body { padding-top: 64px; }
+    .nav-inner {
+      max-width: 1120px; margin: 0 auto; padding: 0 1.5rem;
+      height: 100%; display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Outfit', sans-serif; font-weight: 900;
+      font-size: 1.1rem; letter-spacing: .05em; text-transform: uppercase;
+      color: var(--text);
+    }
+    .logo .g { color: var(--gold); }
+    .nav-badge {
+      font-size: .72rem; font-weight: 600; color: var(--muted);
+      letter-spacing: .06em; text-transform: uppercase;
+    }
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: .45rem;
+      padding: .5rem 1.25rem;
+      background: linear-gradient(135deg, #9a6f0a, #d4af37, #f3e5ab, #d4af37, #9a6f0a);
+      background-size: 200% auto;
+      color: var(--bg); border: none; border-radius: 999px;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: .78rem;
+      cursor: pointer; text-decoration: none; white-space: nowrap;
+      animation: shimmer 3s linear infinite;
+      transition: opacity .2s, transform .2s;
+    }
+    .nav-cta:hover { opacity: .88; transform: translateY(-1px); }
+    @media (max-width: 480px) { .nav-cta span { display: none; } }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 88vh;
+      display: flex; align-items: center;
+      padding: 80px 0 60px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -200px; left: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(212,175,55,.07), transparent 65%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+    }
+    .hero-pre {
+      display: inline-flex; align-items: center; gap: .45rem;
+      padding: .35rem .85rem;
+      background: rgba(212,175,55,.08); border: 1px solid rgba(212,175,55,.18);
+      border-radius: 999px;
+      font-size: .7rem; font-weight: 700; color: var(--gold-l);
+      letter-spacing: .12em; text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-family: 'Outfit', sans-serif; font-weight: 900;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: 1.06; letter-spacing: -.02em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em { color: var(--gold); font-style: normal; }
+    .hero-desc {
+      font-size: 1.05rem; color: var(--muted);
+      max-width: 480px; line-height: 1.8; margin-bottom: 2.25rem;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .6rem;
+      padding: .85rem 1.8rem;
+      background: linear-gradient(135deg, var(--gold-d), var(--gold), var(--gold-l));
+      color: var(--bg); border: none; border-radius: .7rem;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: .95rem;
+      cursor: pointer; text-decoration: none;
+      box-shadow: 0 4px 18px rgba(212,175,55,.25);
+      transition: transform .22s, box-shadow .22s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 48px rgba(212,175,55,.35); }
+
+    /* Hero floating card */
+    .hero-visual { display: flex; justify-content: center; align-items: center; }
+    .float-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      border-radius: 1.5rem;
+      padding: 2.5rem 2.25rem;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 24px 80px rgba(0,0,0,.5);
+      min-width: 280px;
+    }
+    .float-card::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle, rgba(212,175,55,.1), transparent 65%);
+      pointer-events: none;
+    }
+    .float-card-label {
+      font-size: .7rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
+    }
+    .float-card-num {
+      font-family: 'Outfit', sans-serif; font-weight: 900;
+      font-size: 3rem; color: var(--gold); line-height: 1;
+      margin-bottom: .75rem;
+    }
+    .float-card-pill {
+      display: inline-block;
+      background: rgba(212,175,55,.1); border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: .72rem; font-weight: 600; color: var(--gold);
+      padding: .3rem .8rem; margin-bottom: .75rem;
+    }
+    .float-card-sub {
+      font-size: .82rem; color: var(--muted); line-height: 1.6;
+    }
+    .float-card-rente {
+      margin-top: 1.25rem;
+      background: rgba(248,113,113,.06);
+      border: 1px solid rgba(248,113,113,.15);
+      border-radius: .6rem;
+      padding: .6rem 1rem;
+      font-size: .82rem; color: var(--red); font-weight: 600;
+    }
+
+    /* ── SECTION CALCULATEUR ── */
+    .calc-section { background: var(--bg2); }
+
+    .calc-controls {
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .sliders-grid {
+      display: grid; gap: 2rem; margin-bottom: 2.25rem;
+    }
+    .ctrl-row { display: grid; gap: .5rem; }
+    .ctrl-head {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .ctrl-name {
+      font-size: .72rem; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .08em;
+    }
+    .ctrl-val {
+      font-family: 'Outfit', sans-serif; font-weight: 700;
+      font-size: 1.1rem; color: var(--gold-l);
+    }
+    input[type=range] {
+      -webkit-appearance: none; appearance: none;
+      width: 100%; height: 4px;
+      background: rgba(255,255,255,.08);
+      border-radius: 2px; outline: none; cursor: pointer;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 20px; height: 20px;
+      background: linear-gradient(135deg, var(--gold-d), var(--gold));
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(212,175,55,.4);
+      transition: box-shadow .2s;
+    }
+    input[type=range]::-webkit-slider-thumb:hover { box-shadow: 0 0 18px rgba(212,175,55,.6); }
+    input[type=range]::-moz-range-thumb {
+      width: 20px; height: 20px; border: none;
+      background: linear-gradient(135deg, var(--gold-d), var(--gold));
+      border-radius: 50%;
+    }
+
+    /* Preset buttons */
+    .preset-label {
+      font-size: .72rem; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .08em; margin-bottom: .75rem;
+    }
+    .preset-grid {
+      display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1.25rem;
+    }
+    .preset-btn {
+      padding: .55rem 1.1rem;
+      background: transparent;
+      border: 1px solid rgba(212,175,55,.22);
+      border-radius: 100px;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: .82rem; font-weight: 600;
+      color: var(--muted); cursor: pointer;
+      transition: all .2s;
+    }
+    .preset-btn:hover { border-color: rgba(212,175,55,.22); color: var(--text); }
+    .preset-btn.active {
+      background: rgba(212,175,55,.1);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* Custom frais input */
+    .custom-frais-wrap {
+      display: none; align-items: center; gap: 1rem;
+      background: rgba(212,175,55,.05);
+      border: 1px solid var(--border);
+      border-radius: .6rem; padding: .75rem 1rem;
+      margin-bottom: 1rem;
+    }
+    .custom-frais-wrap.visible { display: flex; }
+    .custom-frais-wrap label {
+      font-size: .82rem; color: var(--muted); white-space: nowrap;
+    }
+    .custom-frais-wrap input[type=number] {
+      width: 80px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(212,175,55,.22);
+      border-radius: .5rem;
+      color: var(--gold); font-family: 'Outfit', sans-serif; font-weight: 700;
+      font-size: 1rem; text-align: center; padding: .4rem .5rem;
+      outline: none;
+      -moz-appearance: textfield;
+    }
+    .custom-frais-wrap input[type=number]::-webkit-outer-spin-button,
+    .custom-frais-wrap input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
+    .custom-frais-wrap input[type=number]:focus { border-color: var(--gold); }
+    .custom-frais-wrap .pct { font-size: .9rem; color: var(--gold); font-weight: 700; }
+
+    /* Frais badge */
+    .frais-badge {
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+      background: rgba(255,255,255,.02);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: .6rem; padding: .75rem 1.1rem;
+      font-size: .82rem;
+    }
+    .frais-badge-item { display: flex; align-items: center; gap: .45rem; }
+    .frais-badge-item .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+    }
+    .frais-badge-item .dot.actuel { background: rgba(148,163,184,0.7); }
+    .frais-badge-item .dot.etf { background: var(--gold); }
+    .frais-badge-item span { color: var(--muted); }
+    .frais-badge-item strong { color: var(--text); margin-left: .15rem; }
+    .frais-badge-sep { color: rgba(255,255,255,.15); }
+
+    /* ── RÉSULTATS ── */
+    .results-title {
+      font-family: 'Outfit', sans-serif; font-weight: 700;
+      font-size: 1rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .08em;
+      margin-bottom: 1.5rem;
+    }
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Card générique résultat */
+    .r-card {
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      padding: 1.75rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .2s;
+    }
+    .r-card:hover { border-color: rgba(212,175,55,.22); }
+    .r-card-icon {
+      width: 36px; height: 36px; border-radius: .6rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .9rem; margin-bottom: 1rem;
+    }
+    .r-card-icon.red { background: rgba(248,113,113,.1); color: var(--red); }
+    .r-card-icon.gold { background: rgba(212,175,55,.1); color: var(--gold); }
+    .r-card-icon.blue { background: rgba(96,165,250,.1); color: #60a5fa; }
+    .r-card-title {
+      font-size: .7rem; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .08em; margin-bottom: .6rem;
+    }
+    .r-card-num {
+      font-family: 'Outfit', sans-serif; font-weight: 900;
+      font-size: clamp(1.7rem, 3vw, 2.4rem); color: var(--text);
+      line-height: 1; margin-bottom: .5rem;
+    }
+    .r-card-num.red { color: var(--red); }
+    .r-card-sub {
+      font-size: .82rem; color: var(--muted); line-height: 1.6;
+    }
+    .r-card-rente {
+      margin-top: 1rem;
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: rgba(248,113,113,.07);
+      border: 1px solid rgba(248,113,113,.18);
+      border-radius: .5rem;
+      padding: .4rem .75rem;
+      font-size: .78rem; color: var(--red); font-weight: 600;
+    }
+
+    /* Card comparison (2 col) */
+    .r-card-compare {
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: border-color .2s;
+    }
+    .r-card-compare:hover { border-color: rgba(212,175,55,.22); }
+    .cmp-title {
+      padding: 1rem 1.5rem .75rem;
+      font-size: .7rem; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .08em;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .cmp-cols {
+      display: grid; grid-template-columns: 1fr 1fr; flex: 1;
+    }
+    .cmp-col {
+      padding: 1.4rem 1.25rem;
+      display: flex; flex-direction: column;
+    }
+    .cmp-col.etf-col {
+      background: rgba(212,175,55,.04);
+      border-left: 1px solid rgba(212,175,55,.15);
+    }
+    .cmp-col-badge {
+      font-size: .65rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; margin-bottom: .6rem;
+    }
+    .cmp-col-badge.actuel { color: var(--muted); }
+    .cmp-col-badge.opt {
+      color: var(--gold);
+      display: flex; align-items: center; gap: .35rem;
+    }
+    .cmp-col-badge .badge-pill {
+      background: rgba(212,175,55,.15); border-radius: 100px;
+      padding: .1rem .45rem; font-size: .6rem;
+    }
+    .cmp-col-num {
+      font-family: 'Outfit', sans-serif; font-weight: 900;
+      font-size: clamp(1.3rem, 2.5vw, 1.7rem); line-height: 1;
+      margin-bottom: .45rem;
+    }
+    .cmp-col-num.actuel { color: var(--muted); }
+    .cmp-col-num.opt { color: var(--gold); }
+    .cmp-col-detail {
+      margin-top: auto; padding-top: .75rem;
+      border-top: 1px solid rgba(255,255,255,.05);
+    }
+    .cmp-col-detail p {
+      font-size: .72rem; color: var(--muted); line-height: 1.7;
+    }
+    .cmp-col-detail strong { color: var(--muted); }
+    .cmp-gain-badge {
+      display: inline-flex; align-items: center; gap: .3rem;
+      background: rgba(52,211,153,.08);
+      border: 1px solid rgba(52,211,153,.2);
+      border-radius: .4rem; padding: .25rem .55rem;
+      font-size: .7rem; font-weight: 700; color: var(--green);
+      margin-bottom: .5rem;
+    }
+
+    /* Chart wrapper */
+    .chart-wrap {
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      padding: 1.75rem;
+    }
+    .chart-head {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;
+    }
+    .chart-title {
+      font-family: 'Outfit', sans-serif; font-weight: 700;
+      font-size: 1rem; color: var(--text);
+    }
+    .chart-legend {
+      display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex; align-items: center; gap: .45rem;
+      font-size: .75rem; color: var(--muted);
+    }
+    .legend-line {
+      width: 24px; height: 2px; border-radius: 2px;
+    }
+    .legend-line.gold { background: var(--gold); }
+    .legend-line.gray { background: rgba(148,163,184,0.6); border-top: 2px dashed rgba(148,163,184,0.6); height: 0; }
+    .legend-fill {
+      width: 14px; height: 14px; border-radius: 3px;
+      background: rgba(248,113,113,0.2); border: 1px solid rgba(248,113,113,.3);
+    }
+    .chart-canvas-wrap { height: 360px; position: relative; }
+    .chart-note {
+      margin-top: 1rem;
+      font-size: .72rem; color: var(--muted); text-align: center;
+      display: flex; align-items: center; justify-content: center; gap: .4rem;
+    }
+
+    /* ── SECTION EXPLICATION ── */
+    .explication-section { background: var(--bg); }
+    .expl-text {
+      font-size: 1rem; color: var(--muted);
+      max-width: 640px; line-height: 1.85; margin-bottom: 3rem;
+    }
+    .expl-text em {
+      color: var(--text); font-style: normal; font-weight: 600;
+    }
+    .frais-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .frais-card {
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem; padding: 1.75rem 1.5rem;
+      transition: border-color .2s, background .2s;
+    }
+    .frais-card:hover { border-color: rgba(212,175,55,.22); background: rgba(255,255,255,.04); }
+    .frais-card-icon {
+      width: 40px; height: 40px; border-radius: .7rem;
+      background: rgba(212,175,55,.08); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; color: var(--gold); margin-bottom: 1rem;
+    }
+    .frais-card-name {
+      font-weight: 700; font-size: .95rem; color: var(--text);
+      margin-bottom: .5rem;
+    }
+    .frais-card-body { font-size: .85rem; color: var(--muted); line-height: 1.7; }
+    .frais-card-tag {
+      display: inline-block; margin-top: .75rem;
+      background: rgba(248,113,113,.08);
+      border: 1px solid rgba(248,113,113,.18);
+      border-radius: 100px; padding: .2rem .65rem;
+      font-size: .7rem; font-weight: 700; color: var(--red);
+    }
+
+    /* ── STATS ── */
+    .stats-section { background: var(--bg2); }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem; padding: 2rem 1.5rem;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Outfit', sans-serif; font-weight: 900;
+      font-size: 3.2rem; color: var(--gold); line-height: 1;
+      margin-bottom: .75rem;
+    }
+    .stat-label {
+      font-size: .88rem; color: var(--muted);
+      line-height: 1.6; margin-bottom: .75rem;
+    }
+    .stat-source {
+      font-size: .68rem; color: var(--muted);
+      letter-spacing: .04em;
+    }
+
+    /* ── CTA ── */
+    .cta-section { background: var(--bg); }
+    .cta-box {
+      background: linear-gradient(135deg, rgba(212,175,55,.06), rgba(59,130,246,.04));
+      border: 1px solid rgba(212,175,55,.2);
+      border-radius: 1.25rem; padding: 4rem 3rem;
+      text-align: center; position: relative; overflow: hidden;
+      box-shadow: 0 4px 32px rgba(0,0,0,.5);
+    }
+    .cta-box::before {
+      content: ''; position: absolute; bottom: -80px; right: -80px;
+      width: 340px; height: 340px;
+      background: radial-gradient(circle, rgba(212,175,55,.08), transparent 65%);
+      pointer-events: none;
+    }
+    .cta-title {
+      font-family: 'Outfit', sans-serif; font-weight: 900;
+      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+      line-height: 1.15; letter-spacing: -.02em;
+      text-transform: uppercase;
+      margin-bottom: 1rem; position: relative; z-index: 1;
+    }
+    .cta-sub {
+      font-size: .95rem; color: var(--muted); max-width: 520px;
+      margin: 0 auto 2.5rem; line-height: 1.8; position: relative; z-index: 1;
+    }
+    .cta-form {
+      display: flex; flex-direction: column; gap: .65rem;
+      max-width: 360px; margin: 0 auto; position: relative; z-index: 1;
+    }
+    .cta-input {
+      width: 100%; padding: .85rem 1.2rem;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(212,175,55,.2);
+      border-radius: .7rem; color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: .9rem;
+      outline: none; transition: border-color .2s, box-shadow .2s;
+    }
+    .cta-input::placeholder { color: var(--muted); }
+    .cta-input:focus {
+      border-color: rgba(212,175,55,.45);
+      box-shadow: 0 0 0 3px rgba(212,175,55,.08);
+    }
+    .cta-btn {
+      padding: .9rem 1.8rem;
+      background: linear-gradient(135deg, var(--gold-d), var(--gold), var(--gold-l));
+      color: var(--bg); border: none; border-radius: .7rem;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: .9rem;
+      cursor: pointer; box-shadow: 0 4px 18px rgba(212,175,55,.25);
+      transition: transform .2s, box-shadow .2s;
+      display: flex; align-items: center; justify-content: center; gap: .5rem;
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 48px rgba(212,175,55,.35); }
+    .cta-note {
+      margin-top: .75rem; font-size: .72rem; color: var(--muted);
+      position: relative; z-index: 1;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2.5rem; border-top: 1px solid rgba(255,255,255,.05);
+      text-align: center;
+    }
+    .disclaimer {
+      font-size: .72rem; color: rgba(148,163,184,.45);
+      line-height: 1.9; max-width: 860px; margin: 0 auto;
+    }
+
+    /* ── DOUBLE PEINE ── */
+    .dp-section { background: var(--bg); }
+    .dp-intro {
+      font-size: 1rem; color: var(--muted); max-width: 580px;
+      line-height: 1.8; margin-bottom: 3rem;
+    }
+    .dp-grid {
+      display: grid; grid-template-columns: 1fr auto 1fr; gap: 1.5rem;
+      align-items: center; margin-bottom: 2.5rem;
+    }
+    .dp-card {
+      background: rgba(255,255,255,.02);
+      border-radius: 1.25rem; padding: 2rem 1.75rem;
+      border: 1px solid transparent;
+    }
+    .dp-card.bad  { border-color: rgba(248,113,113,.2); }
+    .dp-card.good { border-color: rgba(212,175,55,.2); background: rgba(212,175,55,.03); }
+    .dp-badge {
+      display: inline-block; border-radius: 100px;
+      font-size: .7rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; padding: .25rem .75rem; margin-bottom: 1.25rem;
+    }
+    .dp-badge.bad  { background: rgba(248,113,113,.1); color: var(--red); }
+    .dp-badge.good { background: rgba(212,175,55,.1); color: var(--gold); }
+    .dp-row {
+      display: flex; align-items: flex-start; gap: .75rem;
+      padding: .75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .dp-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .dp-row-icon {
+      width: 28px; height: 28px; border-radius: .5rem; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: .75rem;
+      margin-top: .1rem;
+    }
+    .dp-row-icon.bad  { background: rgba(248,113,113,.1); color: var(--red); }
+    .dp-row-icon.good { background: rgba(212,175,55,.1); color: var(--gold); }
+    .dp-row-label { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: .2rem; }
+    .dp-row-val   { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; }
+    .dp-row-val.bad  { color: var(--red); }
+    .dp-row-val.good { color: var(--gold); }
+    .dp-row-sub { font-size: .78rem; color: var(--muted); margin-top: .15rem; line-height: 1.5; }
+    .dp-vs {
+      font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 1.4rem;
+      color: var(--muted); text-align: center;
+    }
+    .dp-quote {
+      background: rgba(255,255,255,.02);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 .6rem .6rem 0;
+      padding: 1.25rem 1.5rem;
+      font-size: .9rem; color: var(--muted); line-height: 1.7;
+      font-style: italic;
+    }
+    .dp-quote span {
+      display: block; margin-top: .5rem;
+      font-size: .72rem; color: var(--muted); font-style: normal; font-weight: 600;
+      letter-spacing: .04em;
+    }
+
+    /* ── MULTIPLICATEUR ── */
+    .mult-section { background: var(--bg2); }
+    .mult-example {
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem; overflow: hidden; margin-bottom: 3rem;
+    }
+    .mult-header {
+      padding: 1rem 1.75rem;
+      background: rgba(212,175,55,.06);
+      border-bottom: 1px solid var(--border);
+      font-size: .78rem; font-weight: 700; color: var(--gold);
+      letter-spacing: .06em; text-transform: uppercase;
+    }
+    .mult-cols {
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .mult-col {
+      padding: 1.75rem;
+    }
+    .mult-col + .mult-col { border-left: 1px solid rgba(255,255,255,.05); }
+    .mult-scenario {
+      font-size: .72rem; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .07em; margin-bottom: .6rem;
+    }
+    .mult-result {
+      font-family: 'Outfit', sans-serif; font-weight: 900;
+      font-size: 2.2rem; line-height: 1; margin-bottom: .5rem;
+    }
+    .mult-result.gold { color: var(--gold); }
+    .mult-result.muted { color: var(--muted); }
+    .mult-detail { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+
+    .mult-bar-wrap {
+      padding: 1.75rem;
+      border-top: 1px solid rgba(255,255,255,.05);
+      background: rgba(0,0,0,.15);
+    }
+    .mult-bar-label {
+      font-size: .72rem; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .07em; margin-bottom: .9rem;
+    }
+    .mult-bar {
+      display: flex; border-radius: .5rem; overflow: hidden; height: 44px; margin-bottom: 1rem;
+    }
+    .mult-bar-you {
+      background: linear-gradient(90deg, rgba(212,175,55,.35), rgba(212,175,55,.2));
+      border: 1px solid rgba(212,175,55,.3);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1rem; font-size: .78rem; font-weight: 700;
+      color: var(--gold); transition: width .6s ease;
+    }
+    .mult-bar-fees {
+      background: rgba(248,113,113,.12);
+      border: 1px solid rgba(248,113,113,.2); border-left: none;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1rem; font-size: .78rem; font-weight: 700;
+      color: var(--red); transition: width .6s ease;
+    }
+    .mult-bar-note { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+    .mult-bar-note strong { color: var(--red); }
+
+    .mult-effects {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem;
+    }
+    .mult-effect {
+      background: rgba(255,255,255,.02); border: 1px solid var(--border);
+      border-radius: 1.25rem; padding: 1.75rem 1.5rem;
+      transition: border-color .2s;
+    }
+    .mult-effect:hover { border-color: rgba(212,175,55,.22); }
+    .mult-effect-icon {
+      width: 40px; height: 40px; border-radius: .7rem;
+      background: rgba(212,175,55,.08); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .9rem; color: var(--gold); margin-bottom: 1rem;
+    }
+    .mult-effect-title {
+      font-weight: 700; font-size: .95rem; color: var(--text); margin-bottom: .5rem;
+    }
+    .mult-effect-body { font-size: .85rem; color: var(--muted); line-height: 1.7; }
+
+    @media (max-width: 900px) {
+      .dp-grid { grid-template-columns: 1fr; }
+      .dp-vs { display: none; }
+      .mult-cols { grid-template-columns: 1fr; }
+      .mult-col + .mult-col { border-left: none; border-top: 1px solid rgba(255,255,255,.05); }
+      .mult-effects { grid-template-columns: 1fr; }
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: none; }
+    }
+    .reveal { animation: fadeUp .55s ease both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-visual { order: -1; }
+      .results-grid { grid-template-columns: 1fr; }
+      .frais-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .section { padding: 56px 0; }
+      .hero { padding: 60px 0 40px; min-height: auto; }
+      .cta-box { padding: 2.5rem 1.5rem; }
+      .calc-controls { padding: 1.5rem; }
+      .chart-canvas-wrap { height: 260px; }
+      .cmp-cols { grid-template-columns: 1fr; }
+      .cmp-col.etf-col { border-left: none; border-top: 1px solid rgba(212,175,55,.15); }
+    }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE MOBILE — corrections 390px
+       ══════════════════════════════════════ */
+
+    @media (max-width: 640px) {
+      .container { padding: 0 1rem; }
+
+      /* Header / nav */
+      nav { height: 56px; }
+      body { padding-top: 56px; }
+      .logo { font-size: .95rem; }
+
+      /* Hero layout — une colonne, visuel en premier */
+      .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-visual { order: -1; }
+      .float-card { min-width: unset; width: 100%; padding: 1.75rem 1.25rem; }
+
+      /* Typographie hero */
+      .hero-title { font-size: clamp(1.6rem, 8vw, 2.4rem); }
+      .hero-desc  { font-size: .93rem; }
+
+      /* Bouton hero touch-friendly */
+      .btn-primary { min-height: 48px; font-size: .9rem; padding: .8rem 1.4rem; width: 100%; justify-content: center; }
+
+      /* Calculateur controls */
+      .calc-controls { padding: 1.25rem 1rem; }
+
+      /* Preset buttons — pleine largeur sur mobile */
+      .preset-grid { flex-direction: column; }
+      .preset-btn  { width: 100%; text-align: center; padding: .7rem 1rem; min-height: 44px; }
+
+      /* Custom frais input — stack vertical */
+      .custom-frais-wrap { flex-direction: column; align-items: flex-start; gap: .5rem; }
+      .custom-frais-wrap input[type=number] { width: 100%; font-size: 1rem; min-height: 44px; }
+
+      /* Frais badge — stack */
+      .frais-badge { flex-direction: column; gap: .5rem; }
+      .frais-badge-sep { display: none; }
+
+      /* Results grid — 1 col */
+      .results-grid { grid-template-columns: 1fr; }
+
+      /* Chart */
+      .chart-canvas-wrap { height: 220px; }
+      .chart-head { flex-direction: column; gap: .6rem; }
+      .chart-legend { gap: .75rem; }
+
+      /* Section frais explication */
+      .frais-grid { grid-template-columns: 1fr; }
+
+      /* Stats */
+      .stats-grid { grid-template-columns: 1fr; }
+
+      /* CTA form */
+      .cta-box { padding: 2rem 1rem; }
+      .cta-form { max-width: 100%; }
+      .cta-input  { font-size: 1rem; min-height: 48px; }
+      .cta-btn    { min-height: 48px; font-size: .95rem; width: 100%; }
+
+      /* Double peine */
+      .dp-grid { grid-template-columns: 1fr; }
+      .dp-vs   { display: none; }
+      .dp-card { padding: 1.5rem 1.25rem; }
+
+      /* Multiplicateur */
+      .mult-cols { grid-template-columns: 1fr; }
+      .mult-col + .mult-col { border-left: none; border-top: 1px solid rgba(255,255,255,.05); }
+      .mult-effects { grid-template-columns: 1fr; }
+      .mult-bar { height: 36px; }
+      .mult-bar-you, .mult-bar-fees { font-size: .7rem; padding: 0 .6rem; }
+    }
+
+    @media (max-width: 390px) {
+      .container { padding: 0 .85rem; }
+      .hero-title { font-size: clamp(1.45rem, 9vw, 2rem); }
+      .section-title { font-size: clamp(1.2rem, 6vw, 1.6rem); }
+      .stat-num  { font-size: 2.4rem; }
+      .r-card-num { font-size: clamp(1.4rem, 6vw, 1.8rem); }
+      .float-card-num { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════ NAV ═══════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="https://www.masteriagroup.com" style="display:inline-flex;align-items:center;text-decoration:none"><img src="/logo-masteria.webp" alt="Masteria" style="height:28px;width:auto;"></a>
+    <a href="#decouvrir" class="nav-cta">
+      <span>Accéder au programme</span>
+      <i class="fas fa-arrow-right" style="font-size:.7rem"></i>
+    </a>
+  </div>
+</nav>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero">
+  <div class="container hero-grid">
+
+    <div class="hero-text reveal">
+      <div class="hero-pre">Calculatrice gratuite</div>
+      <h1 class="hero-title">
+        CE QUE VOS FRAIS<br>
+        VOUS COÛTENT <em>VRAIMENT</em>
+      </h1>
+      <p class="hero-desc">
+        La plupart des investisseurs ne voient jamais les frais réels de leur contrat.
+        Ils apparaissent dans les performances nettes — prélevés avant, sans ligne dédiée.
+        Entrez vos chiffres. Le résultat risque de vous surprendre.
+      </p>
+      <a href="#calculateur" class="btn-primary">
+        Calculer mon manque à gagner <i class="fas fa-arrow-right" style="font-size:.8rem"></i>
+      </a>
+    </div>
+
+    <div class="hero-visual">
+      <div class="float-card">
+        <div class="float-card-label">Manque à gagner estimé</div>
+        <div class="float-card-num" id="hero-ardoise">35 218 €</div>
+        <div class="float-card-pill" id="hero-pill">sur 20 ans · AV bancaire</div>
+        <div class="float-card-sub">
+          Différence entre votre contrat actuel<br>et une gestion ETF optimisée.
+        </div>
+        <div class="float-card-rente">
+          <i class="fas fa-arrow-down" style="font-size:.7rem"></i>
+          <span id="hero-rente">117 €/mois de rente perdue</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════ CALCULATEUR ═══════ -->
+<section class="section calc-section" id="calculateur">
+  <div class="container">
+
+    <div style="margin-bottom:2.5rem">
+      <span class="label-tag">Votre situation</span>
+      <h2 class="section-title">Entrez vos chiffres</h2>
+    </div>
+
+    <div class="calc-controls">
+
+      <!-- 3 sliders -->
+      <div class="sliders-grid">
+        <div class="ctrl-row">
+          <div class="ctrl-head">
+            <span class="ctrl-name">Capital déjà investi</span>
+            <span class="ctrl-val" id="v-capital">15 000 €</span>
+          </div>
+          <input type="range" id="s-capital" min="0" max="100000" step="1000" value="15000">
+        </div>
+        <div class="ctrl-row">
+          <div class="ctrl-head">
+            <span class="ctrl-name">Versement mensuel</span>
+            <span class="ctrl-val" id="v-monthly">200 €/mois</span>
+          </div>
+          <input type="range" id="s-monthly" min="0" max="1000" step="50" value="200">
+        </div>
+        <div class="ctrl-row">
+          <div class="ctrl-head">
+            <span class="ctrl-name">Horizon de placement</span>
+            <span class="ctrl-val" id="v-years">20 ans</span>
+          </div>
+          <input type="range" id="s-years" min="5" max="30" step="1" value="20">
+        </div>
+      </div>
+
+      <!-- Type de contrat -->
+      <p class="preset-label">Type de contrat</p>
+      <div class="preset-grid">
+        <button class="preset-btn active" data-preset="av" onclick="selectPreset(this, 0.0275)">AV bancaire</button>
+        <button class="preset-btn" data-preset="pea" onclick="selectPreset(this, 0.0190)">PEA fonds actifs</button>
+        <button class="preset-btn" data-preset="autre" onclick="selectPreset(this, 0.0200)">Autre contrat</button>
+        <button class="preset-btn" data-preset="custom" onclick="selectPreset(this, null)">Saisir mes frais</button>
+      </div>
+
+      <!-- Champ custom -->
+      <div class="custom-frais-wrap" id="custom-wrap">
+        <label>Frais annuels de votre contrat</label>
+        <input type="number" id="frais-custom" value="1.8" min="0.1" max="5" step="0.1">
+        <span class="pct">%/an</span>
+      </div>
+
+      <!-- Badge frais -->
+      <div class="frais-badge">
+        <div class="frais-badge-item">
+          <div class="dot actuel"></div>
+          <span>Votre contrat :</span>
+          <strong id="badge-actuel">2,75 %/an</strong>
+        </div>
+        <span class="frais-badge-sep">·</span>
+        <div class="frais-badge-item">
+          <div class="dot etf"></div>
+          <span>ETF optimisé :</span>
+          <strong>0,68 %/an</strong>
+        </div>
+        <span class="frais-badge-sep">·</span>
+        <div class="frais-badge-item">
+          <span>Rendement brut de référence :</span>
+          <strong>7,0 %/an</strong>
+        </div>
+      </div>
+
+    </div><!-- /calc-controls -->
+
+    <!-- RÉSULTATS -->
+    <p class="results-title" id="results-title">Votre manque à gagner sur 20 ans</p>
+
+    <div class="results-grid">
+
+      <!-- Card 1 — L'ardoise -->
+      <div class="r-card">
+        <div class="r-card-icon red"><i class="fas fa-triangle-exclamation"></i></div>
+        <div class="r-card-title">Ce que vos frais vous coûtent</div>
+        <div class="r-card-num red" id="r-ardoise">35 218 €</div>
+        <p class="r-card-sub" id="r-ardoise-sub">
+          Différence entre votre contrat actuel et une gestion ETF optimisée sur 20 ans.
+        </p>
+        <div class="r-card-rente">
+          <i class="fas fa-arrow-down" style="font-size:.65rem"></i>
+          <span id="r-rente">117 €/mois de rente manquante</span>
+        </div>
+      </div>
+
+      <!-- Card 2 — Comparaison -->
+      <div class="r-card-compare">
+        <div class="cmp-title">Capital final comparé</div>
+        <div class="cmp-cols">
+          <div class="cmp-col">
+            <div class="cmp-col-badge actuel">Votre contrat</div>
+            <div class="cmp-col-num actuel" id="r-cap-actuel">108 575 €</div>
+            <div class="cmp-col-detail">
+              <p>Rendement net : <strong id="r-net-actuel">4,25 %/an</strong></p>
+              <p>Frais totaux : <strong id="r-frais-actuel">2,75 %/an</strong></p>
+            </div>
+          </div>
+          <div class="cmp-col etf-col">
+            <div class="cmp-col-badge opt">
+              ETF optimisé <span class="badge-pill">★</span>
+            </div>
+            <div class="cmp-gain-badge" id="r-gain-badge">
+              <i class="fas fa-arrow-up" style="font-size:.6rem"></i>
+              <span id="r-gain-pct">+32 %</span>
+            </div>
+            <div class="cmp-col-num opt" id="r-cap-etf">143 793 €</div>
+            <div class="cmp-col-detail">
+              <p>Rendement net : <strong>6,32 %/an</strong></p>
+              <p>Frais totaux : <strong>0,68 %/an</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 — Coût annuel invisible -->
+      <div class="r-card">
+        <div class="r-card-icon blue"><i class="fas fa-eye-slash"></i></div>
+        <div class="r-card-title">Prélevé en moyenne chaque année</div>
+        <div class="r-card-num" id="r-annual">1 259 €/an</div>
+        <p class="r-card-sub">
+          Ce montant ne figure sur aucun relevé. Il est déduit avant que vous ne voyiez votre performance nette.
+        </p>
+      </div>
+
+    </div><!-- /results-grid -->
+
+    <!-- Graphique -->
+    <div class="chart-wrap">
+      <div class="chart-head">
+        <div>
+          <div class="chart-title" id="chart-title">Évolution de votre capital sur 20 ans</div>
+        </div>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <div class="legend-line gold"></div>
+            ETF optimisé — 0,68 %/an
+          </div>
+          <div class="legend-item">
+            <div class="legend-line gray"></div>
+            Votre contrat
+          </div>
+          <div class="legend-item">
+            <div class="legend-fill"></div>
+            Manque à gagner
+          </div>
+        </div>
+      </div>
+      <div class="chart-canvas-wrap">
+        <canvas id="frais-chart"></canvas>
+      </div>
+      <p class="chart-note">
+        <i class="fas fa-circle-info" style="font-size:.65rem; color:var(--muted)"></i>
+        La zone rouge représente l'argent silencieusement prélevé par vos frais sur la période.
+        Rendement brut commun : 7,0 %/an.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════ CTA MID-PAGE ═══════ -->
+<section style="padding:0 0 56px">
+  <div class="container" style="max-width:1120px">
+    <div style="background:linear-gradient(135deg,rgba(212,175,55,.06),rgba(59,130,246,.03));border:1px solid rgba(212,175,55,.2);border-radius:1.25rem;padding:2.25rem 2rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem">
+      <div style="flex:1;min-width:220px">
+        <p style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-l);margin-bottom:.5rem">Programme MasterInvest</p>
+        <p id="cta-mid-text" style="font-size:.95rem;color:var(--muted);line-height:1.7">
+          MasterInvest vous explique exactement comment restructurer votre allocation pour arrêter de payer ces frais.
+        </p>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.5rem;flex-shrink:0">
+        <a href="https://www.masteriagroup.com" style="display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;padding:.85rem 1.75rem;border-radius:.7rem;background:linear-gradient(135deg,#9a6f0a,#d4af37 55%,#f3e5ab);color:#050914;font-weight:800;font-size:.88rem;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap">
+          Arrêter de payer ces frais <i class="fas fa-arrow-right" style="font-size:.7rem"></i>
+        </a>
+        <span style="font-size:.68rem;color:var(--muted);text-align:right">À partir de <strong style="color:var(--gold-l)">754€</strong> — accès à vie</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ DOUBLE PEINE ═══════ -->
+<section class="section dp-section">
+  <div class="container">
+
+    <span class="label-tag">Le paradoxe des frais</span>
+    <h2 class="section-title">Vous payez plus<br>pour obtenir moins</h2>
+    <p class="dp-intro">
+      Des frais élevés seraient acceptables si les fonds actifs délivraient une meilleure performance. Les données de marché montrent systématiquement le contraire : vous payez une prime — pour une performance inférieure à l'indice.
+    </p>
+
+    <div class="dp-grid">
+
+      <!-- Fonds actif -->
+      <div class="dp-card bad">
+        <div class="dp-badge bad">Fonds actif bancaire</div>
+
+        <div class="dp-row">
+          <div class="dp-row-icon bad"><i class="fas fa-euro-sign"></i></div>
+          <div>
+            <div class="dp-row-label">Frais totaux estimés</div>
+            <div class="dp-row-val bad">2,61 %/an</div>
+            <div class="dp-row-sub">TER fonds 1,81 % + frais contrat AV 0,80 %</div>
+          </div>
+        </div>
+
+        <div class="dp-row">
+          <div class="dp-row-icon bad"><i class="fas fa-chart-bar"></i></div>
+          <div>
+            <div class="dp-row-label">Probabilité de battre le marché</div>
+            <div class="dp-row-val bad">8 % des cas</div>
+            <div class="dp-row-sub">92 % des fonds actifs sous-performent sur 15 ans — SPIVA 2024</div>
+          </div>
+        </div>
+
+        <div class="dp-row">
+          <div class="dp-row-icon bad"><i class="fas fa-building-columns"></i></div>
+          <div>
+            <div class="dp-row-label">Qui est rémunéré quoi qu'il arrive</div>
+            <div class="dp-row-val bad">La banque</div>
+            <div class="dp-row-sub">Que le fonds gagne ou perde, les frais sont prélevés chaque année</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dp-vs">VS</div>
+
+      <!-- ETF -->
+      <div class="dp-card good">
+        <div class="dp-badge good">ETF monde</div>
+
+        <div class="dp-row">
+          <div class="dp-row-icon good"><i class="fas fa-euro-sign"></i></div>
+          <div>
+            <div class="dp-row-label">Frais totaux estimés</div>
+            <div class="dp-row-val good">0,68 %/an</div>
+            <div class="dp-row-sub">TER ETF 0,18 % + frais AV optimisée 0,50 %</div>
+          </div>
+        </div>
+
+        <div class="dp-row">
+          <div class="dp-row-icon good"><i class="fas fa-chart-bar"></i></div>
+          <div>
+            <div class="dp-row-label">Performance vs marché</div>
+            <div class="dp-row-val good">= indice par définition</div>
+            <div class="dp-row-sub">Un ETF réplique l'indice — pas de risque de sélection, pas de déviation</div>
+          </div>
+        </div>
+
+        <div class="dp-row">
+          <div class="dp-row-icon good"><i class="fas fa-user"></i></div>
+          <div>
+            <div class="dp-row-label">Qui est rémunéré</div>
+            <div class="dp-row-val good">Vous</div>
+            <div class="dp-row-sub">Le surplus de rendement reste dans votre portefeuille, compoundé chaque année</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="dp-quote">
+      "Un fonds actif doit non seulement battre son indice de référence, mais le battre de plus de 2 % — juste pour compenser ses propres frais. Sur 15 ans, 92 % n'y arrivent pas."
+      <span>— S&amp;P Global, SPIVA Europe Scorecard 2024 &amp; AMF — données frais gestion collective 2023</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════ EXPLICATION ═══════ -->
+<section class="section explication-section">
+  <div class="container">
+
+    <span class="label-tag">Décryptage</span>
+    <h2 class="section-title">Ces frais ne s'appellent pas "frais"</h2>
+
+    <p class="expl-text">
+      Sur votre relevé d'assurance-vie ou de PEA, vous voyez une <em>performance nette</em>.
+      Ce que vous ne voyez pas : le rendement brut du fonds a déjà été amputé de <em>1,5 à 2,5 %</em>
+      avant d'atteindre votre compte.<br><br>
+      Exemple : un fonds qui a fait <em>+9 %</em> cette année vous affiche <em>+6,8 %</em>.
+      Les 2,2 % restants sont partis en frais de gestion, frais de surperformance
+      et marge de la banque. Légalement. Sans que vous le demandiez.<br><br>
+      Multiplié par 20 ans et par l'effet des intérêts composés,
+      c'est la somme que vous venez de calculer ci-dessus.
+    </p>
+
+    <div class="frais-grid">
+      <div class="frais-card">
+        <div class="frais-card-icon"><i class="fas fa-layer-group"></i></div>
+        <div class="frais-card-name">Frais de gestion du fonds</div>
+        <p class="frais-card-body">
+          Prélevés directement sur l'actif du fonds chaque année. Non facturés séparément — juste déduits de la valeur de part avant que vous la voyiez.
+        </p>
+        <div class="frais-card-tag">1,5 à 2,2 %/an</div>
+      </div>
+      <div class="frais-card">
+        <div class="frais-card-icon"><i class="fas fa-file-contract"></i></div>
+        <div class="frais-card-name">Frais de gestion du contrat</div>
+        <p class="frais-card-body">
+          0,5 à 1 %/an supplémentaires prélevés par l'assureur sur l'enveloppe AV elle-même — en plus des frais du fonds sous-jacent.
+        </p>
+        <div class="frais-card-tag">0,5 à 1 %/an en sus</div>
+      </div>
+      <div class="frais-card">
+        <div class="frais-card-icon"><i class="fas fa-door-open"></i></div>
+        <div class="frais-card-name">Droits d'entrée</div>
+        <p class="frais-card-body">
+          1 à 3 % prélevés sur chaque versement avant investissement. Parfois "gratuits" en ligne. Jamais mis en avant par le conseiller.
+        </p>
+        <div class="frais-card-tag">1 à 3 % à chaque versement</div>
+      </div>
+      <div class="frais-card">
+        <div class="frais-card-icon"><i class="fas fa-chart-line"></i></div>
+        <div class="frais-card-name">Frais de surperformance</div>
+        <p class="frais-card-body">
+          Jusqu'à 20 % des gains au-delà d'un seuil. Facturés certaines années — même quand le fonds sous-performe son indice de référence.
+        </p>
+        <div class="frais-card-tag">Jusqu'à 20 % des gains</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════ MULTIPLICATEUR ═══════ -->
+<section class="section mult-section">
+  <div class="container">
+
+    <span class="label-tag">La mécanique cachée</span>
+    <h2 class="section-title">2 % semble peu.<br>Sur 20 ans, c'est une autre histoire.</h2>
+    <p class="section-sub" style="margin-bottom:3rem">
+      Les frais ne s'appliquent pas sur votre capital de départ. Ils s'appliquent chaque année sur un capital qui grossit. L'effet est exponentiel — dans le mauvais sens.
+    </p>
+
+    <!-- Exemple chiffré -->
+    <div class="mult-example">
+      <div class="mult-header">Exemple — 10 000 € investis sur 20 ans, sans versements supplémentaires</div>
+      <div class="mult-cols">
+        <div class="mult-col">
+          <div class="mult-scenario">À 7 %/an brut — rendement marché</div>
+          <div class="mult-result gold">38 697 €</div>
+          <div class="mult-detail">Ce que le marché a produit. Le potentiel de départ, avant prélèvement des frais.</div>
+        </div>
+        <div class="mult-col">
+          <div class="mult-scenario">À 4,39 %/an net — après 2,61 % de frais</div>
+          <div class="mult-result muted">23 578 €</div>
+          <div class="mult-detail">Ce que vous obtenez réellement avec un fonds actif bancaire à 2,61 % de frais annuels.</div>
+        </div>
+      </div>
+      <div class="mult-bar-wrap">
+        <div class="mult-bar-label">Répartition du rendement brut sur 20 ans</div>
+        <div class="mult-bar">
+          <div class="mult-bar-you" style="width:64%">
+            <span>Votre part</span>
+            <span>64 %</span>
+          </div>
+          <div class="mult-bar-fees" style="width:36%">
+            <span>Absorbé par les frais</span>
+            <span>36 %</span>
+          </div>
+        </div>
+        <p class="mult-bar-note">
+          Sur 28 697 € de rendement potentiel, <strong>15 119 € ont été absorbés par les frais</strong> — soit 36 % de vos gains qui ne sont jamais arrivés dans votre poche.
+        </p>
+      </div>
+    </div>
+
+    <!-- 3 effets explicatifs -->
+    <div class="mult-effects">
+      <div class="mult-effect">
+        <div class="mult-effect-icon"><i class="fas fa-rotate"></i></div>
+        <div class="mult-effect-title">Les frais composent contre vous</div>
+        <p class="mult-effect-body">
+          Les intérêts composés travaillent pour vous — et les frais composés travaillent contre vous, avec la même puissance mathématique. Chaque euro de frais prélevé en année 1 est un euro qui n'a pas compoundé pendant 19 ans.
+        </p>
+      </div>
+      <div class="mult-effect">
+        <div class="mult-effect-icon"><i class="fas fa-eye-slash"></i></div>
+        <div class="mult-effect-title">Prélevés avant votre relevé</div>
+        <p class="mult-effect-body">
+          Vous ne voyez jamais ces frais sous forme de débit ou de ligne séparée. Ils réduisent la valeur liquidative du fonds chaque jour de bourse, avant que la valeur ne soit affichée sur votre compte. Le prélèvement est invisible par construction.
+        </p>
+      </div>
+      <div class="mult-effect">
+        <div class="mult-effect-icon"><i class="fas fa-calendar-xmark"></i></div>
+        <div class="mult-effect-title">Aucune année de grâce</div>
+        <p class="mult-effect-body">
+          Les frais sont prélevés chaque année — que le fonds gagne ou perde. En 2022, les marchés actions ont chuté de 18 %. Les fonds actifs ont quand même prélevé leurs 1,81 %/an. La perte était double : marché + frais.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════ STATS ═══════ -->
+<section class="section stats-section">
+  <div class="container">
+
+    <span class="label-tag">Ce que montrent les chiffres</span>
+    <h2 class="section-title">Ce n'est pas une opinion<br>— c'est documenté</h2>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">92 %</div>
+        <p class="stat-label">des fonds actions actifs sous-performent leur indice de référence sur 15 ans</p>
+        <p class="stat-source">SPIVA Europe Scorecard — S&amp;P Global, 2024</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">1,81 %</div>
+        <p class="stat-label">TER moyen des fonds actions distribués en France — chaque année, avant votre performance</p>
+        <p class="stat-source">AMF — Rapport sur la gestion collective, 2023</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">0,18 %</div>
+        <p class="stat-label">TER d'un ETF monde (ex : EWLD Amundi, IUSQ iShares) — couvrant 99 % du marché mondial</p>
+        <p class="stat-source">Données émetteurs — Amundi / iShares, 2024</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════ CTA ═══════ -->
+<section class="section cta-section" id="decouvrir">
+  <div class="container">
+    <div class="cta-box">
+      <span class="label-tag">Programme MasterInvest</span>
+      <h2 class="cta-title">
+        Vous savez ce que ça coûte.<br>Il reste à savoir comment l'éviter.
+      </h2>
+      <p class="cta-sub" id="cta-final-sub">
+        Vous savez maintenant ce que vos frais vous coûtent.
+        MasterInvest vous explique exactement quelles enveloppes utiliser,
+        quels ETF choisir, et comment construire un portefeuille
+        qui ne vous prélève plus discrètement.
+      </p>
+      <a href="https://www.masteriagroup.com" class="cta-btn" style="display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;padding:.95rem 2.2rem;font-size:.95rem;border-radius:.75rem;background:linear-gradient(135deg,#9a6f0a,#d4af37 55%,#f3e5ab);color:#050914;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;border:none;cursor:pointer">
+        Construire un portefeuille sans frais cachés <i class="fas fa-arrow-right" style="font-size:.8rem"></i>
+      </a>
+      <p class="cta-note" style="margin-top:.7rem">À partir de <strong style="color:var(--gold-l)">754€</strong> — accès à vie — paiement sécurisé</p>
+      <p class="cta-note" style="margin-top:.4rem;opacity:.6">Méthode développée et enseignée par Rémi Beauvineau, formateur en finance depuis 2021.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer>
+  <div class="disclaimer">
+    <strong>Avertissement légal</strong> —
+    Les simulations présentées utilisent un rendement brut annuel de 7,0 % (moyenne long terme marchés actions monde, dividendes réinvestis) et des frais estimatifs basés sur les moyennes de marché publiées par l'AMF et les émetteurs de fonds (TER moyen fonds actifs France : 1,81 % — AMF 2023 ; TER ETF monde EWLD : 0,18 % — Amundi 2024). Les frais d'enveloppe AV bancaire estimés à 0,80 %/an correspondent à une moyenne de marché. Ces chiffres sont fournis à titre strictement éducatif et ne constituent pas une simulation de votre contrat individuel. Les performances passées ne préjugent pas des performances futures. Investir en bourse comporte des risques de perte en capital, y compris totale. Ce calculateur ne constitue pas un conseil en investissement au sens de la réglementation AMF.
+    © 2026 Masteria — Tous droits réservés.
+  </div>
+</footer>
+
+<!-- ═══════ JS ═══════ -->
+<script>
+  /* ── Constantes ── */
+  const FRAIS_ETF      = 0.0068;
+  const RENDEMENT_BRUT = 0.07;
+  const NET_ETF        = RENDEMENT_BRUT - FRAIS_ETF; // 6,32%
+
+  let fraisActuel = 0.0275; // AV bancaire par défaut
+
+  /* ── Calcul financier ── */
+  function mRate(annual) {
+    return Math.pow(1 + annual, 1 / 12) - 1;
+  }
+
+  function capitalFinal(C0, pmt, years, frais) {
+    const r = mRate(RENDEMENT_BRUT - frais);
+    const n = years * 12;
+    let v = C0;
+    for (let i = 0; i < n; i++) v = v * (1 + r) + pmt;
+    return Math.round(v);
+  }
+
+  function seriesAnnuelle(C0, pmt, years, frais) {
+    const r = mRate(RENDEMENT_BRUT - frais);
+    let v = C0;
+    const out = [Math.round(C0)];
+    for (let y = 0; y < years; y++) {
+      for (let m = 0; m < 12; m++) v = v * (1 + r) + pmt;
+      out.push(Math.round(v));
+    }
+    return out;
+  }
+
+  function ardoise(C0, pmt, years, frais) {
+    return capitalFinal(C0, pmt, years, FRAIS_ETF)
+         - capitalFinal(C0, pmt, years, frais);
+  }
+
+  function renteMensuelle(ard) {
+    return Math.round(ard * 0.04 / 12);
+  }
+
+  function coutAnnuelMoyen(C0, pmt, years, frais) {
+    const capMoyen = (C0 + capitalFinal(C0, pmt, years, frais)) / 2;
+    return Math.round(capMoyen * (frais - FRAIS_ETF));
+  }
+
+  /* ── Formatage ── */
+  const fmt = v => new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 0 }).format(v) + ' €';
+  const fmtK = v => {
+    if (v >= 1000000) return (v / 1000000).toFixed(2).replace('.', ',') + ' M€';
+    if (v >= 1000)    return Math.round(v / 1000) + ' k€';
+    return v + ' €';
+  };
+  const fmtPct = v => (v * 100).toFixed(2).replace('.', ',') + ' %';
+
+  /* ── Animation nombre ── */
+  function setNum(el, target, suffix = '') {
+    const start = parseFloat(el.dataset.val || '0') || 0;
+    const dur = 350;
+    const t0 = performance.now();
+    const format = v => new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 0 }).format(Math.round(v));
+    function tick(now) {
+      const p = Math.min((now - t0) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = format(start + (target - start) * ease) + ' €' + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+      else el.dataset.val = target;
+    }
+    requestAnimationFrame(tick);
+  }
+
+  /* ── Chart ── */
+  let chart;
+  function initChart(etfData, actuelData, years) {
+    const labels = Array.from({ length: years + 1 }, (_, i) => i === 0 ? 'Aujourd\'hui' : `An ${i}`);
+    const ctx = document.getElementById('frais-chart').getContext('2d');
+    chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'ETF optimisé — 0,68 %/an',
+            data: etfData,
+            borderColor: '#d4af37',
+            borderWidth: 2.5,
+            backgroundColor: 'transparent',
+            fill: { target: 1, above: 'rgba(248,113,113,0.10)' },
+            tension: 0.35,
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: '#d4af37',
+            pointHoverBorderColor: '#d4af37',
+            pointHoverBorderWidth: 2,
+          },
+          {
+            label: 'Votre contrat actuel',
+            data: actuelData,
+            borderColor: 'rgba(148,163,184,0.65)',
+            borderWidth: 2,
+            borderDash: [5, 5],
+            backgroundColor: 'transparent',
+            fill: false,
+            tension: 0.35,
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: 'rgba(148,163,184,0.85)',
+            pointHoverBorderColor: 'rgba(148,163,184,0.85)',
+            pointHoverBorderWidth: 2,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        animation: { duration: 380, easing: 'easeOutCubic' },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: 'rgba(8,13,31,0.96)',
+            borderColor: 'rgba(212,175,55,.25)',
+            borderWidth: 1,
+            titleColor: '#e2e8f0',
+            bodyColor: '#94a3b8',
+            padding: 12,
+            callbacks: {
+              label: ctx => {
+                const val = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 0 }).format(ctx.parsed.y);
+                return ` ${ctx.dataset.label.split(' — ')[0]} : ${val} €`;
+              },
+              afterBody: items => {
+                if (items.length === 2) {
+                  const diff = items[0].parsed.y - items[1].parsed.y;
+                  const diffFmt = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 0 }).format(diff);
+                  return ['', ` Manque à gagner à cet instant : ${diffFmt} €`];
+                }
+                return [];
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(255,255,255,.04)' },
+            border: { color: 'rgba(255,255,255,.06)' },
+            ticks: {
+              color: '#64748b',
+              font: { family: 'Plus Jakarta Sans', size: 11 },
+              maxTicksLimit: 8,
+            }
+          },
+          y: {
+            grid: { color: 'rgba(255,255,255,.04)' },
+            border: { color: 'rgba(255,255,255,.06)' },
+            ticks: {
+              color: '#64748b',
+              font: { family: 'Plus Jakarta Sans', size: 11 },
+              callback: v => fmtK(v)
+            }
+          }
+        }
+      }
+    });
+  }
+
+  function updateChart(etfData, actuelData, years, frais) {
+    if (!chart) return;
+    const labels = Array.from({ length: years + 1 }, (_, i) => i === 0 ? 'Aujourd\'hui' : `An ${i}`);
+    chart.data.labels = labels;
+    chart.data.datasets[0].data = etfData;
+    chart.data.datasets[1].data = actuelData;
+    chart.data.datasets[1].label = `Votre contrat — ${fmtPct(frais)}/an`;
+    chart.update();
+  }
+
+  /* ── Preset sélecteur ── */
+  function selectPreset(btn, frais) {
+    document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const customWrap = document.getElementById('custom-wrap');
+    if (frais === null) {
+      customWrap.classList.add('visible');
+      fraisActuel = parseFloat(document.getElementById('frais-custom').value) / 100 || 0.018;
+    } else {
+      customWrap.classList.remove('visible');
+      fraisActuel = frais;
+    }
+    update();
+  }
+
+  /* ── Update principal ── */
+  function update() {
+    const C0    = parseInt(document.getElementById('s-capital').value);
+    const pmt   = parseInt(document.getElementById('s-monthly').value);
+    const years = parseInt(document.getElementById('s-years').value);
+
+    document.getElementById('v-capital').textContent = new Intl.NumberFormat('fr-FR').format(C0) + ' €';
+    document.getElementById('v-monthly').textContent = pmt + ' €/mois';
+    document.getElementById('v-years').textContent   = years + ' an' + (years > 1 ? 's' : '');
+
+    const capActuel = capitalFinal(C0, pmt, years, fraisActuel);
+    const capETF    = capitalFinal(C0, pmt, years, FRAIS_ETF);
+    const ard       = capETF - capActuel;
+    const rente     = renteMensuelle(ard);
+    const coutAn    = coutAnnuelMoyen(C0, pmt, years, fraisActuel);
+    const gainPct   = Math.round((capETF / capActuel - 1) * 100);
+    const netActuel = (RENDEMENT_BRUT - fraisActuel) * 100;
+
+    /* Titre dynamique */
+    document.getElementById('results-title').textContent = `Votre manque à gagner sur ${years} ans`;
+    document.getElementById('chart-title').textContent   = `Évolution de votre capital sur ${years} ans`;
+    document.getElementById('r-ardoise-sub').textContent =
+      `Différence entre votre contrat actuel et une gestion ETF optimisée sur ${years} ans.`;
+
+    /* Hero card */
+    setNum(document.getElementById('hero-ardoise'), ard);
+    document.getElementById('hero-pill').textContent =
+      `sur ${years} ans · ${fraisActuel === 0.0275 ? 'AV bancaire' : fraisActuel === 0.019 ? 'PEA fonds actifs' : fraisActuel === 0.02 ? 'Autre contrat' : 'Frais personnalisés'}`;
+    document.getElementById('hero-rente').textContent = new Intl.NumberFormat('fr-FR').format(rente) + ' €/mois de rente perdue';
+
+    /* Card 1 */
+    setNum(document.getElementById('r-ardoise'), ard);
+    document.getElementById('r-rente').textContent =
+      new Intl.NumberFormat('fr-FR').format(rente) + ' €/mois de rente manquante';
+
+    /* Card 2 */
+    setNum(document.getElementById('r-cap-actuel'), capActuel);
+    setNum(document.getElementById('r-cap-etf'), capETF);
+    document.getElementById('r-net-actuel').textContent  = netActuel.toFixed(2).replace('.', ',') + ' %/an';
+    document.getElementById('r-frais-actuel').textContent = fmtPct(fraisActuel) + '/an';
+    document.getElementById('r-gain-pct').textContent    = '+' + gainPct + ' %';
+    document.getElementById('r-gain-badge').title        = `Le portefeuille ETF produit ${gainPct}% de capital en plus sur ${years} ans.`;
+
+    /* Card 3 */
+    const elAnnual = document.getElementById('r-annual');
+    const prevAnnual = parseFloat(elAnnual.dataset.val || '0');
+    elAnnual.dataset.val = coutAn;
+    setNum(elAnnual, coutAn, '/an'.replace(' €', ''));
+    // Correction: afficher en format correct
+    elAnnual.textContent = new Intl.NumberFormat('fr-FR').format(coutAn) + ' €/an';
+
+    /* Barre proportionnelle dynamique */
+    const totalRendement = capitalFinal(C0, pmt, years, 0) - (C0 + pmt * years * 12);
+    const perduFrais = ardoise(C0, pmt, years, fraisActuel);
+    const pctFrais = totalRendement > 0 ? Math.min(Math.round((perduFrais / totalRendement) * 100), 99) : 36;
+    const pctVous = 100 - pctFrais;
+    const barYou  = document.getElementById('mult-bar-you');
+    const barFees = document.getElementById('mult-bar-fees');
+    if (barYou && barFees) {
+      barYou.style.width  = pctVous + '%';
+      barFees.style.width = pctFrais + '%';
+      barYou.querySelector('span:last-child').textContent  = pctVous + ' %';
+      barFees.querySelector('span:last-child').textContent = pctFrais + ' %';
+      document.getElementById('mult-bar-note').innerHTML =
+        `Sur le rendement potentiel de votre capital, <strong>${pctFrais} % ont été absorbés par les frais</strong> — de l\'argent qui ne vous parviendra jamais.`;
+    }
+
+    /* CTA mid-page dynamique */
+    const ctaMid = document.getElementById('cta-mid-text');
+    if (ctaMid) {
+      ctaMid.innerHTML = `Vous venez de calculer <strong style="color:var(--gold-l)">${fmt(ard)}</strong> de manque à gagner sur ${years} ans.
+        MasterInvest vous explique exactement comment restructurer ça.`;
+    }
+
+    /* CTA final dynamique */
+    const ctaFinalSub = document.getElementById('cta-final-sub');
+    if (ctaFinalSub) {
+      ctaFinalSub.innerHTML = `Vous avez calculé <strong style="color:var(--text)">${fmt(ard)}</strong> de frais sur ${years} ans.
+        MasterInvest vous explique exactement quelles enveloppes utiliser, quels ETF choisir,
+        et comment construire un portefeuille qui ne vous prélève plus discrètement.`;
+    }
+
+    /* Badge frais */
+    document.getElementById('badge-actuel').textContent = fmtPct(fraisActuel) + '/an';
+
+    /* Chart */
+    const etfData    = seriesAnnuelle(C0, pmt, years, FRAIS_ETF);
+    const actuelData = seriesAnnuelle(C0, pmt, years, fraisActuel);
+    if (!chart) initChart(etfData, actuelData, years);
+    else updateChart(etfData, actuelData, years, fraisActuel);
+  }
+
+  /* ── Custom frais input ── */
+  document.getElementById('frais-custom').addEventListener('input', () => {
+    const v = parseFloat(document.getElementById('frais-custom').value);
+    if (!isNaN(v) && v > 0 && v <= 5) {
+      fraisActuel = v / 100;
+      update();
+    }
+  });
+
+  /* ── Sliders ── */
+  ['s-capital', 's-monthly', 's-years'].forEach(id =>
+    document.getElementById(id).addEventListener('input', update)
+  );
+
+  /* ── CTA ── */
+
+  /* ── Init ── */
+  update();
+</script>
+
+</body>
+</html>
