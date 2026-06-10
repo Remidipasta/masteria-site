@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/school/:path*",
+      "destination": "https://school.masteriagroup.com/school/:path*",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    { "source": "/simulateur", "destination": "/simulateur.html" },
+    { "source": "/audit",      "destination": "/audit.html"      },
+    { "source": "/frais",      "destination": "/frais.html"      },
+    { "source": "/checklist",  "destination": "/checklist.html"  }
+  ]
+}
