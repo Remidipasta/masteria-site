@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audit Financier Gratuit — MasterInvest | Masteria</title>
+  <meta name="description" content="Obtenez un diagnostic précis de votre situation financière en 6 questions. Découvrez si la stratégie MasterInvest est faite pour vous.">
+  <link rel="canonical" href="https://masteriagroup.com/audit">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #b8952a; --gold-l: #d4af37; --gold-b: #e8c84a;
+      --blue: #2563eb; --blue-l: #3b82f6;
+      --green: #16a34a; --red: #dc2626;
+      --bg: #fafbfd; --bg-alt: #f0f2f8; --bg-dark: #0c1222;
+      --text: #0c1222; --text2: #4b5068; --text3: #868ca3;
+      --border: rgba(0,0,0,.08);
+      --r: 16px; --sh: 0 4px 24px rgba(0,0,0,.08);
+      --fd: 'Outfit', sans-serif; --fb: 'Plus Jakarta Sans', sans-serif;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--fb); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+
+    .site-header {
+      background: var(--bg-dark); padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 50;
+    }
+    .site-logo {
+      font-family: var(--fd); font-weight: 800; font-size: 20px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-b), var(--gold-l));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .back-link { font-size: 13px; color: rgba(255,255,255,.55); transition: color .2s; }
+    .back-link:hover { color: #fff; }
+
+    .hero {
+      background: linear-gradient(135deg, var(--bg-dark) 0%, #1a2540 100%);
+      color: #fff; padding: 52px 24px 44px; text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(184,149,42,.15); border: 1px solid rgba(184,149,42,.3);
+      border-radius: 100px; padding: 6px 16px;
+      font-size: 13px; color: var(--gold-l); font-family: var(--fd); font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .hero h1 { font-family: var(--fd); font-size: clamp(26px,5vw,42px); font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
+    .hero h1 .gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-b));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero p { color: rgba(255,255,255,.72); font-size: 16px; max-width: 560px; margin: 0 auto; }
+
+    .main { max-width: 700px; margin: 0 auto; padding: 32px 20px 64px; }
+
+    /* Progress */
+    .progress-bar-wrap { background: var(--bg-alt); border-radius: 100px; height: 6px; margin-bottom: 8px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--blue), var(--blue-l)); transition: width .4s ease; }
+    .progress-label { font-size: 12px; color: var(--text3); text-align: right; margin-bottom: 24px; }
+
+    .card {
+      background: #fff; border: 1px solid var(--border); border-radius: var(--r);
+      box-shadow: var(--sh); padding: 32px 28px; margin-bottom: 24px;
+    }
+
+    /* Question */
+    .question-step { display: none; }
+    .question-step.active { display: block; }
+    .question-num { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--text3); margin-bottom: 8px; }
+    .question-text { font-family: var(--fd); font-weight: 700; font-size: clamp(17px,3vw,21px); color: var(--text); margin-bottom: 24px; line-height: 1.35; }
+
+    .options-list { display: flex; flex-direction: column; gap: 10px; }
+    .option-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 18px; border: 2px solid var(--border); border-radius: 12px;
+      cursor: pointer; transition: all .18s; user-select: none;
+    }
+    .option-item:hover { border-color: var(--blue-l); background: rgba(37,99,235,.04); }
+    .option-item.selected { border-color: var(--blue); background: rgba(37,99,235,.06); }
+    .option-letter {
+      width: 30px; height: 30px; min-width: 30px; border-radius: 50%;
+      background: var(--bg-alt); border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--fd); font-weight: 700; font-size: 13px; color: var(--text2);
+      transition: all .18s;
+    }
+    .option-item.selected .option-letter { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .option-text { font-size: 15px; color: var(--text); font-weight: 500; }
+
+    .btn-row { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; gap: 12px; }
+    .btn-back {
+      font-size: 14px; color: var(--text3); cursor: pointer; padding: 12px 0;
+      background: none; border: none; font-family: var(--fb); transition: color .2s;
+    }
+    .btn-back:hover { color: var(--text2); }
+    .btn-next {
+      background: var(--blue); color: #fff; font-family: var(--fd); font-weight: 700;
+      font-size: 15px; padding: 12px 28px; border-radius: 100px; border: none;
+      cursor: pointer; transition: all .2s; opacity: .4; pointer-events: none;
+    }
+    .btn-next.enabled { opacity: 1; pointer-events: auto; }
+    .btn-next:hover.enabled { background: var(--blue-l); transform: translateY(-1px); }
+
+    /* Result */
+    .result-section { display: none; }
+    .result-section.visible { display: block; }
+
+    .result-header {
+      background: linear-gradient(135deg, var(--bg-dark), #1a2540);
+      border-radius: var(--r); padding: 32px 28px; color: #fff; text-align: center;
+      margin-bottom: 24px;
+    }
+    .result-badge {
+      display: inline-block;
+      background: rgba(184,149,42,.2); border: 1px solid rgba(184,149,42,.35);
+      border-radius: 100px; padding: 6px 18px;
+      font-size: 13px; color: var(--gold-l); font-family: var(--fd); font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .result-title { font-family: var(--fd); font-weight: 800; font-size: clamp(22px,4vw,32px); margin-bottom: 12px; line-height: 1.25; }
+    .result-title .gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-b));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .result-desc { font-size: 15px; color: rgba(255,255,255,.78); line-height: 1.7; max-width: 500px; margin: 0 auto; }
+
+    .score-bar-wrap {
+      background: #fff; border: 1px solid var(--border); border-radius: var(--r);
+      box-shadow: var(--sh); padding: 24px 28px; margin-bottom: 24px;
+    }
+    .score-label { font-size: 13px; color: var(--text2); margin-bottom: 10px; }
+    .score-track { background: var(--bg-alt); border-radius: 100px; height: 10px; overflow: hidden; margin-bottom: 8px; }
+    .score-fill { height: 100%; border-radius: 100px; transition: width .8s cubic-bezier(.16,1,.3,1); }
+    .score-levels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text3); }
+
+    .insight-block {
+      background: linear-gradient(135deg, var(--bg-dark), #1a2540);
+      border-radius: var(--r); padding: 24px; color: #fff; margin-bottom: 24px;
+    }
+    .insight-icon { font-size: 22px; margin-bottom: 10px; }
+    .insight-text { font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.88); }
+    .insight-text strong {
+      background: linear-gradient(135deg, var(--gold-l), var(--gold-b));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .authority {
+      background: var(--bg-alt); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 20px 24px;
+      display: flex; align-items: center; gap: 16px; margin-bottom: 24px;
+    }
+    .authority-avatar {
+      width: 52px; height: 52px; min-width: 52px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-b));
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px;
+    }
+    .authority-text { font-size: 14px; color: var(--text2); line-height: 1.55; }
+    .authority-text strong { color: var(--text); display: block; font-size: 15px; margin-bottom: 3px; }
+
+    .cta-block {
+      background: linear-gradient(135deg, var(--bg-dark), #1a2540);
+      border-radius: var(--r); padding: 36px 32px; text-align: center; color: #fff;
+    }
+    .cta-headline { font-family: var(--fd); font-weight: 800; font-size: clamp(20px,4vw,28px); line-height: 1.3; margin-bottom: 12px; }
+    .cta-dynamic {
+      font-size: 15px; color: rgba(255,255,255,.85);
+      background: rgba(255,255,255,.07); border-radius: 10px;
+      padding: 14px 20px; margin-bottom: 24px; font-style: italic; line-height: 1.65;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-b));
+      color: #0c1222; font-family: var(--fd); font-weight: 700;
+      font-size: 16px; padding: 16px 36px; border-radius: 100px;
+      border: none; cursor: pointer; text-decoration: none;
+      box-shadow: 0 8px 32px rgba(184,149,42,.35); transition: all .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(184,149,42,.5); }
+    .price-anchor { font-size: 13px; color: rgba(255,255,255,.5); margin-top: 14px; }
+    .price-anchor strong { color: rgba(255,255,255,.82); }
+
+    footer { background: var(--bg-dark); padding: 24px; text-align: center; color: rgba(255,255,255,.4); font-size: 12px; }
+    footer a { color: rgba(255,255,255,.6); }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-logo">Masteria</div>
+  <a href="https://masteriagroup.com" class="back-link">← masteriagroup.com</a>
+</header>
+
+<section class="hero">
+  <div class="hero-badge">📋 Audit gratuit — 6 questions</div>
+  <h1>Diagnostiquez votre <span class="gold">situation financière</span></h1>
+  <p>6 questions pour savoir où vous en êtes et si la stratégie MasterInvest correspond à votre profil.</p>
+</section>
+
+<main class="main">
+
+  <!-- Progress -->
+  <div id="progress-wrap">
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+    <div class="progress-label" id="progress-label">Question 1 sur 6</div>
+  </div>
+
+  <!-- Quiz card -->
+  <div class="card" id="quiz-card">
+
+    <!-- Q1 -->
+    <div class="question-step active" id="q1">
+      <div class="question-num">Question 1 / 6</div>
+      <div class="question-text">Quelle est votre épargne mensuelle actuelle ?</div>
+      <div class="options-list">
+        <div class="option-item" onclick="selectOption(1,1)"><div class="option-letter">A</div><div class="option-text">Je n'arrive pas à épargner régulièrement</div></div>
+        <div class="option-item" onclick="selectOption(1,2)"><div class="option-letter">B</div><div class="option-text">Moins de 150 €/mois</div></div>
+        <div class="option-item" onclick="selectOption(1,3)"><div class="option-letter">C</div><div class="option-text">150 – 500 €/mois</div></div>
+        <div class="option-item" onclick="selectOption(1,4)"><div class="option-letter">D</div><div class="option-text">Plus de 500 €/mois</div></div>
+      </div>
+      <div class="btn-row">
+        <div></div>
+        <button class="btn-next" id="btn-next-1" onclick="nextQuestion(1)">Suivant →</button>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-step" id="q2">
+      <div class="question-num">Question 2 / 6</div>
+      <div class="question-text">Où placez-vous principalement votre épargne ?</div>
+      <div class="options-list">
+        <div class="option-item" onclick="selectOption(2,1)"><div class="option-letter">A</div><div class="option-text">Compte courant uniquement</div></div>
+        <div class="option-item" onclick="selectOption(2,2)"><div class="option-letter">B</div><div class="option-text">Livret A ou livret réglementé</div></div>
+        <div class="option-item" onclick="selectOption(2,3)"><div class="option-letter">C</div><div class="option-text">Assurance-vie fonds euros</div></div>
+        <div class="option-item" onclick="selectOption(2,4)"><div class="option-letter">D</div><div class="option-text">PEA ou compte-titres avec ETF / actions</div></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="prevQuestion(2)">← Retour</button>
+        <button class="btn-next" id="btn-next-2" onclick="nextQuestion(2)">Suivant →</button>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-step" id="q3">
+      <div class="question-num">Question 3 / 6</div>
+      <div class="question-text">Comment évaluez-vous votre niveau en investissement ?</div>
+      <div class="options-list">
+        <div class="option-item" onclick="selectOption(3,1)"><div class="option-letter">A</div><div class="option-text">Je ne sais pas par où commencer</div></div>
+        <div class="option-item" onclick="selectOption(3,2)"><div class="option-letter">B</div><div class="option-text">J'ai quelques notions théoriques</div></div>
+        <div class="option-item" onclick="selectOption(3,3)"><div class="option-letter">C</div><div class="option-text">J'investis de façon occasionnelle</div></div>
+        <div class="option-item" onclick="selectOption(3,4)"><div class="option-letter">D</div><div class="option-text">J'ai une stratégie documentée et je l'applique</div></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="prevQuestion(3)">← Retour</button>
+        <button class="btn-next" id="btn-next-3" onclick="nextQuestion(3)">Suivant →</button>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question-step" id="q4">
+      <div class="question-num">Question 4 / 6</div>
+      <div class="question-text">Quel est votre capital disponible pour investir ?</div>
+      <div class="options-list">
+        <div class="option-item" onclick="selectOption(4,1)"><div class="option-letter">A</div><div class="option-text">Moins de 2 000 €</div></div>
+        <div class="option-item" onclick="selectOption(4,2)"><div class="option-letter">B</div><div class="option-text">2 000 – 10 000 €</div></div>
+        <div class="option-item" onclick="selectOption(4,3)"><div class="option-letter">C</div><div class="option-text">10 000 – 50 000 €</div></div>
+        <div class="option-item" onclick="selectOption(4,4)"><div class="option-letter">D</div><div class="option-text">Plus de 50 000 €</div></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="prevQuestion(4)">← Retour</button>
+        <button class="btn-next" id="btn-next-4" onclick="nextQuestion(4)">Suivant →</button>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question-step" id="q5">
+      <div class="question-num">Question 5 / 6</div>
+      <div class="question-text">Dans combien d'années souhaitez-vous générer des revenus passifs ?</div>
+      <div class="options-list">
+        <div class="option-item" onclick="selectOption(5,1)"><div class="option-letter">A</div><div class="option-text">Dans moins de 3 ans</div></div>
+        <div class="option-item" onclick="selectOption(5,2)"><div class="option-letter">B</div><div class="option-text">Dans 3 – 10 ans</div></div>
+        <div class="option-item" onclick="selectOption(5,3)"><div class="option-letter">C</div><div class="option-text">Dans 10 – 20 ans</div></div>
+        <div class="option-item" onclick="selectOption(5,4)"><div class="option-letter">D</div><div class="option-text">Dans 20 ans ou plus (retraite)</div></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="prevQuestion(5)">← Retour</button>
+        <button class="btn-next" id="btn-next-5" onclick="nextQuestion(5)">Suivant →</button>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="question-step" id="q6">
+      <div class="question-num">Question 6 / 6</div>
+      <div class="question-text">Quel est votre objectif principal ?</div>
+      <div class="options-list">
+        <div class="option-item" onclick="selectOption(6,1)"><div class="option-letter">A</div><div class="option-text">Sécuriser mon épargne contre l'inflation</div></div>
+        <div class="option-item" onclick="selectOption(6,2)"><div class="option-letter">B</div><div class="option-text">Générer des revenus complémentaires</div></div>
+        <div class="option-item" onclick="selectOption(6,3)"><div class="option-letter">C</div><div class="option-text">Atteindre l'indépendance financière</div></div>
+        <div class="option-item" onclick="selectOption(6,4)"><div class="option-letter">D</div><div class="option-text">Optimiser et structurer mon patrimoine</div></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="prevQuestion(6)">← Retour</button>
+        <button class="btn-next" id="btn-next-6" onclick="showResult()">Voir mon diagnostic →</button>
+      </div>
+    </div>
+
+  </div><!-- /quiz-card -->
+
+  <!-- Result -->
+  <div class="result-section" id="result-section">
+
+    <div class="result-header">
+      <div class="result-badge" id="result-badge">Profil</div>
+      <div class="result-title" id="result-title">—</div>
+      <div class="result-desc" id="result-desc">—</div>
+    </div>
+
+    <div class="score-bar-wrap">
+      <div class="score-label">Score de maturité financière</div>
+      <div class="score-track">
+        <div class="score-fill" id="score-fill" style="width:0%"></div>
+      </div>
+      <div class="score-levels">
+        <span>Débutant</span><span>Intermédiaire</span><span>Avancé</span>
+      </div>
+    </div>
+
+    <div class="insight-block">
+      <div class="insight-icon">💡</div>
+      <div class="insight-text" id="result-insight">—</div>
+    </div>
+
+    <div class="authority">
+      <div class="authority-avatar">👨‍🏫</div>
+      <div class="authority-text">
+        <strong>Rémi Beauvineau</strong>
+        Méthode développée et enseignée par Rémi Beauvineau, formateur en finance depuis 2021. Plus de 400 personnes accompagnées dans leur parcours d'investissement avant la création du programme MasterInvest.
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-headline">Votre prochaine étape</div>
+      <div class="cta-dynamic" id="cta-dynamic">—</div>
+      <a href="https://paiement.masteriagroup.com/portail-masterinvest" class="btn-primary">
+        Accéder à MasterInvest →
+      </a>
+      <div class="price-anchor">À partir de <strong>754 €</strong> — accès à vie — paiement sécurisé</div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2026 Masteria — <a href="https://masteriagroup.com">masteriagroup.com</a></p>
+</footer>
+
+<script>
+  const answers = {};
+  const totalQ = 6;
+
+  function selectOption(q, val) {
+    answers[q] = val;
+    const step = document.getElementById('q' + q);
+    step.querySelectorAll('.option-item').forEach((el, i) => {
+      el.classList.toggle('selected', i + 1 === val);
+    });
+    const btn = document.getElementById('btn-next-' + q);
+    if (btn) { btn.classList.add('enabled'); }
+  }
+
+  function updateProgress(q) {
+    const pct = ((q - 1) / totalQ) * 100;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = 'Question ' + q + ' sur ' + totalQ;
+  }
+
+  function nextQuestion(current) {
+    if (!answers[current]) return;
+    document.getElementById('q' + current).classList.remove('active');
+    document.getElementById('q' + (current + 1)).classList.add('active');
+    updateProgress(current + 1);
+  }
+
+  function prevQuestion(current) {
+    document.getElementById('q' + current).classList.remove('active');
+    document.getElementById('q' + (current - 1)).classList.add('active');
+    updateProgress(current - 1);
+  }
+
+  function showResult() {
+    if (!answers[6]) return;
+
+    const total = Object.values(answers).reduce((a, b) => a + b, 0);
+    const pct = Math.round((total - 6) / 18 * 100);
+
+    document.getElementById('quiz-card').style.display = 'none';
+    document.getElementById('progress-wrap').style.display = 'none';
+    const rs = document.getElementById('result-section');
+    rs.classList.add('visible');
+
+    const fill = document.getElementById('score-fill');
+    fill.style.width = '0%';
+    setTimeout(() => { fill.style.width = pct + '%'; }, 100);
+
+    let badge, title, desc, insight, cta, fillColor;
+
+    if (total <= 12) {
+      fillColor = 'linear-gradient(90deg, #3b82f6, #60a5fa)';
+      badge = '🟦 Profil : Prêt à démarrer';
+      title = 'Vous partez d'une <span class="gold">page blanche</span>';
+      desc = 'C'est une excellente position : construire une stratégie depuis le début avec la bonne méthode est le scénario le plus favorable. Vous n'avez pas de mauvaises habitudes à corriger.';
+      insight = 'Votre audit révèle que vous êtes au début du chemin. <strong>C'est exactement pour cela que MasterInvest existe</strong> : partir de zéro, comprendre les fondamentaux, et bâtir une stratégie d'investissement qui tient sur la durée. Rémi Beauvineau a accompagné plus de 400 personnes dans cette situation entre 2021 et 2024 avant de structurer cette méthode complète.';
+      cta = 'MasterInvest est conçu pour vous donner les bases solides qui manquent. À partir d'une fondation rigoureuse, vous bâtissez une stratégie qui dure — sans improviser.';
+    } else if (total <= 18) {
+      fillColor = 'linear-gradient(90deg, #d4af37, #e8c84a)';
+      badge = '🟡 Profil : En progression';
+      title = 'Bonnes bases, <span class="gold">méthode à structurer</span>';
+      desc = 'Vous avez des acquis — vous épargnez, vous avez peut-être commencé à investir. Mais il vous manque une stratégie cohérente qui lie tous les éléments ensemble.';
+      insight = 'Votre audit montre que vous avez de bonnes intentions et quelques actions en place. Ce qui manque souvent à ce stade, c'est une <strong>stratégie d'allocation claire</strong>, une discipline de versement et une compréhension des enveloppes fiscales adaptées. MasterInvest comble exactement ce gap.';
+      cta = 'Vous avez la motivation. MasterInvest vous donne la méthode pour que chaque décision d'investissement s'inscrive dans une stratégie cohérente — et non plus au cas par cas.';
+    } else {
+      fillColor = 'linear-gradient(90deg, #16a34a, #4ade80)';
+      badge = '🟢 Profil : Investisseur confirmé';
+      title = 'Niveau solide, <span class="gold">optimisation en vue</span>';
+      desc = 'Votre profil montre une vraie maturité financière. Vous investissez avec méthode. La prochaine étape : optimiser l'allocation, réduire les biais et affiner la stratégie pour aller plus loin.';
+      insight = 'Vous êtes dans le segment des investisseurs avancés. MasterInvest vous apportera les <strong>leviers d'optimisation systématique</strong> : rebalancement, fiscalité avancée, gestion quantitative du risque — les éléments qui font la différence entre un bon investisseur et un investisseur performant sur 20 ans.';
+      cta = 'Votre niveau vous permet de tirer parti de MasterInvest à pleine puissance. Les modules avancés sont construits pour des profils comme le vôtre.';
+    }
+
+    fill.style.background = fillColor;
+    document.getElementById('result-badge').textContent = badge;
+    document.getElementById('result-title').innerHTML = title;
+    document.getElementById('result-desc').textContent = desc.replace(/<[^>]*>/g, '');
+    document.getElementById('result-insight').innerHTML = insight;
+    document.getElementById('cta-dynamic').textContent = cta;
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  updateProgress(1);
+</script>
+</body>
+</html>

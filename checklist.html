@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checklist Investisseur — MasterInvest | Masteria</title>
+  <meta name="description" content="Êtes-vous prêt à investir ? 12 critères pour évaluer votre niveau et savoir quelle étape franchir en premier.">
+  <link rel="canonical" href="https://masteriagroup.com/checklist">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #b8952a; --gold-l: #d4af37; --gold-b: #e8c84a;
+      --blue: #2563eb; --blue-l: #3b82f6;
+      --green: #16a34a; --red: #dc2626;
+      --bg: #fafbfd; --bg-alt: #f0f2f8; --bg-dark: #0c1222;
+      --text: #0c1222; --text2: #4b5068; --text3: #868ca3;
+      --border: rgba(0,0,0,.08);
+      --r: 16px; --sh: 0 4px 24px rgba(0,0,0,.08);
+      --fd: 'Outfit', sans-serif; --fb: 'Plus Jakarta Sans', sans-serif;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--fb); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+
+    .site-header {
+      background: var(--bg-dark); padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 50;
+    }
+    .site-logo {
+      font-family: var(--fd); font-weight: 800; font-size: 20px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-b), var(--gold-l));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .back-link { font-size: 13px; color: rgba(255,255,255,.55); transition: color .2s; }
+    .back-link:hover { color: #fff; }
+
+    .hero {
+      background: linear-gradient(135deg, var(--bg-dark) 0%, #1a2540 100%);
+      color: #fff; padding: 52px 24px 44px; text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(22,163,74,.15); border: 1px solid rgba(22,163,74,.3);
+      border-radius: 100px; padding: 6px 16px;
+      font-size: 13px; color: #4ade80; font-family: var(--fd); font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .hero h1 { font-family: var(--fd); font-size: clamp(26px,5vw,42px); font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
+    .hero h1 .gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-b));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero p { color: rgba(255,255,255,.72); font-size: 16px; max-width: 560px; margin: 0 auto; }
+
+    .main { max-width: 700px; margin: 0 auto; padding: 32px 20px 64px; }
+
+    /* Score tracker */
+    .score-tracker {
+      background: #fff; border: 1px solid var(--border); border-radius: var(--r);
+      box-shadow: var(--sh); padding: 20px 24px; margin-bottom: 24px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .score-number {
+      font-family: var(--fd); font-weight: 800; font-size: 40px;
+      color: var(--text); min-width: 60px; text-align: center; transition: color .3s;
+    }
+    .score-right { flex: 1; }
+    .score-bar-wrap { background: var(--bg-alt); border-radius: 100px; height: 8px; overflow: hidden; margin-bottom: 6px; }
+    .score-bar-fill { height: 100%; border-radius: 100px; transition: width .4s cubic-bezier(.16,1,.3,1), background .4s; }
+    .score-label-row { display: flex; justify-content: space-between; font-size: 11px; color: var(--text3); }
+    .score-status { font-size: 13px; font-weight: 600; color: var(--text2); margin-top: 4px; }
+
+    /* Checklist */
+    .card {
+      background: #fff; border: 1px solid var(--border); border-radius: var(--r);
+      box-shadow: var(--sh); padding: 28px; margin-bottom: 24px;
+    }
+    .card-title { font-family: var(--fd); font-weight: 700; font-size: 18px; color: var(--text); margin-bottom: 20px; }
+    .card-subtitle { font-size: 13px; color: var(--text3); margin-top: -14px; margin-bottom: 20px; }
+
+    .checklist { display: flex; flex-direction: column; gap: 8px; }
+    .check-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 14px 16px; border: 2px solid var(--border); border-radius: 12px;
+      cursor: pointer; transition: all .18s; user-select: none;
+    }
+    .check-item:hover { border-color: rgba(37,99,235,.25); background: rgba(37,99,235,.02); }
+    .check-item.checked { border-color: var(--green); background: rgba(22,163,74,.04); }
+    .check-box {
+      width: 22px; height: 22px; min-width: 22px; margin-top: 1px;
+      border: 2px solid var(--border); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .18s; font-size: 13px; color: transparent; background: #fff;
+    }
+    .check-item.checked .check-box { background: var(--green); border-color: var(--green); color: #fff; }
+    .check-item input[type=checkbox] { display: none; }
+    .check-text { font-size: 15px; color: var(--text); line-height: 1.45; font-weight: 500; }
+    .check-item.checked .check-text { color: var(--text2); }
+
+    /* Category heading */
+    .category-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+      color: var(--text3); margin: 20px 0 8px; padding: 0 4px;
+    }
+
+    /* Result block */
+    .result-block {
+      border-radius: var(--r); padding: 28px; margin-bottom: 24px;
+      display: none; transition: all .3s;
+    }
+    .result-block.visible { display: block; }
+    .result-block.level-1 {
+      background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(59,130,246,.04));
+      border: 2px solid rgba(37,99,235,.2);
+    }
+    .result-block.level-2 {
+      background: linear-gradient(135deg, rgba(184,149,42,.1), rgba(232,200,74,.04));
+      border: 2px solid rgba(184,149,42,.25);
+    }
+    .result-block.level-3 {
+      background: linear-gradient(135deg, rgba(22,163,74,.08), rgba(74,222,128,.04));
+      border: 2px solid rgba(22,163,74,.2);
+    }
+    .result-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      border-radius: 100px; padding: 6px 16px;
+      font-size: 13px; font-family: var(--fd); font-weight: 700; margin-bottom: 12px;
+    }
+    .level-1 .result-badge { background: rgba(37,99,235,.12); color: var(--blue); }
+    .level-2 .result-badge { background: rgba(184,149,42,.15); color: var(--gold); }
+    .level-3 .result-badge { background: rgba(22,163,74,.12); color: var(--green); }
+    .result-title { font-family: var(--fd); font-weight: 800; font-size: clamp(18px,3vw,24px); color: var(--text); margin-bottom: 8px; line-height: 1.3; }
+    .result-desc { font-size: 14px; color: var(--text2); line-height: 1.65; }
+
+    .insight-block {
+      background: linear-gradient(135deg, var(--bg-dark), #1a2540);
+      border-radius: var(--r); padding: 24px; color: #fff; margin-bottom: 24px;
+      display: none;
+    }
+    .insight-block.visible { display: block; }
+    .insight-icon { font-size: 22px; margin-bottom: 10px; }
+    .insight-text { font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.88); }
+    .insight-text strong {
+      background: linear-gradient(135deg, var(--gold-l), var(--gold-b));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .authority {
+      background: var(--bg-alt); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 20px 24px;
+      display: flex; align-items: center; gap: 16px; margin-bottom: 24px;
+    }
+    .authority-avatar {
+      width: 52px; height: 52px; min-width: 52px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-b));
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px;
+    }
+    .authority-text { font-size: 14px; color: var(--text2); line-height: 1.55; }
+    .authority-text strong { color: var(--text); display: block; font-size: 15px; margin-bottom: 3px; }
+
+    .cta-block {
+      background: linear-gradient(135deg, var(--bg-dark), #1a2540);
+      border-radius: var(--r); padding: 36px 32px; text-align: center; color: #fff;
+      display: none;
+    }
+    .cta-block.visible { display: block; }
+    .cta-headline { font-family: var(--fd); font-weight: 800; font-size: clamp(20px,4vw,28px); line-height: 1.3; margin-bottom: 12px; }
+    .cta-dynamic {
+      font-size: 15px; color: rgba(255,255,255,.85);
+      background: rgba(255,255,255,.07); border-radius: 10px;
+      padding: 14px 20px; margin-bottom: 24px; font-style: italic; line-height: 1.65;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-b));
+      color: #0c1222; font-family: var(--fd); font-weight: 700;
+      font-size: 16px; padding: 16px 36px; border-radius: 100px;
+      border: none; cursor: pointer; text-decoration: none;
+      box-shadow: 0 8px 32px rgba(184,149,42,.35); transition: all .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(184,149,42,.5); }
+    .price-anchor { font-size: 13px; color: rgba(255,255,255,.5); margin-top: 14px; }
+    .price-anchor strong { color: rgba(255,255,255,.82); }
+
+    footer { background: var(--bg-dark); padding: 24px; text-align: center; color: rgba(255,255,255,.4); font-size: 12px; }
+    footer a { color: rgba(255,255,255,.6); }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-logo">Masteria</div>
+  <a href="https://masteriagroup.com" class="back-link">← masteriagroup.com</a>
+</header>
+
+<section class="hero">
+  <div class="hero-badge">✅ Checklist — 12 critères</div>
+  <h1>Êtes-vous <span class="gold">prêt à investir</span> ?</h1>
+  <p>Cochez les éléments que vous maîtrisez déjà. Votre score révèle où vous en êtes et ce qu'il vous manque.</p>
+</section>
+
+<main class="main">
+
+  <!-- Score tracker -->
+  <div class="score-tracker">
+    <div class="score-number" id="score-num">0</div>
+    <div class="score-right">
+      <div class="score-bar-wrap">
+        <div class="score-bar-fill" id="score-bar" style="width:0%;background:var(--blue-l)"></div>
+      </div>
+      <div class="score-label-row">
+        <span>0</span><span>4</span><span>8</span><span>12</span>
+      </div>
+      <div class="score-status" id="score-status">Commencez à cocher les éléments que vous maîtrisez</div>
+    </div>
+  </div>
+
+  <!-- Checklist card -->
+  <div class="card">
+    <div class="card-title">12 critères de l'investisseur structuré</div>
+    <div class="card-subtitle">Cochez ce que vous appliquez déjà — soyez honnête avec vous-même.</div>
+
+    <div class="checklist">
+
+      <div class="category-label">Fondamentaux</div>
+      <div class="check-item" onclick="toggleCheck(this, 1)">
+        <div class="check-box">✓</div>
+        <div class="check-text">Je sais ce qu'est un ETF et pourquoi il est utilisé dans une stratégie d'investissement long terme</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 2)">
+        <div class="check-box">✓</div>
+        <div class="check-text">Je comprends la différence entre gestion active et gestion passive (indices)</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 3)">
+        <div class="check-box">✓</div>
+        <div class="check-text">J'ai un fonds d'urgence couvrant 3 à 6 mois de dépenses</div>
+      </div>
+
+      <div class="category-label">Mise en pratique</div>
+      <div class="check-item" onclick="toggleCheck(this, 4)">
+        <div class="check-box">✓</div>
+        <div class="check-text">J'ai un PEA ou un compte-titres ouvert et actif</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 5)">
+        <div class="check-box">✓</div>
+        <div class="check-text">J'investis de façon régulière (versements mensuels ou trimestriels)</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 6)">
+        <div class="check-box">✓</div>
+        <div class="check-text">Je connais mon taux d'épargne actuel (part de mes revenus épargnée)</div>
+      </div>
+
+      <div class="category-label">Stratégie</div>
+      <div class="check-item" onclick="toggleCheck(this, 7)">
+        <div class="check-box">✓</div>
+        <div class="check-text">J'ai défini mon horizon d'investissement et mon objectif patrimonial</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 8)">
+        <div class="check-box">✓</div>
+        <div class="check-text">Je comprends mon profil de risque et l'applique à mon allocation d'actifs</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 9)">
+        <div class="check-box">✓</div>
+        <div class="check-text">Je sais ce qu'est le rebalancement de portefeuille et je l'applique</div>
+      </div>
+
+      <div class="category-label">Optimisation</div>
+      <div class="check-item" onclick="toggleCheck(this, 10)">
+        <div class="check-box">✓</div>
+        <div class="check-text">Je comprends la fiscalité de mes placements (PEA, CTO, PER, assurance-vie)</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 11)">
+        <div class="check-box">✓</div>
+        <div class="check-text">Je ne touche pas à mon portefeuille lors des corrections de marché</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 12)">
+        <div class="check-box">✓</div>
+        <div class="check-text">J'ai une stratégie d'investissement documentée que je révise régulièrement</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Result blocks (only shown after checking ≥1) -->
+  <div class="result-block level-1" id="result-1">
+    <div class="result-badge">🔵 Profil : Prêt à démarrer</div>
+    <div class="result-title">Vous avez posé les premières briques</div>
+    <div class="result-desc">Vous êtes au début du chemin — et c'est exactement là que MasterInvest est le plus utile. Le programme part de zéro et vous construit une stratégie complète étape par étape, des fondamentaux jusqu'à l'optimisation fiscale.</div>
+  </div>
+
+  <div class="result-block level-2" id="result-2">
+    <div class="result-badge">🟡 Profil : En progression</div>
+    <div class="result-title">De bonnes bases, une méthode à compléter</div>
+    <div class="result-desc">Vous avez des acquis solides mais il vous manque une stratégie cohérente qui lie tous les éléments. MasterInvest comble précisément ce gap : allocation, rebalancement, fiscalité — tout ce qu'il faut pour structurer votre approche.</div>
+  </div>
+
+  <div class="result-block level-3" id="result-3">
+    <div class="result-badge">🟢 Profil : Investisseur confirmé</div>
+    <div class="result-title">Niveau solide — optimisation en vue</div>
+    <div class="result-desc">Vous maîtrisez l'essentiel. MasterInvest vous apportera les leviers d'optimisation avancée : gestion quantitative du risque, allocation dynamique, et la méthode complète de Rémi pour aller au niveau supérieur.</div>
+  </div>
+
+  <!-- Insight (shown after checking ≥1) -->
+  <div class="insight-block" id="insight-block">
+    <div class="insight-icon">💡</div>
+    <div class="insight-text" id="insight-text">—</div>
+  </div>
+
+  <div class="authority">
+    <div class="authority-avatar">👨‍🏫</div>
+    <div class="authority-text">
+      <strong>Rémi Beauvineau</strong>
+      Méthode développée et enseignée par Rémi Beauvineau, formateur en finance depuis 2021. Plus de 400 personnes accompagnées dans leur parcours d'investissement avant la création du programme MasterInvest.
+    </div>
+  </div>
+
+  <!-- CTA (shown after checking ≥1) -->
+  <div class="cta-block" id="cta-block">
+    <div class="cta-headline">Votre prochaine étape</div>
+    <div class="cta-dynamic" id="cta-dynamic">—</div>
+    <a href="https://paiement.masteriagroup.com/portail-masterinvest" class="btn-primary">
+      Accéder à MasterInvest →
+    </a>
+    <div class="price-anchor">À partir de <strong>754 €</strong> — accès à vie — paiement sécurisé</div>
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2026 Masteria — <a href="https://masteriagroup.com">masteriagroup.com</a></p>
+</footer>
+
+<script>
+  const checked = new Set();
+  const total = 12;
+
+  function toggleCheck(el, id) {
+    if (checked.has(id)) {
+      checked.delete(id);
+      el.classList.remove('checked');
+    } else {
+      checked.add(id);
+      el.classList.add('checked');
+    }
+    updateScore();
+  }
+
+  function updateScore() {
+    const n = checked.size;
+    const pct = (n / total) * 100;
+
+    document.getElementById('score-num').textContent = n;
+
+    const bar = document.getElementById('score-bar');
+    bar.style.width = pct + '%';
+
+    let barColor, status;
+    if (n === 0) {
+      barColor = 'var(--blue-l)';
+      status = 'Commencez à cocher les éléments que vous maîtrisez';
+    } else if (n <= 4) {
+      barColor = 'linear-gradient(90deg, #3b82f6, #60a5fa)';
+      status = 'Profil : Prêt à démarrer — ' + (total - n) + ' critères à acquérir';
+    } else if (n <= 7) {
+      barColor = 'linear-gradient(90deg, #d4af37, #e8c84a)';
+      status = 'Profil : En progression — ' + (total - n) + ' critères à maîtriser';
+    } else {
+      barColor = 'linear-gradient(90deg, #16a34a, #4ade80)';
+      status = 'Profil : Investisseur confirmé — ' + n + '/12 critères maîtrisés';
+    }
+
+    bar.style.background = barColor;
+    document.getElementById('score-status').textContent = status;
+
+    // Show/hide result blocks
+    const r1 = document.getElementById('result-1');
+    const r2 = document.getElementById('result-2');
+    const r3 = document.getElementById('result-3');
+    const insightBlock = document.getElementById('insight-block');
+    const ctaBlock = document.getElementById('cta-block');
+
+    r1.classList.remove('visible');
+    r2.classList.remove('visible');
+    r3.classList.remove('visible');
+
+    if (n === 0) {
+      insightBlock.classList.remove('visible');
+      ctaBlock.classList.remove('visible');
+      return;
+    }
+
+    insightBlock.classList.add('visible');
+    ctaBlock.classList.add('visible');
+
+    let insight, cta;
+    if (n <= 4) {
+      r1.classList.add('visible');
+      insight = 'Sur ' + total + ' critères, vous en maîtrisez <strong>' + n + '</strong>. Ce score montre que vous êtes au début de la construction. La bonne nouvelle : MasterInvest est précisément conçu pour ce stade — partir de bases solides et progresser avec méthode, sans brûler les étapes.';
+      cta = 'Vous avez ' + n + ' critère' + (n > 1 ? 's' : '') + ' sur 12 — les ' + (total - n) + ' restants sont exactement ce que couvre MasterInvest. Commencez maintenant et construisez votre stratégie étape par étape.';
+    } else if (n <= 7) {
+      r2.classList.add('visible');
+      insight = 'Vous maîtrisez <strong>' + n + ' critères sur ' + total + '</strong>. Vous avez la base mais il vous manque encore ' + (total - n) + ' éléments clés. C'est le stade le plus courant : on a commencé, on a quelques habitudes, mais la stratégie reste morcelée. MasterInvest lie tout ça en une méthode cohérente.';
+      cta = n + '/12 — vous êtes en bonne voie. MasterInvest vous donne la méthode pour passer les ' + (total - n) + ' critères manquants et structurer une stratégie complète.';
+    } else {
+      r3.classList.add('visible');
+      insight = 'Vous cochez <strong>' + n + ' critères sur ' + total + '</strong> — vous êtes clairement au-dessus de la moyenne. À ce niveau, ce qui fait la différence c'est la <strong>cohérence et l'optimisation systématique</strong> : rebalancement discipliné, fiscalité avancée, gestion du risque. MasterInvest vous donne la méthode complète de Rémi Beauvineau pour aller au niveau supérieur.';
+      cta = n + '/12 — votre niveau est solide. MasterInvest vous apportera les leviers avancés pour optimiser ce que vous avez déjà construit.';
+    }
+
+    document.getElementById('insight-text').innerHTML = insight;
+    document.getElementById('cta-dynamic').textContent = cta;
+  }
+
+  updateScore();
+</script>
+</body>
+</html>

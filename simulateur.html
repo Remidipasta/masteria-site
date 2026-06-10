@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulateur Épargne — MasterInvest | Masteria</title>
+  <meta name="description" content="Simulez la différence entre épargne traditionnelle et stratégie MasterInvest. Calculez votre rente mensuelle potentielle en quelques secondes.">
+  <link rel="canonical" href="https://masteriagroup.com/simulateur">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #b8952a; --gold-l: #d4af37; --gold-b: #e8c84a;
+      --blue: #2563eb; --blue-l: #3b82f6;
+      --green: #16a34a; --red: #dc2626;
+      --bg: #fafbfd; --bg-alt: #f0f2f8; --bg-dark: #0c1222;
+      --text: #0c1222; --text2: #4b5068; --text3: #868ca3;
+      --border: rgba(0,0,0,.08);
+      --r: 16px; --sh: 0 4px 24px rgba(0,0,0,.08);
+      --fd: 'Outfit', sans-serif; --fb: 'Plus Jakarta Sans', sans-serif;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--fb); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+
+    .site-header {
+      background: var(--bg-dark); padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 50;
+    }
+    .site-logo {
+      font-family: var(--fd); font-weight: 800; font-size: 20px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-b), var(--gold-l));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .back-link { font-size: 13px; color: rgba(255,255,255,.55); transition: color .2s; }
+    .back-link:hover { color: #fff; }
+
+    .hero {
+      background: linear-gradient(135deg, var(--bg-dark) 0%, #1a2540 100%);
+      color: #fff; padding: 52px 24px 44px; text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(184,149,42,.15); border: 1px solid rgba(184,149,42,.3);
+      border-radius: 100px; padding: 6px 16px;
+      font-size: 13px; color: var(--gold-l); font-family: var(--fd); font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .hero h1 { font-family: var(--fd); font-size: clamp(26px,5vw,42px); font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
+    .hero h1 .gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-b));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero p { color: rgba(255,255,255,.72); font-size: 16px; max-width: 560px; margin: 0 auto; }
+
+    .main { max-width: 860px; margin: 0 auto; padding: 32px 20px 64px; }
+
+    .card {
+      background: #fff; border: 1px solid var(--border); border-radius: var(--r);
+      box-shadow: var(--sh); padding: 28px; margin-bottom: 24px;
+    }
+    .card-title { font-family: var(--fd); font-weight: 700; font-size: 18px; color: var(--text); margin-bottom: 20px; }
+
+    .input-group { margin-bottom: 22px; }
+    .input-label {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 14px; font-weight: 600; color: var(--text2); margin-bottom: 8px;
+    }
+    .input-value { font-family: var(--fd); font-weight: 700; font-size: 16px; color: var(--blue); }
+    input[type=range] {
+      width: 100%; height: 6px; -webkit-appearance: none; appearance: none;
+      background: var(--bg-alt); border-radius: 3px; outline: none; cursor: pointer;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 20px; height: 20px;
+      background: var(--blue); border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(37,99,235,.35); cursor: pointer;
+    }
+    .range-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text3); margin-top: 5px; }
+
+    .profile-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 8px; }
+    .profile-option {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 14px 8px; border: 2px solid var(--border); border-radius: 12px;
+      cursor: pointer; text-align: center; transition: all .2s;
+    }
+    .profile-option:hover { border-color: var(--blue); background: rgba(37,99,235,.04); }
+    .profile-option.active { border-color: var(--blue); background: rgba(37,99,235,.06); }
+    .profile-option input[type=radio] { display: none; }
+    .profile-icon { font-size: 24px; margin-bottom: 4px; }
+    .profile-name { font-family: var(--fd); font-weight: 700; font-size: 13px; color: var(--text); }
+    .profile-rate { font-size: 11px; color: var(--text3); }
+
+    .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    @media(max-width:600px) { .results-grid { grid-template-columns: 1fr; } .profile-grid { grid-template-columns: 1fr; } }
+    .result-col { border-radius: 12px; padding: 20px; text-align: center; }
+    .result-col.livreta { background: var(--bg-alt); border: 1px solid var(--border); }
+    .result-col.masterinvest {
+      background: linear-gradient(135deg, rgba(184,149,42,.08), rgba(232,200,74,.04));
+      border: 2px solid rgba(184,149,42,.3);
+    }
+    .result-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--text3); margin-bottom: 4px; }
+    .result-strategy { font-family: var(--fd); font-weight: 700; font-size: 14px; color: var(--text2); margin-bottom: 16px; }
+    .result-strategy.gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-b));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .result-capital { font-family: var(--fd); font-weight: 800; font-size: 28px; color: var(--text); margin-bottom: 6px; }
+    .result-col.masterinvest .result-capital {
+      background: linear-gradient(135deg, var(--gold), var(--gold-b));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .result-rente { font-family: var(--fd); font-weight: 700; font-size: 18px; color: var(--green); margin-bottom: 2px; }
+    .result-rente-label { font-size: 11px; color: var(--text3); }
+    .result-smic { font-size: 12px; color: var(--text2); margin-top: 8px; font-weight: 600; }
+
+    .result-diff {
+      background: linear-gradient(135deg, rgba(22,163,74,.08), rgba(22,163,74,.04));
+      border: 1px solid rgba(22,163,74,.2); border-radius: 12px;
+      padding: 16px; text-align: center; margin-bottom: 4px;
+    }
+    .result-diff-label { font-size: 13px; color: var(--text2); margin-bottom: 4px; }
+    .result-diff-value { font-family: var(--fd); font-weight: 800; font-size: 26px; color: var(--green); }
+
+    .insight-block {
+      background: linear-gradient(135deg, var(--bg-dark), #1a2540);
+      border-radius: var(--r); padding: 24px; color: #fff; margin-bottom: 24px;
+    }
+    .insight-icon { font-size: 22px; margin-bottom: 10px; }
+    .insight-text { font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.88); }
+    .insight-text strong {
+      background: linear-gradient(135deg, var(--gold-l), var(--gold-b));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .authority {
+      background: var(--bg-alt); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 20px 24px;
+      display: flex; align-items: center; gap: 16px; margin-bottom: 24px;
+    }
+    .authority-avatar {
+      width: 52px; height: 52px; min-width: 52px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-b));
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px;
+    }
+    .authority-text { font-size: 14px; color: var(--text2); line-height: 1.55; }
+    .authority-text strong { color: var(--text); display: block; font-size: 15px; margin-bottom: 3px; }
+
+    .cta-block {
+      background: linear-gradient(135deg, var(--bg-dark), #1a2540);
+      border-radius: var(--r); padding: 36px 32px; text-align: center; color: #fff;
+    }
+    .cta-headline { font-family: var(--fd); font-weight: 800; font-size: clamp(20px,4vw,28px); line-height: 1.3; margin-bottom: 12px; }
+    .cta-dynamic {
+      font-size: 15px; color: rgba(255,255,255,.85);
+      background: rgba(255,255,255,.07); border-radius: 10px;
+      padding: 14px 20px; margin-bottom: 24px; font-style: italic; line-height: 1.65;
+      min-height: 56px;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-b));
+      color: #0c1222; font-family: var(--fd); font-weight: 700;
+      font-size: 16px; padding: 16px 36px; border-radius: 100px;
+      border: none; cursor: pointer; text-decoration: none;
+      box-shadow: 0 8px 32px rgba(184,149,42,.35); transition: all .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(184,149,42,.5); }
+    .price-anchor { font-size: 13px; color: rgba(255,255,255,.5); margin-top: 14px; }
+    .price-anchor strong { color: rgba(255,255,255,.82); }
+
+    .disclaimer {
+      font-size: 11px; color: var(--text3); line-height: 1.55; margin-top: 16px;
+      padding: 12px 16px; background: var(--bg-alt); border-radius: 8px;
+      border-left: 3px solid var(--border);
+    }
+
+    footer { background: var(--bg-dark); padding: 24px; text-align: center; color: rgba(255,255,255,.4); font-size: 12px; }
+    footer a { color: rgba(255,255,255,.6); }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-logo">Masteria</div>
+  <a href="https://masteriagroup.com" class="back-link">← masteriagroup.com</a>
+</header>
+
+<section class="hero">
+  <div class="hero-badge">🧮 Simulateur gratuit</div>
+  <h1>Livret A vs <span class="gold">Stratégie MasterInvest</span></h1>
+  <p>Entrez vos paramètres et mesurez en temps réel l'écart de patrimoine — et de rente mensuelle — entre les deux approches.</p>
+</section>
+
+<main class="main">
+
+  <div class="card">
+    <div class="card-title">Vos paramètres</div>
+
+    <div class="input-group">
+      <div class="input-label">
+        <span>Capital initial</span>
+        <span class="input-value" id="capital-display">10 000 €</span>
+      </div>
+      <input type="range" id="capital" min="1000" max="100000" step="1000" value="10000" oninput="updateSim()">
+      <div class="range-labels"><span>1 000 €</span><span>100 000 €</span></div>
+    </div>
+
+    <div class="input-group">
+      <div class="input-label">
+        <span>Versements mensuels</span>
+        <span class="input-value" id="monthly-display">200 €/mois</span>
+      </div>
+      <input type="range" id="monthly" min="0" max="2000" step="50" value="200" oninput="updateSim()">
+      <div class="range-labels"><span>0 €</span><span>2 000 €/mois</span></div>
+    </div>
+
+    <div class="input-group">
+      <div class="input-label">
+        <span>Durée d'investissement</span>
+        <span class="input-value" id="duration-display">20 ans</span>
+      </div>
+      <input type="range" id="duration" min="5" max="35" step="1" value="20" oninput="updateSim()">
+      <div class="range-labels"><span>5 ans</span><span>35 ans</span></div>
+    </div>
+
+    <div class="input-group">
+      <div class="input-label"><span>Profil d'investisseur</span></div>
+      <div class="profile-grid">
+        <label class="profile-option" id="opt-prudent" onclick="selectProfile('prudent')">
+          <input type="radio" name="profile" value="prudent">
+          <div class="profile-icon">🛡️</div>
+          <div class="profile-name">Prudent</div>
+          <div class="profile-rate">Scén. hist. ~4%/an</div>
+        </label>
+        <label class="profile-option active" id="opt-equilibre" onclick="selectProfile('equilibre')">
+          <input type="radio" name="profile" value="equilibre" checked>
+          <div class="profile-icon">⚖️</div>
+          <div class="profile-name">Équilibré</div>
+          <div class="profile-rate">Scén. hist. ~7%/an</div>
+        </label>
+        <label class="profile-option" id="opt-dynamique" onclick="selectProfile('dynamique')">
+          <input type="radio" name="profile" value="dynamique">
+          <div class="profile-icon">🚀</div>
+          <div class="profile-name">Dynamique</div>
+          <div class="profile-rate">Scén. hist. ~9%/an</div>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Résultats simulés</div>
+    <div class="results-grid">
+      <div class="result-col livreta">
+        <div class="result-label">Épargne traditionnelle</div>
+        <div class="result-strategy">Livret A (2,5 %)</div>
+        <div class="result-capital" id="fv-livreta">—</div>
+        <div style="font-size:12px;color:var(--text3);margin-bottom:12px">capital final estimé</div>
+        <div class="result-rente" id="rente-livreta">—</div>
+        <div class="result-rente-label">rente mensuelle estimée*</div>
+        <div class="result-smic" id="smic-livreta">—</div>
+      </div>
+      <div class="result-col masterinvest">
+        <div class="result-label">Avec MasterInvest</div>
+        <div class="result-strategy gold">Stratégie MasterInvest</div>
+        <div class="result-capital" id="fv-mi">—</div>
+        <div style="font-size:12px;color:var(--text3);margin-bottom:12px">capital final estimé</div>
+        <div class="result-rente" id="rente-mi">—</div>
+        <div class="result-rente-label">rente mensuelle estimée*</div>
+        <div class="result-smic" id="smic-mi">—</div>
+      </div>
+    </div>
+    <div class="result-diff">
+      <div class="result-diff-label">Gain de patrimoine potentiel avec la stratégie MasterInvest</div>
+      <div class="result-diff-value" id="diff-capital">—</div>
+    </div>
+    <div class="disclaimer">* Rente calculée selon la règle des 4 % (taux de retrait annuel durable sur 30 ans). Les scénarios sont basés sur les performances historiques des marchés financiers. Les performances passées ne préjugent pas des résultats futurs. Aucune garantie de rendement.</div>
+  </div>
+
+  <div class="insight-block">
+    <div class="insight-icon">💡</div>
+    <div class="insight-text" id="insight-text">Ajustez vos paramètres pour voir votre projection personnalisée.</div>
+  </div>
+
+  <div class="authority">
+    <div class="authority-avatar">👨‍🏫</div>
+    <div class="authority-text">
+      <strong>Rémi Beauvineau</strong>
+      Méthode développée et enseignée par Rémi Beauvineau, formateur en finance depuis 2021. Plus de 400 personnes accompagnées dans leur parcours d'investissement avant la création du programme MasterInvest.
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <div class="cta-headline">Transformez cette simulation en réalité</div>
+    <div class="cta-dynamic" id="cta-dynamic">Ajustez les curseurs pour obtenir votre recommandation personnalisée.</div>
+    <a href="https://paiement.masteriagroup.com/portail-masterinvest" class="btn-primary">
+      Accéder à MasterInvest →
+    </a>
+    <div class="price-anchor">À partir de <strong>754 €</strong> — accès à vie — paiement sécurisé</div>
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2026 Masteria — <a href="https://masteriagroup.com">masteriagroup.com</a></p>
+</footer>
+
+<script>
+  const SMIC = 1426;
+  let profile = 'equilibre';
+  const RATES = { prudent: 0.04, equilibre: 0.07, dynamique: 0.09 };
+
+  function fmt(n) { return Math.round(n).toLocaleString('fr-FR') + ' €'; }
+  function fmtM(n) { return Math.round(n).toLocaleString('fr-FR') + ' €/mois'; }
+
+  function calcFV(P, PMT, annualRate, years) {
+    const n = years * 12;
+    const r = annualRate / 12;
+    if (r === 0) return P + PMT * n;
+    const g = Math.pow(1 + r, n);
+    return P * g + PMT * (g - 1) / r;
+  }
+
+  function selectProfile(p) {
+    profile = p;
+    ['prudent', 'equilibre', 'dynamique'].forEach(x => {
+      document.getElementById('opt-' + x).classList.toggle('active', x === p);
+    });
+    updateSim();
+  }
+
+  function updateSim() {
+    const capital = +document.getElementById('capital').value;
+    const monthly = +document.getElementById('monthly').value;
+    const years = +document.getElementById('duration').value;
+
+    document.getElementById('capital-display').textContent = capital.toLocaleString('fr-FR') + ' €';
+    document.getElementById('monthly-display').textContent = monthly.toLocaleString('fr-FR') + ' €/mois';
+    document.getElementById('duration-display').textContent = years + ' ans';
+
+    const fvLA = calcFV(capital, monthly, 0.025, years);
+    const fvMI = calcFV(capital, monthly, RATES[profile], years);
+    const renteLA = fvLA * 0.04 / 12;
+    const renteMI = fvMI * 0.04 / 12;
+    const diff = fvMI - fvLA;
+    const pctLA = Math.round(renteLA / SMIC * 100);
+    const pctMI = Math.round(renteMI / SMIC * 100);
+
+    document.getElementById('fv-livreta').textContent = fmt(fvLA);
+    document.getElementById('rente-livreta').textContent = fmtM(renteLA);
+    document.getElementById('smic-livreta').textContent = '≈ ' + pctLA + '% du SMIC';
+    document.getElementById('fv-mi').textContent = fmt(fvMI);
+    document.getElementById('rente-mi').textContent = fmtM(renteMI);
+    document.getElementById('smic-mi').textContent = '≈ ' + pctMI + '% du SMIC';
+    document.getElementById('diff-capital').textContent = '+' + fmt(diff);
+
+    let insight = '';
+    if (renteMI >= SMIC) {
+      insight = 'Votre simulation révèle un écart saisissant : avec le Livret A, vous générerez <strong>' + fmtM(renteLA) + '</strong> de rente dans ' + years + ' ans (' + pctLA + '% du SMIC). Avec la stratégie MasterInvest, vous pourriez dépasser le SMIC avec <strong>' + fmtM(renteMI) + '</strong> générés par votre seul portefeuille. L'indépendance financière n'est pas une question de revenus — c'est une question de méthode.';
+    } else if (pctMI >= 50) {
+      insight = 'Sur ' + years + ' ans, la différence est concrète : le Livret A vous génèrerait <strong>' + fmtM(renteLA) + '</strong> de rente mensuelle (' + pctLA + '% du SMIC), contre <strong>' + fmtM(renteMI) + '</strong> avec la stratégie MasterInvest (' + pctMI + '% du SMIC). Un même capital, deux trajectoires radicalement différentes.';
+    } else {
+      insight = 'Avec le Livret A, votre épargne vous rapporterait <strong>' + fmtM(renteLA) + '</strong> de rente dans ' + years + ' ans. Avec la stratégie MasterInvest, vous pourriez viser <strong>' + fmtM(renteMI) + '</strong> — soit ' + pctMI + '% du SMIC généré par votre portefeuille. La méthode comble l'écart entre une épargne dormante et un capital qui travaille activement pour vous.';
+    }
+    document.getElementById('insight-text').innerHTML = insight;
+
+    let cta = '';
+    if (capital < 5000) {
+      cta = 'Même avec un capital de départ modeste, la régularité fait la différence. MasterInvest vous donne la méthode structurée pour bâtir étape par étape.';
+    } else if (capital < 20000) {
+      cta = 'Vous avez ' + capital.toLocaleString('fr-FR') + ' € à faire travailler. Appliquée dès maintenant, la stratégie MasterInvest peut transformer ce capital en ' + fmtM(renteMI) + ' de rente dans ' + years + ' ans.';
+    } else if (capital < 50000) {
+      cta = 'Avec ' + capital.toLocaleString('fr-FR') + ' € de capital, vous êtes en position de bâtir une rente solide. La stratégie MasterInvest vous montre comment allouer et optimiser ce patrimoine pour générer ' + fmtM(renteMI) + '.';
+    } else {
+      cta = capital.toLocaleString('fr-FR') + ' € : c'est un levier patrimonial significatif. Avec la stratégie MasterInvest, chaque euro travaille avec méthode pour vous générer ' + fmtM(renteMI) + ' à terme.';
+    }
+    document.getElementById('cta-dynamic').textContent = cta;
+  }
+
+  updateSim();
+</script>
+</body>
+</html>
