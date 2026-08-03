@@ -10,6 +10,12 @@
     { "source": "/simulateur", "destination": "/simulateur.html" },
     { "source": "/audit",      "destination": "/audit.html"      },
     { "source": "/frais",      "destination": "/frais.html"      },
-    { "source": "/checklist",  "destination": "/checklist.html"  }
+    { "source": "/checklist",  "destination": "/checklist.html"  },
+    { "source": "/merci",      "destination": "/merci.html"      },
+
+    { "source": "/masterinvest-paiement",       "destination": "https://paiement.masteriagroup.com/paiement"       },
+    { "source": "/masterinvest-paiement/merci", "destination": "https://paiement.masteriagroup.com/paiement/merci" },
+    { "source": "/_next/:path*",                "destination": "https://paiement.masteriagroup.com/_next/:path*"   },
+    { "source": "/api/payment/:path*",          "destination": "https://paiement.masteriagroup.com/api/payment/:path*" }
   ]
 }
