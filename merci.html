@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C'est parti — MasterInvest</title>
+  <meta name="description" content="Ton contenu Masteria est en route. La prochaine étape pour construire ton patrimoine.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #050914;
+      --bg2:    #0a1020;
+      --gold:   #d4af37;
+      --gold-l: #f3e5ab;
+      --gold-d: #aa7c11;
+      --muted:  #94a3b8;
+      --text:   #e2e8f0;
+      --border: rgba(212,175,55,0.08);
+      --green:  #10b981;
+    }
+
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+    body {
+      background: var(--bg);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.65;
+      padding-top: 60px;
+    }
+
+    /* ── UTILS ── */
+    .container { max-width: 680px; margin: 0 auto; padding: 0 1.25rem; }
+
+    .text-gold {
+      background: linear-gradient(135deg, #fff 10%, #f3e5ab 50%, #d4af37 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .label-tag {
+      display: inline-block; font-size: .68rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--gold-l);
+      margin-bottom: .75rem;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(5,9,20,.94);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      height: 60px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes pulse-green {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,.4); }
+      50%       { box-shadow: 0 0 0 10px rgba(16,185,129,0); }
+    }
+    .fade-1 { animation: fadeUp .55s ease both; }
+    .fade-2 { animation: fadeUp .55s .1s ease both; }
+    .fade-3 { animation: fadeUp .55s .2s ease both; }
+    .fade-4 { animation: fadeUp .55s .32s ease both; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 72px 0 52px;
+      position: relative; overflow: hidden; text-align: center;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -180px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(16,185,129,.06), transparent 65%);
+      pointer-events: none;
+    }
+
+    .confirm-icon {
+      width: 60px; height: 60px;
+      background: rgba(16,185,129,.1);
+      border: 1px solid rgba(16,185,129,.28);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 1.35rem; color: var(--green);
+      animation: pulse-green 2.5s ease infinite;
+    }
+
+    .hero-title {
+      font-family: 'Outfit', sans-serif; font-weight: 900;
+      font-size: clamp(1.9rem, 6vw, 3rem);
+      line-height: 1.06; letter-spacing: .01em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-sub {
+      font-size: .97rem; color: var(--muted);
+      max-width: 480px; margin: 0 auto 0;
+      line-height: 1.8;
+    }
+    .hero-sub strong { color: var(--text); font-weight: 600; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none; border-top: 1px solid var(--border);
+      margin: 2.5rem 0;
+    }
+
+    /* ── SECTION CARD ── */
+    .section-card {
+      background: rgba(255,255,255,.018);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      padding: 2rem 2.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-card .card-label {
+      font-size: .65rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--muted); display: block; margin-bottom: .6rem;
+    }
+
+    .section-card .card-title {
+      font-family: 'Outfit', sans-serif; font-weight: 800;
+      font-size: clamp(1.1rem, 3vw, 1.35rem);
+      line-height: 1.25; margin-bottom: .85rem;
+      letter-spacing: -.01em;
+    }
+
+    .section-card .card-body {
+      font-size: .88rem; color: var(--muted); line-height: 1.85;
+    }
+    .section-card .card-body strong { color: var(--text); font-weight: 600; }
+
+    /* ── TEASER GOLD CARD ── */
+    .teaser-card {
+      background: rgba(212,175,55,.04);
+      border: 1px solid rgba(212,175,55,.16);
+      border-radius: 1.5rem;
+      padding: 2.5rem 2.25rem;
+      margin-bottom: 1.5rem;
+      position: relative; overflow: hidden;
+    }
+    .teaser-card::before {
+      content: '';
+      position: absolute; top: -70px; right: -70px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(212,175,55,.09), transparent 65%);
+      pointer-events: none;
+    }
+    .teaser-card .card-title {
+      font-family: 'Outfit', sans-serif; font-weight: 900;
+      font-size: clamp(1.3rem, 3.5vw, 1.75rem);
+      line-height: 1.15; margin-bottom: 1rem;
+      letter-spacing: -.01em; position: relative; z-index: 1;
+    }
+    .teaser-card .card-body {
+      font-size: .9rem; color: var(--muted); line-height: 1.85;
+      margin-bottom: 1.5rem; position: relative; z-index: 1;
+    }
+    .teaser-card .card-body strong { color: var(--text); font-weight: 600; }
+
+    /* ── FEATURE LIST ── */
+    .feat-list { list-style: none; margin-bottom: 2rem; position: relative; z-index: 1; }
+    .feat-list li {
+      display: flex; align-items: flex-start; gap: .7rem;
+      font-size: .85rem; color: var(--muted);
+      padding: .5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+    }
+    .feat-list li:last-child { border-bottom: none; }
+    .feat-list li i { color: var(--gold); font-size: .65rem; margin-top: .3rem; flex-shrink: 0; }
+    .feat-list li strong { color: var(--text); font-weight: 600; }
+
+    /* ── AUTHOR STRIP ── */
+    .author-strip {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1.1rem 1.4rem;
+      background: rgba(255,255,255,.025);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      margin-bottom: 1.75rem;
+      position: relative; z-index: 1;
+    }
+    .author-avatar {
+      width: 52px; height: 52px; border-radius: 50%;
+      overflow: hidden; flex-shrink: 0;
+      border: 2px solid rgba(212,175,55,.3);
+    }
+    .author-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .author-name { font-weight: 700; font-size: .88rem; display: block; margin-bottom: .2rem; }
+    .author-bio { font-size: .74rem; color: var(--muted); line-height: 1.55; }
+
+    /* ── CTA BUTTONS ── */
+    .cta-primary {
+      display: flex; align-items: center; justify-content: center; gap: .5rem;
+      text-decoration: none;
+      padding: 1rem 2rem; font-size: .97rem; border-radius: .85rem;
+      background: linear-gradient(135deg, #9a6f0a, #d4af37 55%, #f3e5ab);
+      color: #050914; font-weight: 800;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      border: none; cursor: pointer;
+      transition: opacity .2s, transform .15s, box-shadow .2s;
+      width: 100%; position: relative; z-index: 1;
+    }
+    .cta-primary:hover { opacity: .9; transform: translateY(-2px); box-shadow: 0 12px 36px rgba(212,175,55,.32); }
+
+    .cta-note {
+      font-size: .73rem; color: var(--muted);
+      text-align: center; margin-top: .6rem; line-height: 1.55;
+      position: relative; z-index: 1;
+    }
+
+    .cta-secondary-wrap { text-align: center; margin-top: 2rem; }
+
+    .cta-secondary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      text-decoration: none; font-size: .85rem; color: var(--muted);
+      border: 1px solid rgba(255,255,255,.08); border-radius: .75rem;
+      padding: .7rem 1.4rem;
+      transition: color .2s, border-color .2s;
+    }
+    .cta-secondary:hover { color: var(--text); border-color: rgba(255,255,255,.18); }
+    .cta-secondary .ig-logo { width: 18px; height: 18px; flex-shrink: 0; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.25rem 3rem; text-align: center;
+    }
+    .footer-links {
+      display: flex; justify-content: center; gap: 1.5rem;
+      flex-wrap: wrap; margin-bottom: .75rem;
+    }
+    .footer-links a { font-size: .71rem; color: var(--muted); text-decoration: none; opacity: .65; }
+    .footer-links a:hover { opacity: 1; }
+    .footer-copy { font-size: .71rem; color: var(--muted); opacity: .45; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .section-card, .teaser-card { padding: 1.5rem 1.25rem; }
+      .author-strip { flex-direction: column; text-align: center; }
+      .hero-title { font-size: clamp(1.6rem, 8vw, 2.2rem); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════ NAV ═══════ -->
+<nav>
+  <a href="https://www.masteriagroup.com">
+    <img src="/logo-masteria.webp" alt="Masteria" style="height:28px;width:auto;">
+  </a>
+</nav>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero">
+  <div class="container">
+    <div class="confirm-icon fade-1">
+      <i class="fas fa-check"></i>
+    </div>
+    <span class="label-tag fade-1">C'est parti</span>
+    <h1 class="hero-title fade-2">
+      Tu as fait le bon choix.<br>
+      <span class="text-gold">L'analyse arrive.</span>
+    </h1>
+    <p class="hero-sub fade-3">
+      Tu viens de faire ce que la plupart ne font pas : regarder ta situation financière en face.
+      <strong>Le contenu est en route dans ta boîte mail.</strong> Vérifie tes spams si tu ne le reçois pas dans 2 minutes.
+    </p>
+  </div>
+</section>
+
+<div style="padding: 0 0 60px">
+<div class="container">
+
+  <hr class="divider fade-3">
+
+  <!-- ═══════ PONT NARRATIF ═══════ -->
+  <div class="section-card fade-3">
+    <span class="card-label">La vraie question maintenant</span>
+    <h2 class="card-title">Savoir, c'est bien. Appliquer, c'est là que les choses changent.</h2>
+    <p class="card-body">
+      Ce que tu as entre les mains, c'est un diagnostic. Une image de ta situation à l'instant T.
+      Mais un diagnostic sans protocole, c'est un médecin qui te dit "tu as un problème" et qui repart.
+      <br><br>
+      <strong>La vraie question est simple : maintenant que tu sais, qu'est-ce que tu fais concrètement ?</strong>
+      Quels ETF acheter. Sur quel compte. Avec quelle méthode pour ne jamais décider sous le coup de l'émotion.
+      C'est exactement ce que j'ai mis 4 ans à structurer.
+    </p>
+  </div>
+
+  <!-- ═══════ TEASER MASTERINVEST ═══════ -->
+  <div class="teaser-card fade-4">
+    <span class="label-tag">Programme MasterInvest — 10 modules</span>
+    <h2 class="card-title">
+      La méthode complète que tu ne trouveras pas<br>
+      <span class="text-gold">en cherchant sur internet.</span>
+    </h2>
+    <p class="card-body">
+      Pendant que la plupart des gens tâtonnent entre vidéos YouTube contradictoires et conseils de banquier, MasterInvest donne un cadre rigoureux, testé sur 30 ans de données réelles.
+      <strong>10 modules, une méthode que tu comprends et que tu appliques seul.</strong>
+    </p>
+
+    <ul class="feat-list">
+      <li>
+        <i class="fas fa-arrow-right"></i>
+        <span><strong>Les bases solides :</strong> enveloppes fiscales, allocation, ETF, frais réels</span>
+      </li>
+      <li>
+        <i class="fas fa-arrow-right"></i>
+        <span><strong>La méthode mensuelle :</strong> décider sans émotion, en 15 minutes par mois</span>
+      </li>
+      <li>
+        <i class="fas fa-arrow-right"></i>
+        <span><strong>Les crises :</strong> comment rester investi quand tout le monde vend</span>
+      </li>
+      <li>
+        <i class="fas fa-arrow-right"></i>
+        <span><strong>L'optimisation :</strong> fiscalité, ordre de remplissage, transmission</span>
+      </li>
+      <li>
+        <i class="fas fa-arrow-right"></i>
+        <span><strong>Club Discord privé inclus</strong> — tu n'avances pas seul</span>
+      </li>
+    </ul>
+
+    <!-- Auteur -->
+    <div class="author-strip">
+      <div class="author-avatar">
+        <img src="/assets/remi-tournage.webp" alt="Rémi Beauvineau">
+      </div>
+      <div>
+        <span class="author-name">Rémi Beauvineau</span>
+        <span class="author-bio">Ingénieur, ex-trader, formateur en investissement depuis 2021. +400 personnes impactées.</span>
+      </div>
+    </div>
+
+    <!-- CTA principal -->
+    <a href="https://www.masteriagroup.com" class="cta-primary">
+      Voir le programme et le tarif <i class="fas fa-arrow-right" style="font-size:.8rem"></i>
+    </a>
+    <p class="cta-note">À partir de 251€/mois · Accès à vie · Club Discord inclus · Paiement sécurisé</p>
+  </div>
+
+  <!-- ═══════ CTA SECONDAIRE INSTAGRAM ═══════ -->
+  <div class="cta-secondary-wrap fade-4">
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:.85rem;line-height:1.6;">
+      En attendant, je publie des analyses et du contenu éducatif chaque semaine sur Instagram.
+    </p>
+    <a href="https://www.instagram.com/remibeauvineau" class="cta-secondary" target="_blank" rel="noopener">
+      <svg class="ig-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="ig-g1" cx="30%" cy="107%" r="150%">
+            <stop offset="0%"  stop-color="#fdf497"/>
+            <stop offset="5%"  stop-color="#fdf497"/>
+            <stop offset="45%" stop-color="#fd5949"/>
+            <stop offset="60%" stop-color="#d6249f"/>
+            <stop offset="90%" stop-color="#285AEB"/>
+          </radialGradient>
+        </defs>
+        <path fill="url(#ig-g1)" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+      </svg>
+      Suivre Rémi sur Instagram
+    </a>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer>
+  <div class="footer-links">
+    <a href="https://www.masteriagroup.com/mentions-legales">Mentions légales</a>
+    <a href="https://www.masteriagroup.com/confidentialite">Confidentialité</a>
+    <a href="https://www.masteriagroup.com/cgv">CGV</a>
+  </div>
+  <p class="footer-copy">© 2026 Masteria — Tous droits réservés.</p>
+</footer>
+
+</body>
+</html>
