@@ -95,7 +95,14 @@ ul { list-style:none; }
   transition: background .4s, border-color .4s, box-shadow .4s;
 }
 .nav.scrolled {
-  background: rgba(250,251,253,0.92);
+  /* Le fond est déjà quasi opaque ici : le flou en dessous ne se voit presque plus, mais
+     continue de coûter un recalcul de rendu à chaque frame tout le temps où l'utilisateur
+     scrolle réellement (backdrop-filter est l'une des propriétés CSS les plus coûteuses).
+     On le retire dès ce seuil, seul l'état initial (en haut de page, fond semi-transparent)
+     garde le flou, là où il est visible et où le coût ne se répète pas en continu. */
+  background: rgba(250,251,253,0.97);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   border-bottom-color: var(--border);
   box-shadow: 0 1px 8px rgba(0,0,0,0.04);
 }
