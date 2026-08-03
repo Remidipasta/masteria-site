@@ -120,12 +120,14 @@
     const inner = liquidNav.querySelector('.liquid-nav-inner');
     let lastScrollY = window.scrollY;
     let navTicking = false;
+    // Éléments résolus une fois ici plutôt qu'à chaque frame de scroll dans le handler ci-dessous
+    // (document.getElementById + getBoundingClientRect répétés à 60fps pendant tout le scroll).
     const navSections = [
       { id: 'hero',         link: liquidNav.querySelector('[href="#hero"]') },
       { id: 'programme',    link: liquidNav.querySelector('[href="#programme"]') },
       { id: 'performances', link: liquidNav.querySelector('[href="#performances"]') },
       { id: 'faq',          link: liquidNav.querySelector('[href="#faq"]') },
-    ];
+    ].map(s => ({ ...s, el: document.getElementById(s.id) }));
 
     function moveBubble(activeLink) {
       if (!bubble || !activeLink || activeLink.classList.contains('lnav-cta')) {
@@ -154,10 +156,8 @@
 
           // Active state + bulle
           let activeLink = null;
-          navSections.forEach(({ id, link }) => {
-            if (!link) return;
-            const el = document.getElementById(id);
-            if (!el) return;
+          navSections.forEach(({ link, el }) => {
+            if (!link || !el) return;
             const rect = el.getBoundingClientRect();
             if (rect.top <= 120 && rect.bottom >= 120) {
               link.classList.add('lnav-active');
@@ -172,7 +172,7 @@
         });
         navTicking = true;
       }
-    });
+    }, { passive: true });
 
     // Init bubble on page load
     setTimeout(() => {

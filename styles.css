@@ -2336,14 +2336,18 @@ ul { list-style:none; }
   border: none;
   box-shadow: none;
   border-radius: 100px;
-  transition: padding .35s cubic-bezier(.16,1,.3,1), gap .35s;
+  /* Le rétrécissement au scroll anime uniquement transform (compositor), jamais padding/gap/
+     width/height : ces propriétés forcent un recalcul de layout à chaque frame de scroll,
+     exactement ce qui causait la saccade sur mobile. */
+  transition: transform .35s cubic-bezier(.16,1,.3,1);
+  transform-origin: center;
+  will-change: transform;
   position: relative;
   z-index: 3;
 }
 
 .liquid-nav.lnav-shrunk .liquid-nav-inner {
-  padding: 6px 8px;
-  gap: 2px;
+  transform: scale(0.86);
 }
 
 .lnav-item {
@@ -2356,7 +2360,7 @@ ul { list-style:none; }
   color: rgba(0, 0, 0, 0.45);
   font-size: 18px;
   text-decoration: none;
-  transition: color .2s, background .2s, width .35s cubic-bezier(.16,1,.3,1), height .35s;
+  transition: color .2s, background .2s;
   flex-shrink: 0;
 }
 
@@ -2378,13 +2382,6 @@ ul { list-style:none; }
   pointer-events: none;
   z-index: 0;
   opacity: 0;
-}
-.liquid-nav.lnav-shrunk .lnav-bubble { height: 38px; }
-
-.liquid-nav.lnav-shrunk .lnav-item {
-  width: 40px;
-  height: 40px;
-  font-size: 16px;
 }
 
 /* Bouton Tarif — CTA gold avec reflets liquid glass */
@@ -2415,10 +2412,8 @@ ul { list-style:none; }
   box-shadow: 0 6px 28px rgba(184,149,42,0.55) !important;
   background: linear-gradient(135deg, #d4af37, #f0d060) !important;
 }
-.liquid-nav.lnav-shrunk .lnav-cta {
-  padding: 0 14px;
-  font-size: 13px;
-}
+/* Le rétrécissement du CTA au scroll est désormais porté par le scale() du parent
+   .liquid-nav-inner ci-dessus, pas par une transition padding/font-size dédiée. */
 
 @media(max-width:900px) {
   .liquid-nav { display: block; }
