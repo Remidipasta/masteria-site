@@ -61,13 +61,14 @@ export default async function handler(req, res) {
   };
   const listId = listMap[source];
 
-  // Double opt-in : le contact ne rejoint la liste qu'après avoir cliqué le
-  // lien de confirmation reçu par email — garantit une adresse réellement
-  // relevée, pas seulement un domaine qui existe.
-  const DOI_TEMPLATE_ID = 39;
+  // Template Brevo du premier email "Bienvenue leads" (J0). Envoyé ici
+  // directement (pas via l'automation) pour servir aussi de sonde de
+  // délivrabilité : si ça rebondit, le webhook /api/webhook-bounce nettoie
+  // le contact quelques secondes après, sans jamais bloquer le visiteur.
+  const WELCOME_TEMPLATE_ID = 20;
 
   try {
-    const createRes = await fetch('https://api.brevo.com/v3/contacts/doubleOptinConfirmation', {
+    const createRes = await fetch('https://api.brevo.com/v3/contacts', {
       method: 'POST',
       headers: {
         accept: 'application/json',
@@ -76,9 +77,8 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         email: normalizedEmail,
-        includeListIds: listId ? [listId] : [],
-        templateId: DOI_TEMPLATE_ID,
-        redirectionUrl: `https://masteriagroup.com/${source || ''}`,
+        updateEnabled: true,
+        listIds: listId ? [listId] : [],
         attributes: name ? { PRENOM: name } : {},
       }),
     });
@@ -87,6 +87,25 @@ export default async function handler(req, res) {
       const errBody = await createRes.text();
       console.error('Brevo error:', createRes.status, errBody);
       return res.status(500).json({ error: 'Erreur inscription' });
+    }
+
+    const emailRes = await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        'api-key': apiKey,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        templateId: WELCOME_TEMPLATE_ID,
+        to: [{ email: normalizedEmail, name: name || undefined }],
+      }),
+    });
+
+    if (!emailRes.ok) {
+      // Le contact est déjà créé, on ne bloque pas le visiteur pour un
+      // souci d'envoi d'email de bienvenue — juste tracé côté logs.
+      console.error('Welcome email error:', emailRes.status, await emailRes.text());
     }
 
     return res.status(200).json({ success: true });
