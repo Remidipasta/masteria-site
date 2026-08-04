@@ -64,7 +64,7 @@ export default async function handler(req, res) {
   // Double opt-in : le contact ne rejoint la liste qu'après avoir cliqué le
   // lien de confirmation reçu par email — garantit une adresse réellement
   // relevée, pas seulement un domaine qui existe.
-  const DOI_TEMPLATE_ID = 38;
+  const DOI_TEMPLATE_ID = 39;
 
   try {
     const createRes = await fetch('https://api.brevo.com/v3/contacts/doubleOptinConfirmation', {
