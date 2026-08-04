@@ -820,6 +820,11 @@
 
 <!-- ═══════ JS ═══════ -->
 <script>
+  /* ── Lead Gate : mémorise le déblocage pour les visites suivantes ── */
+  if (localStorage.getItem('lm_unlocked_checklist') === '1') {
+    document.body.classList.add('lm-unlocked');
+  }
+
   const TOTAL = 12;
   let checked = 0;
 
@@ -925,7 +930,11 @@
         body: JSON.stringify({ name, email, source })
       });
       const d = await r.json();
-      if (d.success) { document.body.classList.add('lm-unlocked'); return; }
+      if (d.success) {
+        document.body.classList.add('lm-unlocked');
+        localStorage.setItem('lm_unlocked_checklist', '1');
+        return;
+      }
       throw new Error(d.error || 'Erreur');
     } catch(err) {
       errEl.textContent = 'Une erreur est survenue, réessaie.';

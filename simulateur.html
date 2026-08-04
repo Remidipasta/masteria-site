@@ -1051,6 +1051,11 @@
 
 <!-- ═══════ JAVASCRIPT ═══════ -->
 <script>
+  /* ── Lead Gate : mémorise le déblocage pour les visites suivantes ── */
+  if (localStorage.getItem('lm_unlocked_simulateur') === '1') {
+    document.body.classList.add('lm-unlocked');
+  }
+
   /* ── TAUX ── */
   const R = { livret: 0.025, sp500: 0.095, master: 0.1711 };
 
@@ -1253,7 +1258,11 @@
         body: JSON.stringify({ name, email, source })
       });
       const d = await r.json();
-      if (d.success) { document.body.classList.add('lm-unlocked'); return; }
+      if (d.success) {
+        document.body.classList.add('lm-unlocked');
+        localStorage.setItem('lm_unlocked_simulateur', '1');
+        return;
+      }
       throw new Error(d.error || 'Erreur');
     } catch(err) {
       errEl.textContent = 'Une erreur est survenue, réessaie.';
