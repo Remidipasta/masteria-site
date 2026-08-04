@@ -61,8 +61,13 @@ export default async function handler(req, res) {
   };
   const listId = listMap[source];
 
+  // Double opt-in : le contact ne rejoint la liste qu'après avoir cliqué le
+  // lien de confirmation reçu par email — garantit une adresse réellement
+  // relevée, pas seulement un domaine qui existe.
+  const DOI_TEMPLATE_ID = 38;
+
   try {
-    const createRes = await fetch('https://api.brevo.com/v3/contacts', {
+    const createRes = await fetch('https://api.brevo.com/v3/contacts/doubleOptinConfirmation', {
       method: 'POST',
       headers: {
         accept: 'application/json',
@@ -71,8 +76,9 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         email: normalizedEmail,
-        updateEnabled: true,
-        listIds: listId ? [listId] : [],
+        includeListIds: listId ? [listId] : [],
+        templateId: DOI_TEMPLATE_ID,
+        redirectionUrl: `https://masteriagroup.com/${source || ''}`,
         attributes: name ? { PRENOM: name } : {},
       }),
     });
