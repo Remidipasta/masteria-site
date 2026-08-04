@@ -9,43 +9,40 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Email invalide' });
   }
 
-  const apiKey = process.env.SYSTEME_API_KEY;
+  const apiKey = process.env.BREVO_API_KEY;
   if (!apiKey) {
     return res.status(500).json({ error: 'Configuration manquante' });
   }
 
-  // Tags par source (lead magnet)
-  const tagMap = {
-    simulateur:  'lead-simulateur',
-    audit:       'lead-audit',
-    frais:       'lead-frais',
-    checklist:   'lead-checklist',
+  // Liste Brevo par source (lead magnet)
+  const listMap = {
+    simulateur: 9,
+    frais: 10,
+    checklist: 11,
+    audit: 12,
   };
-  const tagName = tagMap[source] || 'lead-masteria';
+  const listId = listMap[source];
 
   try {
-    // Créer ou mettre à jour le contact dans Systeme.io
-    const createRes = await fetch('https://api.systeme.io/api/contacts', {
+    const createRes = await fetch('https://api.brevo.com/v3/contacts', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'X-API-Key': apiKey,
+        accept: 'application/json',
+        'api-key': apiKey,
+        'content-type': 'application/json',
       },
       body: JSON.stringify({
         email,
-        firstName: name || '',
-        fields: [],
-        tags: [{ name: tagName }],
+        updateEnabled: true,
+        listIds: listId ? [listId] : [],
+        attributes: name ? { PRENOM: name } : {},
       }),
     });
 
     if (!createRes.ok) {
       const errBody = await createRes.text();
-      console.error('Systeme.io error:', createRes.status, errBody);
-      // On renvoie success quand même si contact déjà existant (409)
-      if (createRes.status !== 409) {
-        return res.status(500).json({ error: 'Erreur inscription' });
-      }
+      console.error('Brevo error:', createRes.status, errBody);
+      return res.status(500).json({ error: 'Erreur inscription' });
     }
 
     return res.status(200).json({ success: true });
