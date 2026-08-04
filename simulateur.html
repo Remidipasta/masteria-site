@@ -710,6 +710,15 @@
     .lm-value-list li { font-size: .82rem; color: rgba(212,175,55,.85); display: flex; align-items: flex-start; gap: .45rem; margin-bottom: .35rem; line-height: 1.45; }
     .lm-value-list li::before { content: '✓'; font-weight: 700; flex-shrink: 0; }
     .lm-error { color: #f87171; font-size: .82rem; margin-top: .5rem; display: none; }
+    /* ── Lead Gate (résultat flouté jusqu'à l'email) ── */
+    body:not(.lm-unlocked) .lm-blur-target { filter: blur(13px); user-select: none; pointer-events: none; transition: filter .4s ease; }
+    .lm-gate-host { position: relative; }
+    .lm-gate-overlay { position: absolute; inset: -12px; z-index: 6; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+    body.lm-unlocked .lm-gate-overlay { display: none; }
+    .lm-gate-card { max-width: 380px; width: 100%; background: rgba(8,13,26,.94); border: 1px solid rgba(212,175,55,.3); border-radius: 1rem; padding: 1.6rem 1.4rem; text-align: center; box-shadow: 0 24px 60px rgba(0,0,0,.55); }
+    .lm-gate-lock { font-size: 1.6rem; margin-bottom: .4rem; }
+    .lm-gate-title { font-family:'Outfit',sans-serif; font-size:1.05rem; font-weight:700; color:#f3e5ab; margin-bottom:.4rem; }
+    .lm-gate-sub { font-size:.82rem; color:rgba(226,232,240,.7); line-height:1.5; margin-bottom:1rem; }
   </style>
 </head>
 <body>
@@ -835,8 +844,9 @@
         </div>
       </div>
 
-      <!-- ── Chart + Results ── -->
-      <div>
+      <!-- ── Chart + Results (floutés jusqu'à l'email) ── -->
+      <div class="lm-gate-host">
+        <div class="lm-blur-target">
         <div class="chart-card">
           <div class="chart-wrap">
             <canvas id="chart"></canvas>
@@ -860,6 +870,21 @@
             <div class="r-rente">Rente : <strong id="r-master-rente">—</strong>/mois</div>
           </div>
         </div>
+        </div>
+        <div class="lm-gate-overlay">
+          <form class="lm-gate-card" onsubmit="lmSubmit(event,'simulateur')">
+            <div class="lm-gate-lock">🔒</div>
+            <div class="lm-gate-title">Débloque ton résultat</div>
+            <p class="lm-gate-sub">Ton prénom et ton email, et ta simulation s'affiche immédiatement.</p>
+            <div class="lm-fields">
+              <input type="text" name="name" placeholder="Ton prénom" required autocomplete="given-name">
+              <input type="email" name="email" placeholder="Ton email" required autocomplete="email">
+            </div>
+            <button type="submit" class="cta-btn lm-submit" style="display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.6rem;font-size:.9rem;border-radius:.65rem;background:linear-gradient(135deg,#9a6f0a,#d4af37 55%,#f3e5ab);color:#050914;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;border:none;cursor:pointer">Voir mon résultat →</button>
+            <p class="lm-error" id="err-simulateur"></p>
+            <p class="lm-privacy">0 spam. Désinscription en 1 clic.</p>
+          </form>
+        </div>
       </div>
 
     </div>
@@ -871,7 +896,7 @@
 <!-- ═══════ INSIGHT ═══════ -->
 <section class="section" style="padding:60px 0">
   <div class="container">
-    <div class="insight-box">
+    <div class="insight-box lm-blur-target">
       <span class="s-label" style="text-align:center;display:block">L'écart qui change tout</span>
       <span class="insight-gap text-gold" id="insight-gap">—</span>
       <p class="insight-lbl" id="insight-lbl">
@@ -1002,23 +1027,9 @@
         quels ETF, sur quel compte, et une décision par mois en 15 minutes.
       </p>
 
-      <form id="lm-form-simulateur" onsubmit="lmSubmit(event,'simulateur','Envoie-moi l’analyse →')">
-        <p class="lm-form-hook">Ton résultat est prêt. Laisse ton email pour le recevoir, et rejoins les investisseurs qui reçoivent chaque semaine ce que j'envoie nulle part ailleurs.</p>
-        <ul class="lm-value-list">
-          <li>L'analyse complète de ta simulation</li>
-          <li>Les arbitrages que j'applique chaque mois sur mon propre portefeuille</li>
-          <li>Un point marché hebdo que je ne publie pas sur Instagram</li>
-        </ul>
-        <div class="lm-fields">
-          <input type="text" name="name" placeholder="Ton prénom" required autocomplete="given-name">
-          <input type="email" name="email" placeholder="Ton email" required autocomplete="email">
-        </div>
-        <button type="submit" class="cta-btn lm-submit" style="display:inline-flex;align-items:center;gap:.5rem;padding:.95rem 2.2rem;font-size:.95rem;border-radius:.75rem;background:linear-gradient(135deg,#9a6f0a,#d4af37 55%,#f3e5ab);color:#050914;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;border:none;cursor:pointer;transition:opacity .2s,transform .15s;width:100%;justify-content:center">
-          Envoie-moi l'analyse &#8594;
-        </button>
-        <p class="lm-privacy">0 spam. Désinscription en 1 clic.</p>
-        <p class="lm-error" id="err-simulateur"></p>
-      </form>
+      <a href="/masterinvest-paiement" class="cta-btn" style="display:inline-flex;align-items:center;gap:.5rem;padding:.95rem 2.2rem;font-size:.95rem;border-radius:.75rem;background:linear-gradient(135deg,#9a6f0a,#d4af37 55%,#f3e5ab);color:#050914;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;text-decoration:none;transition:opacity .2s,transform .15s">
+        Découvrir MasterInvest &#8594;
+      </a>
     </div>
   </div>
 </section>
@@ -1222,14 +1233,15 @@
   /* ── INIT ── */
   update();
 
-  /* ── Lead Capture Form ── */
-  async function lmSubmit(e, source, btnText) {
+  /* ── Lead Gate ── */
+  async function lmSubmit(e, source) {
     e.preventDefault();
     const form = e.target;
     const btn = form.querySelector('.lm-submit');
     const errEl = form.querySelector('.lm-error');
     const name = form.elements['name'].value.trim();
     const email = form.elements['email'].value.trim();
+    const originalLabel = btn.textContent;
     btn.textContent = 'Un instant…';
     btn.disabled = true;
     errEl.style.display = 'none';
@@ -1240,13 +1252,13 @@
         body: JSON.stringify({ name, email, source })
       });
       const d = await r.json();
-      if (d.success) { window.location.href = '/merci'; return; }
+      if (d.success) { document.body.classList.add('lm-unlocked'); return; }
       throw new Error(d.error || 'Erreur');
     } catch(err) {
       errEl.textContent = 'Une erreur est survenue, réessaie.';
       errEl.style.display = 'block';
       btn.disabled = false;
-      btn.textContent = btnText;
+      btn.textContent = originalLabel;
     }
   }
 </script>

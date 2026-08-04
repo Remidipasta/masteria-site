@@ -478,6 +478,15 @@
     .lm-value-list { list-style: none; margin: .75rem 0 1.1rem; padding: 0; }
     .lm-value-list li { font-size: .82rem; color: rgba(212,175,55,.85); display: flex; align-items: flex-start; gap: .45rem; margin-bottom: .35rem; line-height: 1.45; }
     .lm-value-list li::before { content: '✓'; font-weight: 700; flex-shrink: 0; }
+    /* ── Lead Gate (profil flouté jusqu'à l'email) ── */
+    body:not(.lm-unlocked) .lm-blur-target { filter: blur(13px); user-select: none; pointer-events: none; transition: filter .4s ease; }
+    .lm-gate-host { position: relative; }
+    .lm-gate-overlay { position: absolute; inset: -12px; z-index: 6; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+    body.lm-unlocked .lm-gate-overlay { display: none; }
+    .lm-gate-card { max-width: 380px; width: 100%; background: rgba(8,13,26,.94); border: 1px solid rgba(212,175,55,.3); border-radius: 1rem; padding: 1.6rem 1.4rem; text-align: center; box-shadow: 0 24px 60px rgba(0,0,0,.55); }
+    .lm-gate-lock { font-size: 1.6rem; margin-bottom: .4rem; }
+    .lm-gate-title { font-family:'Outfit',sans-serif; font-size:1.05rem; font-weight:700; color:#f3e5ab; margin-bottom:.4rem; }
+    .lm-gate-sub { font-size:.82rem; color:rgba(226,232,240,.7); line-height:1.5; margin-bottom:1rem; }
   </style>
 </head>
 <body>
@@ -793,6 +802,8 @@
 <!-- ═══════ RÉSULTAT ═══════ -->
 <section class="result-section" id="resultat">
   <div class="container">
+    <div class="lm-gate-host" id="verdict-gate">
+    <div class="lm-blur-target">
 
     <div class="result-header" id="result-header">
       <!-- Dynamique -->
@@ -820,6 +831,22 @@
       <div id="next-steps-list"></div>
     </div>
 
+    </div>
+    <div class="lm-gate-overlay">
+      <form class="lm-gate-card" onsubmit="lmSubmit(event,'audit')">
+        <div class="lm-gate-lock">🔒</div>
+        <div class="lm-gate-title">Débloque ton profil</div>
+        <p class="lm-gate-sub">Ton prénom et ton email, et ton diagnostic complet s'affiche immédiatement.</p>
+        <div class="lm-fields">
+          <input type="text" name="name" placeholder="Ton prénom" required autocomplete="given-name">
+          <input type="email" name="email" placeholder="Ton email" required autocomplete="email">
+        </div>
+        <button type="submit" class="cta-btn lm-submit" style="display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.6rem;font-size:.9rem;border-radius:.65rem;background:linear-gradient(135deg,#9a6f0a,#d4af37 55%,#f3e5ab);color:#050914;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;border:none;cursor:pointer">Voir mon profil →</button>
+        <p class="lm-error" id="err-audit"></p>
+        <p class="lm-privacy">0 spam. Désinscription en 1 clic.</p>
+      </form>
+    </div>
+    </div>
   </div>
 </section>
 
@@ -839,22 +866,9 @@
         <span class="cta-feat"><i class="fas fa-check"></i> Accès à vie</span>
         <span class="cta-feat"><i class="fas fa-check"></i> Club Discord inclus</span>
       </div>
-      <form id="lm-form-audit" onsubmit="lmSubmit(event,'audit','Recevoir mon rapport →')">
-        <p class="lm-form-hook">Ton profil est analysé. Laisse ton email pour recevoir ton rapport et les conseils adaptés à ton profil chaque semaine.</p>
-        <ul class="lm-value-list">
-          <li>Ton rapport de profil complet</li>
-          <li>Les stratégies que j'adapte à chaque profil d'investisseur</li>
-          <li>Des analyses que j'envoie uniquement par email</li>
-        </ul>
-        <div class="lm-fields">
-          <input type="text" name="name" placeholder="Ton prénom" required autocomplete="given-name">
-          <input type="email" name="email" placeholder="Ton email" required autocomplete="email">
-        </div>
-        <button type="submit" class="cta-btn lm-submit" style="display:inline-flex;align-items:center;gap:.5rem;padding:.95rem 2.2rem;font-size:.95rem;border-radius:.75rem;background:linear-gradient(135deg,#9a6f0a,#d4af37 55%,#f3e5ab);color:#050914;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;border:none;cursor:pointer;transition:opacity .2s,transform .15s;width:100%;justify-content:center">
-          Recevoir mon rapport &#8594;
-        </button>
-        <p class="lm-privacy">0 spam. Désinscription en 1 clic.</p>
-        <p class="lm-error" id="err-audit"></p>
+      <a href="/masterinvest-paiement" class="cta-btn" style="display:inline-flex;align-items:center;gap:.5rem;padding:.95rem 2.2rem;font-size:.95rem;border-radius:.75rem;background:linear-gradient(135deg,#9a6f0a,#d4af37 55%,#f3e5ab);color:#050914;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;text-decoration:none;transition:opacity .2s,transform .15s">
+        Découvrir MasterInvest &#8594;
+      </a>
       </form>
     </div>
   </div>
@@ -1064,14 +1078,15 @@
     document.getElementById('cta-sub-text').textContent = ctaSubs[dominantProfile];
   }
 
-  /* ── Lead Capture Form ── */
-  async function lmSubmit(e, source, btnText) {
+  /* ── Lead Gate ── */
+  async function lmSubmit(e, source) {
     e.preventDefault();
     const form = e.target;
     const btn = form.querySelector('.lm-submit');
     const errEl = form.querySelector('.lm-error');
     const name = form.elements['name'].value.trim();
     const email = form.elements['email'].value.trim();
+    const originalLabel = btn.textContent;
     btn.textContent = 'Un instant…';
     btn.disabled = true;
     errEl.style.display = 'none';
@@ -1082,13 +1097,13 @@
         body: JSON.stringify({ name, email, source })
       });
       const d = await r.json();
-      if (d.success) { window.location.href = '/merci'; return; }
+      if (d.success) { document.body.classList.add('lm-unlocked'); return; }
       throw new Error(d.error || 'Erreur');
     } catch(err) {
       errEl.textContent = 'Une erreur est survenue, réessaie.';
       errEl.style.display = 'block';
       btn.disabled = false;
-      btn.textContent = btnText;
+      btn.textContent = originalLabel;
     }
   }
 </script>
