@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La checklist anti-panique — MasterInvest</title>
+  <meta name="description" content="Chute des marchés : quoi faire (et surtout quoi ne pas faire). La checklist que les 90% qui perdent de l'argent n'utilisent pas.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #050914;
+      --bg2:    #0a1020;
+      --gold:   #d4af37;
+      --gold-l: #f3e5ab;
+      --gold-d: #aa7c11;
+      --blue:   #3b82f6;
+      --blue-l: #93c5fd;
+      --muted:  #94a3b8;
+      --text:   #e2e8f0;
+      --border: rgba(212,175,55,0.08);
+      --green:  #10b981;
+      --red:    #f87171;
+      --red-l:  rgba(248,113,113,.12);
+    }
+
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      background: var(--bg);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.65;
+    }
+
+    /* ── UTILS ── */
+    .container { max-width: 760px; margin: 0 auto; padding: 0 1.25rem; }
+    .text-gold {
+      background: linear-gradient(135deg, #fff 10%, #f3e5ab 50%, #d4af37 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .label-tag {
+      display: inline-block; font-size: .68rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--gold-l);
+      margin-bottom: .5rem;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(5,9,20,.94);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      height: 60px;
+    }
+    body { padding-top: 60px; }
+    .nav-inner {
+      max-width: 760px; margin: 0 auto; padding: 0 1.25rem;
+      height: 100%; display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Outfit', sans-serif; font-weight: 900;
+      font-size: 1rem; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--text); text-decoration: none;
+    }
+    .logo span { color: var(--gold); }
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: .4rem;
+      padding: .45rem 1.1rem;
+      background: linear-gradient(135deg, #9a6f0a, #d4af37, #f3e5ab, #d4af37, #9a6f0a);
+      background-size: 200% auto;
+      color: var(--bg); border: none; border-radius: 999px;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: .75rem;
+      cursor: pointer; text-decoration: none; white-space: nowrap;
+      animation: shimmer 3s linear infinite;
+      transition: opacity .2s, transform .2s;
+    }
+    .nav-cta:hover { opacity: .88; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 72px 0 52px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -160px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(248,113,113,.05), transparent 65%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .4rem;
+      padding: .3rem .85rem;
+      background: rgba(248,113,113,.08); border: 1px solid rgba(248,113,113,.2);
+      border-radius: 999px;
+      font-size: .68rem; font-weight: 700; color: var(--red);
+      letter-spacing: .1em; text-transform: uppercase; margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-family: 'Outfit', sans-serif; font-weight: 900;
+      font-size: clamp(1.85rem, 5vw, 3rem);
+      line-height: 1.07; letter-spacing: -.02em;
+      text-transform: uppercase; margin-bottom: 1.25rem;
+    }
+    .hero-desc {
+      font-size: 1rem; color: var(--muted);
+      max-width: 560px; line-height: 1.8; margin-bottom: 2rem;
+    }
+    .hero-alert {
+      display: flex; align-items: flex-start; gap: .85rem;
+      background: rgba(248,113,113,.06);
+      border: 1px solid rgba(248,113,113,.18);
+      border-radius: 1rem; padding: 1.1rem 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .hero-alert-icon {
+      width: 34px; height: 34px; border-radius: .5rem; flex-shrink: 0;
+      background: rgba(248,113,113,.12);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--red); font-size: .85rem; margin-top: .1rem;
+    }
+    .hero-alert-text { font-size: .88rem; color: var(--muted); line-height: 1.7; }
+    .hero-alert-text strong { color: var(--text); }
+    .scroll-cta {
+      display: inline-flex; align-items: center; gap: .55rem;
+      padding: .85rem 1.75rem; min-height: 48px;
+      background: linear-gradient(135deg, var(--gold-d), var(--gold), var(--gold-l));
+      color: var(--bg); border: none; border-radius: .7rem;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: .95rem;
+      cursor: pointer; text-decoration: none;
+      box-shadow: 0 4px 18px rgba(212,175,55,.25);
+      transition: transform .22s, box-shadow .22s;
+    }
+    .scroll-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(212,175,55,.35); }
+
+    /* ── PROGRESS BAR ── */
+    .progress-wrap {
+      position: sticky; top: 60px; z-index: 90;
+      background: rgba(5,9,20,.95); backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: .75rem 1.25rem;
+    }
+    .progress-inner {
+      max-width: 760px; margin: 0 auto;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .progress-bar-bg {
+      flex: 1; height: 5px; background: rgba(255,255,255,.06);
+      border-radius: 999px; overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-d), var(--gold));
+      border-radius: 999px;
+      transition: width .4s ease;
+      width: 0%;
+    }
+    .progress-label {
+      font-family: 'Outfit', sans-serif; font-weight: 700;
+      font-size: .8rem; color: var(--gold); white-space: nowrap;
+    }
+
+    /* ── CHECKLIST SECTION ── */
+    .checklist-section { padding: 48px 0 32px; }
+    .section-label {
+      font-size: .7rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: .75rem;
+    }
+    .section-title {
+      font-family: 'Outfit', sans-serif; font-weight: 700;
+      font-size: clamp(1.2rem, 3vw, 1.7rem);
+      line-height: 1.2; margin-bottom: 1.5rem;
+    }
+
+    /* ── CHECKLIST ITEMS ── */
+    .checklist {
+      display: flex; flex-direction: column; gap: .75rem;
+      margin-bottom: 2.5rem;
+    }
+    .check-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      background: rgba(255,255,255,.025);
+      border: 1.5px solid var(--border);
+      border-radius: 1rem; padding: 1.1rem 1.25rem;
+      cursor: pointer;
+      transition: border-color .25s, background .25s, transform .15s;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .check-item:hover { border-color: rgba(212,175,55,.22); background: rgba(255,255,255,.04); }
+    .check-item:active { transform: scale(.99); }
+    .check-item.checked {
+      border-color: rgba(16,185,129,.3);
+      background: rgba(16,185,129,.04);
+    }
+    .check-box {
+      width: 26px; height: 26px; min-width: 26px; border-radius: .45rem;
+      border: 2px solid rgba(255,255,255,.15);
+      background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .25s; margin-top: .1rem;
+    }
+    .check-item.checked .check-box {
+      background: var(--green);
+      border-color: var(--green);
+    }
+    .check-box i {
+      font-size: .72rem; color: #050914;
+      opacity: 0; transform: scale(.6);
+      transition: opacity .2s, transform .2s;
+    }
+    .check-item.checked .check-box i { opacity: 1; transform: scale(1); }
+    .check-content { flex: 1; }
+    .check-title {
+      font-weight: 700; font-size: .95rem; color: var(--text);
+      line-height: 1.4; margin-bottom: .35rem;
+      transition: color .25s;
+    }
+    .check-item.checked .check-title { color: var(--green); text-decoration: line-through; text-decoration-color: rgba(16,185,129,.4); }
+    .check-body { font-size: .82rem; color: var(--muted); line-height: 1.65; }
+    .check-tag {
+      display: inline-block; margin-top: .45rem;
+      font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      padding: .2rem .6rem; border-radius: 999px;
+    }
+    .tag-stop  { background: rgba(248,113,113,.1); color: var(--red); border: 1px solid rgba(248,113,113,.2); }
+    .tag-do    { background: rgba(16,185,129,.08); color: var(--green); border: 1px solid rgba(16,185,129,.18); }
+    .tag-think { background: rgba(212,175,55,.08); color: var(--gold); border: 1px solid rgba(212,175,55,.18); }
+
+    /* ── GROUP HEADER ── */
+    .group-header {
+      display: flex; align-items: center; gap: .75rem;
+      margin-bottom: 1rem; margin-top: 2.25rem;
+    }
+    .group-header:first-child { margin-top: 0; }
+    .group-icon {
+      width: 34px; height: 34px; border-radius: .55rem; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem;
+    }
+    .group-icon.red  { background: rgba(248,113,113,.1); color: var(--red); }
+    .group-icon.gold { background: rgba(212,175,55,.1);  color: var(--gold); }
+    .group-icon.green { background: rgba(16,185,129,.1); color: var(--green); }
+    .group-title {
+      font-family: 'Outfit', sans-serif; font-weight: 800;
+      font-size: 1rem; letter-spacing: .01em;
+    }
+    .group-title.red  { color: var(--red); }
+    .group-title.gold { color: var(--gold-l); }
+    .group-title.green { color: var(--green); }
+
+    /* ── SCORE WIDGET ── */
+    .score-wrap {
+      position: sticky; bottom: 1.25rem; z-index: 80;
+      pointer-events: none; text-align: center;
+      transition: opacity .3s;
+    }
+    .score-pill {
+      display: inline-flex; align-items: center; gap: .6rem;
+      padding: .65rem 1.4rem;
+      background: rgba(5,9,20,.92); backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: .82rem; font-weight: 700; color: var(--muted);
+      box-shadow: 0 8px 32px rgba(0,0,0,.6);
+      pointer-events: auto;
+    }
+    .score-pill .score-count { color: var(--gold); font-family: 'Outfit', sans-serif; font-size: 1rem; }
+
+    /* ── STATS SECTION ── */
+    .stats-section { padding: 48px 0; background: var(--bg2); }
+    .stats-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1rem; margin-top: 1.75rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,.025);
+      border: 1px solid var(--border);
+      border-radius: 1.1rem; padding: 1.5rem 1.25rem;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Outfit', sans-serif; font-weight: 900;
+      font-size: 2.4rem; color: var(--red); line-height: 1; margin-bottom: .5rem;
+    }
+    .stat-num.gold { color: var(--gold); }
+    .stat-label { font-size: .8rem; color: var(--muted); line-height: 1.6; }
+    .stat-source { font-size: .65rem; color: rgba(148,163,184,.4); margin-top: .4rem; }
+
+    /* ── BIAIS SECTION ── */
+    .biais-section { padding: 48px 0; }
+    .biais-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: .9rem; margin-top: 1.5rem;
+    }
+    .biais-card {
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--border);
+      border-radius: 1.1rem; padding: 1.25rem;
+      transition: border-color .2s;
+    }
+    .biais-card:hover { border-color: rgba(248,113,113,.2); }
+    .biais-name {
+      font-weight: 700; font-size: .88rem; color: var(--text);
+      margin-bottom: .4rem;
+    }
+    .biais-body { font-size: .78rem; color: var(--muted); line-height: 1.65; }
+    .biais-tag {
+      display: inline-block; margin-top: .5rem;
+      background: rgba(248,113,113,.07);
+      border: 1px solid rgba(248,113,113,.18);
+      border-radius: 100px; padding: .15rem .55rem;
+      font-size: .65rem; font-weight: 700; color: var(--red);
+    }
+
+    /* ── CTA SECTION ── */
+    .cta-section { padding: 56px 0; }
+    .cta-box {
+      background: linear-gradient(135deg, rgba(212,175,55,.06), rgba(59,130,246,.04));
+      border: 1px solid rgba(212,175,55,.2);
+      border-radius: 1.25rem; padding: 3rem 2rem;
+      text-align: center; position: relative; overflow: hidden;
+      box-shadow: 0 4px 32px rgba(0,0,0,.5);
+    }
+    .cta-box::before {
+      content: ''; position: absolute; bottom: -80px; right: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(212,175,55,.08), transparent 65%);
+      pointer-events: none;
+    }
+    .cta-title {
+      font-family: 'Outfit', sans-serif; font-weight: 900;
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      line-height: 1.15; letter-spacing: -.015em; text-transform: uppercase;
+      margin-bottom: .9rem; position: relative; z-index: 1;
+    }
+    .cta-sub {
+      font-size: .9rem; color: var(--muted); max-width: 480px;
+      margin: 0 auto 2rem; line-height: 1.8; position: relative; z-index: 1;
+    }
+    .cta-form {
+      display: flex; flex-direction: column; gap: .65rem;
+      max-width: 340px; margin: 0 auto; position: relative; z-index: 1;
+    }
+    .cta-input {
+      width: 100%; padding: .85rem 1.1rem;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(212,175,55,.2);
+      border-radius: .7rem; color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem;
+      outline: none; transition: border-color .2s, box-shadow .2s;
+      min-height: 48px;
+    }
+    .cta-input::placeholder { color: var(--muted); }
+    .cta-input:focus {
+      border-color: rgba(212,175,55,.45);
+      box-shadow: 0 0 0 3px rgba(212,175,55,.08);
+    }
+    .cta-btn {
+      padding: .9rem 1.8rem; min-height: 48px; width: 100%;
+      background: linear-gradient(135deg, var(--gold-d), var(--gold), var(--gold-l));
+      color: var(--bg); border: none; border-radius: .7rem;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: .95rem;
+      cursor: pointer; box-shadow: 0 4px 18px rgba(212,175,55,.25);
+      transition: transform .2s, box-shadow .2s;
+      display: flex; align-items: center; justify-content: center; gap: .5rem;
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(212,175,55,.35); }
+    .cta-note {
+      margin-top: .65rem; font-size: .7rem; color: var(--muted);
+      position: relative; z-index: 1;
+    }
+    .cta-features {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem;
+      margin-bottom: 1.75rem; position: relative; z-index: 1;
+    }
+    .cta-feat {
+      display: inline-flex; align-items: center; gap: .35rem;
+      font-size: .75rem; color: var(--muted);
+    }
+    .cta-feat i { color: var(--gold); font-size: .65rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 1.25rem; border-top: 1px solid rgba(255,255,255,.05);
+      text-align: center;
+    }
+    .disclaimer {
+      font-size: .7rem; color: rgba(148,163,184,.4);
+      line-height: 1.9; max-width: 680px; margin: 0 auto;
+    }
+
+    /* ── COMPLETION STATE ── */
+    .completion-message {
+      display: none;
+      background: rgba(16,185,129,.06);
+      border: 1px solid rgba(16,185,129,.2);
+      border-radius: 1.25rem; padding: 2rem 1.5rem;
+      text-align: center; margin-top: 1.5rem;
+    }
+    .completion-message.visible { display: block; }
+    .completion-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: rgba(16,185,129,.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; color: var(--green);
+      margin: 0 auto 1rem;
+    }
+    .completion-title {
+      font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.2rem;
+      color: var(--green); margin-bottom: .6rem;
+    }
+    .completion-body { font-size: .88rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+    .reveal { animation: fadeUp .5s ease both; }
+
+    /* ════════════════════════════
+       RESPONSIVE MOBILE — 390px
+       ════════════════════════════ */
+    @media (max-width: 640px) {
+      nav { height: 56px; }
+      body { padding-top: 56px; }
+      .nav-inner { padding: 0 1rem; }
+      .container { padding: 0 1rem; }
+
+      .hero { padding: 52px 0 40px; }
+      .hero-title { font-size: clamp(1.6rem, 8vw, 2.4rem); }
+      .hero-desc { font-size: .9rem; }
+      .scroll-cta { width: 100%; justify-content: center; font-size: .9rem; }
+
+      .check-item { padding: 1rem 1rem; gap: .85rem; }
+      .check-title { font-size: .9rem; }
+      .check-body  { font-size: .78rem; }
+
+      .stats-row { grid-template-columns: 1fr; gap: .85rem; }
+
+      .biais-grid { grid-template-columns: 1fr; }
+
+      .cta-box { padding: 2.25rem 1.25rem; }
+      .cta-form { max-width: 100%; }
+      .cta-input { font-size: 1rem; }
+
+      .progress-wrap { top: 56px; }
+    }
+
+    @media (max-width: 390px) {
+      .container { padding: 0 .85rem; }
+      .hero-title { font-size: clamp(1.45rem, 9vw, 2rem); }
+      .section-title { font-size: clamp(1.1rem, 6vw, 1.5rem); }
+    }
+    /* ── Lead Capture Form ── */
+    .lm-form-hook { color: rgba(226,232,240,.82); font-size: .93rem; line-height: 1.55; margin-bottom: 1.2rem; position: relative; z-index: 1; }
+    .lm-fields { display: flex; flex-direction: column; gap: .7rem; margin-bottom: 1rem; position: relative; z-index: 1; }
+    .lm-fields input { background: rgba(255,255,255,.06); border: 1.5px solid rgba(212,175,55,.25); border-radius: .6rem; color: #e2e8f0; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; outline: none; padding: .85rem 1.1rem; transition: border-color .2s; width: 100%; box-sizing: border-box; }
+    .lm-fields input::placeholder { color: rgba(148,163,184,.55); }
+    .lm-fields input:focus { border-color: #d4af37; background: rgba(255,255,255,.09); }
+    .lm-submit { width: 100%; justify-content: center; position: relative; z-index: 1; }
+    .lm-submit:disabled { opacity: .6; cursor: not-allowed; transform: none !important; }
+    .lm-privacy { color: rgba(148,163,184,.5); font-size: .72rem; margin-top: .6rem; position: relative; z-index: 1; }
+    .lm-error { color: #f87171; font-size: .82rem; margin-top: .5rem; display: none; }
+    .lm-value-list { list-style: none; margin: .75rem 0 1.1rem; padding: 0; }
+    .lm-value-list li { font-size: .82rem; color: rgba(212,175,55,.85); display: flex; align-items: flex-start; gap: .45rem; margin-bottom: .35rem; line-height: 1.45; }
+    .lm-value-list li::before { content: '✓'; font-weight: 700; flex-shrink: 0; }
+    /* ── Lead Gate (verdict flouté jusqu'à l'email) ── */
+    body:not(.lm-unlocked) .lm-blur-target { filter: blur(13px); user-select: none; pointer-events: none; transition: filter .4s ease; }
+    .lm-gate-host { position: relative; min-height: 60px; }
+    .lm-gate-overlay { position: absolute; inset: -12px; z-index: 6; display: none; align-items: center; justify-content: center; padding: 1rem; }
+    body:not(.lm-unlocked) .lm-gate-host.lm-gate-active .lm-gate-overlay { display: flex; }
+    body.lm-unlocked .lm-gate-overlay { display: none; }
+    .lm-gate-card { max-width: 380px; width: 100%; background: rgba(8,13,26,.94); border: 1px solid rgba(212,175,55,.3); border-radius: 1rem; padding: 1.6rem 1.4rem; text-align: center; box-shadow: 0 24px 60px rgba(0,0,0,.55); }
+    .lm-gate-lock { font-size: 1.6rem; margin-bottom: .4rem; }
+    .lm-gate-title { font-family:'Outfit',sans-serif; font-size:1.05rem; font-weight:700; color:#f3e5ab; margin-bottom:.4rem; }
+    .lm-gate-sub { font-size:.82rem; color:rgba(226,232,240,.7); line-height:1.5; margin-bottom:1rem; }
+  </style>
+</head>
+<body class="lm-unlocked">
+<!-- Version sans capture email, réservée aux liens envoyés à la liste déjà inscrite. Ne pas indexer/lier publiquement, la version canonique avec capture reste checklist.html. -->
+
+<!-- ═══════ NAV ═══════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="https://www.masteriagroup.com" class="logo">
+      <img src="/logo-masteria.webp" alt="Masteria" style="height:28px;width:auto;">
+    </a>
+    <a href="#plan-action" class="nav-cta">
+      Obtenir le plan d'action
+      <i class="fas fa-arrow-right" style="font-size:.65rem"></i>
+    </a>
+  </div>
+</nav>
+
+<!-- ═══════ BARRE DE PROGRESSION ═══════ -->
+<div class="progress-wrap" id="progress-wrap">
+  <div class="progress-inner">
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progress-fill"></div>
+    </div>
+    <div class="progress-label" id="progress-label">0 / 12 étapes</div>
+  </div>
+</div>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero" id="top">
+  <div class="container">
+    <div class="hero-badge">
+      <i class="fas fa-triangle-exclamation" style="font-size:.65rem"></i>
+      Comportement en crise
+    </div>
+    <h1 class="hero-title reveal">
+      Est-ce que tu réagis<br>
+      comme les <span class="text-gold">90 %</span><br>
+      qui perdent ?
+    </h1>
+    <p class="hero-desc reveal" style="animation-delay:.1s">
+      Quand les marchés chutent, la majorité des investisseurs prennent exactement les mauvaises décisions. Pas par manque d'intelligence, mais par réflexe. Cette checklist te permet de vérifier où tu en es.
+    </p>
+    <a href="#checklist" class="scroll-cta reveal" style="animation-delay:.15s">
+      Commencer la checklist <i class="fas fa-arrow-down" style="font-size:.8rem"></i>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════ STATS ═══════ -->
+<section class="stats-section">
+  <div class="container">
+    <span class="label-tag">Ce que montrent les données</span>
+    <h2 style="font-family:'Outfit',sans-serif;font-weight:700;font-size:clamp(1.2rem,3vw,1.7rem);line-height:1.2;margin-bottom:.5rem">
+      Les crises révèlent les vraies erreurs
+    </h2>
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num">91 %</div>
+        <p class="stat-label">des investisseurs particuliers vendent au pire moment lors d'une crise significative</p>
+        <p class="stat-source">DALBAR — Quantitative Analysis of Investor Behavior, 2023</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num gold">7,2 %</div>
+        <p class="stat-label">de rendement annuel moyen laissé sur la table par l'investisseur moyen vs son propre fonds</p>
+        <p class="stat-source">DALBAR 2023 — S&amp;P 500 vs rendement investisseur réel</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">-10 j</div>
+        <p class="stat-label">rater les 10 meilleures journées de marché sur 20 ans divise votre rendement final par 2</p>
+        <p class="stat-source">J.P. Morgan Asset Management — Guide to Markets, 2024</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ CHECKLIST ═══════ -->
+<section class="checklist-section" id="checklist">
+  <div class="container">
+
+    <!-- Groupe 1 : Ce qu'on ne fait pas -->
+    <div class="group-header">
+      <div class="group-icon red"><i class="fas fa-ban"></i></div>
+      <div class="group-title red">Ce que tu ne fais PAS</div>
+    </div>
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:1.1rem;line-height:1.65">Coche chaque point une fois confirmé. Ces erreurs détruisent le capital à long terme.</p>
+
+    <div class="checklist" id="list-stop">
+      <div class="check-item" onclick="toggleCheck(this)" role="checkbox" aria-checked="false" tabindex="0">
+        <div class="check-box"><i class="fas fa-check"></i></div>
+        <div class="check-content">
+          <div class="check-title">Je ne vends pas en panique</div>
+          <div class="check-body">Vendre lors d'une chute transforme une perte latente en perte définitive. Le marché ne sait pas que tu as vendu. Il repart quand même.</div>
+          <span class="check-tag tag-stop">Ne pas faire</span>
+        </div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" role="checkbox" aria-checked="false" tabindex="0">
+        <div class="check-box"><i class="fas fa-check"></i></div>
+        <div class="check-content">
+          <div class="check-title">Je n'ouvre pas mon application tous les jours</div>
+          <div class="check-body">Surveiller son portefeuille quotidiennement en crise amplifie le stress et pousse aux décisions irrationnelles. Les baisses à court terme sont du bruit sur une trajectoire longue.</div>
+          <span class="check-tag tag-stop">Ne pas faire</span>
+        </div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" role="checkbox" aria-checked="false" tabindex="0">
+        <div class="check-box"><i class="fas fa-check"></i></div>
+        <div class="check-content">
+          <div class="check-title">Je ne cherche pas le "bon moment" pour revenir</div>
+          <div class="check-body">"Timer" le marché est statistiquement perdant. Personne ne sait quand le marché touche le fond. La plupart ratent les 10-20 meilleures journées en attendant de revenir.</div>
+          <span class="check-tag tag-stop">Ne pas faire</span>
+        </div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" role="checkbox" aria-checked="false" tabindex="0">
+        <div class="check-box"><i class="fas fa-check"></i></div>
+        <div class="check-content">
+          <div class="check-title">Je ne consomme pas les médias financiers en boucle</div>
+          <div class="check-body">Les médias vivent de la peur. En crise, chaque titre est conçu pour maximiser l'anxiété. Lire les analyses catastrophistes pendant une chute renforce les pires décisions.</div>
+          <span class="check-tag tag-stop">Ne pas faire</span>
+        </div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" role="checkbox" aria-checked="false" tabindex="0">
+        <div class="check-box"><i class="fas fa-check"></i></div>
+        <div class="check-content">
+          <div class="check-title">Je ne fais pas de changements impulsifs d'allocation</div>
+          <div class="check-body">Modifier son allocation sous le coup de l'émotion (vendre des actions, aller sur du cash ou de l'or en panique) détruit la cohérence de la stratégie construite en période calme.</div>
+          <span class="check-tag tag-stop">Ne pas faire</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Groupe 2 : Ce qu'on vérifie -->
+    <div class="group-header">
+      <div class="group-icon gold"><i class="fas fa-magnifying-glass"></i></div>
+      <div class="group-title gold">Ce que tu vérifies</div>
+    </div>
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:1.1rem;line-height:1.65">Prendre le temps de répondre à ces questions calme le système de panique.</p>
+
+    <div class="checklist" id="list-check">
+      <div class="check-item" onclick="toggleCheck(this)" role="checkbox" aria-checked="false" tabindex="0">
+        <div class="check-box"><i class="fas fa-check"></i></div>
+        <div class="check-content">
+          <div class="check-title">Mon horizon de placement n'a pas changé</div>
+          <div class="check-body">Si tu investis sur 15-20 ans, une chute de 20 % aujourd'hui n'est pas une catastrophe. C'est une parenthèse. La question est : est-ce que tu as besoin de cet argent avant ton horizon ?</div>
+          <span class="check-tag tag-think">A vérifier</span>
+        </div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" role="checkbox" aria-checked="false" tabindex="0">
+        <div class="check-box"><i class="fas fa-check"></i></div>
+        <div class="check-content">
+          <div class="check-title">Mon épargne de précaution couvre mes besoins immédiats</div>
+          <div class="check-body">Si tu as un fonds d'urgence de 3-6 mois de dépenses en dehors du portefeuille, tu n'as pas besoin de vendre en crise pour des raisons pratiques. C'est la fondation de la sérénité.</div>
+          <span class="check-tag tag-think">A vérifier</span>
+        </div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" role="checkbox" aria-checked="false" tabindex="0">
+        <div class="check-box"><i class="fas fa-check"></i></div>
+        <div class="check-content">
+          <div class="check-title">La stratégie que j'utilise a déjà traversé des crises</div>
+          <div class="check-body">Connaitre le comportement historique de sa stratégie lors des grandes crises passées (2008, 2020, 2022) permet d'ancrer sa réaction. Une chute attendue est moins panique qu'une chute inconnue.</div>
+          <span class="check-tag tag-think">A vérifier</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Groupe 3 : Ce qu'on fait -->
+    <div class="group-header">
+      <div class="group-icon green"><i class="fas fa-check-double"></i></div>
+      <div class="group-title green">Ce que tu fais activement</div>
+    </div>
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:1.1rem;line-height:1.65">Les actions concrètes qui séparent l'investisseur discipliné de la masse.</p>
+
+    <div class="checklist" id="list-do">
+      <div class="check-item" onclick="toggleCheck(this)" role="checkbox" aria-checked="false" tabindex="0">
+        <div class="check-box"><i class="fas fa-check"></i></div>
+        <div class="check-content">
+          <div class="check-title">Je continue mes versements programmés</div>
+          <div class="check-body">La crise baisse les prix. Continuer d'acheter à des prix bas, c'est mécaniquement améliorer son prix moyen d'acquisition. C'est le moment où la discipline crée la vraie valeur.</div>
+          <span class="check-tag tag-do">A faire</span>
+        </div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" role="checkbox" aria-checked="false" tabindex="0">
+        <div class="check-box"><i class="fas fa-check"></i></div>
+        <div class="check-content">
+          <div class="check-title">Je reviens à mes fondamentaux écrits</div>
+          <div class="check-body">Relire la logique de sa stratégie (pourquoi j'investis, avec quel horizon, quelle tolérance au risque) avant de prendre une décision calme les impulsions. La décision froide bat la décision chaude.</div>
+          <span class="check-tag tag-do">A faire</span>
+        </div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" role="checkbox" aria-checked="false" tabindex="0">
+        <div class="check-box"><i class="fas fa-check"></i></div>
+        <div class="check-content">
+          <div class="check-title">Je lis l'histoire : chaque crise s'est suivie d'une reprise</div>
+          <div class="check-body">1929, 1987, 2000, 2008, 2020 : chaque crise semblait "différente". Chacune a précédé une reprise. Ce n'est pas de l'optimisme naif, c'est 100 ans de données vérifiables.</div>
+          <span class="check-tag tag-do">A faire</span>
+        </div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" role="checkbox" aria-checked="false" tabindex="0">
+        <div class="check-box"><i class="fas fa-check"></i></div>
+        <div class="check-content">
+          <div class="check-title">Si j'ai de la liquidité disponible, j'en investis une partie</div>
+          <div class="check-body">Les plus grandes opportunités historiques se sont présentées pendant les crises. Avoir de la liquidité et pouvoir investir pendant une chute, c'est exactement l'inverse de ce que fait la majorité.</div>
+          <span class="check-tag tag-do">A faire</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lm-gate-host" id="verdict-gate">
+    <div class="lm-blur-target">
+    <!-- Message de complétion -->
+    <div class="completion-message" id="completion">
+      <div class="completion-icon"><i class="fas fa-check-double"></i></div>
+      <div class="completion-title" id="completion-title">Checklist complétée</div>
+      <p class="completion-body" id="completion-body">
+        Tu sais maintenant exactement quoi éviter et quoi faire. La prochaine étape : construire une méthode qui te permet d'appliquer ces principes en automatique, sans avoir à te battre contre tes émotions à chaque crise.
+      </p>
+      <a href="#plan-action" style="display:inline-flex;align-items:center;gap:.5rem;margin-top:1.25rem;padding:.75rem 1.5rem;min-height:48px;background:linear-gradient(135deg,var(--gold-d),var(--gold),var(--gold-l));color:var(--bg);border:none;border-radius:.65rem;font-weight:800;font-size:.88rem;text-decoration:none;cursor:pointer">
+        Voir le plan d'action complet <i class="fas fa-arrow-down" style="font-size:.75rem"></i>
+      </a>
+    </div>
+
+    <!-- Message score partiel (4 points ou moins) -->
+    <div id="score-warning" style="display:none;background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.18);border-radius:1.25rem;padding:1.75rem 1.5rem;margin-top:1.5rem;text-align:center">
+      <div style="width:48px;height:48px;border-radius:50%;background:rgba(248,113,113,.12);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--red);margin:0 auto 1rem">
+        <i class="fas fa-triangle-exclamation"></i>
+      </div>
+      <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.1rem;color:var(--red);margin-bottom:.6rem" id="warning-title">Points de vigilance détectés</div>
+      <p style="font-size:.88rem;color:var(--muted);line-height:1.7" id="warning-body">
+        Plusieurs comportements à risque subsistent dans ton profil. En crise réelle, ce sont exactement ces points qui conduisent aux mauvaises décisions.
+      </p>
+      <a href="#plan-action" style="display:inline-flex;align-items:center;gap:.5rem;margin-top:1.25rem;padding:.75rem 1.5rem;min-height:48px;background:linear-gradient(135deg,var(--gold-d),var(--gold),var(--gold-l));color:var(--bg);border:none;border-radius:.65rem;font-weight:800;font-size:.88rem;text-decoration:none;cursor:pointer">
+        Voir comment y remédier <i class="fas fa-arrow-down" style="font-size:.75rem"></i>
+      </a>
+    </div>
+    </div>
+    <div class="lm-gate-overlay">
+      <form class="lm-gate-card" onsubmit="lmSubmit(event,'checklist')">
+        <div class="lm-gate-lock">🔒</div>
+        <div class="lm-gate-title">Débloque ton verdict</div>
+        <p class="lm-gate-sub">Ton prénom et ton email, et ton plan d'action personnalisé s'affiche immédiatement.</p>
+        <div class="lm-fields">
+          <input type="text" name="name" placeholder="Ton prénom" required autocomplete="given-name">
+          <input type="email" name="email" placeholder="Ton email" required autocomplete="email">
+        </div>
+        <button type="submit" class="cta-btn lm-submit" style="display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.6rem;font-size:.9rem;border-radius:.65rem;background:linear-gradient(135deg,#9a6f0a,#d4af37 55%,#f3e5ab);color:#050914;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;border:none;cursor:pointer">Voir mon verdict →</button>
+        <p class="lm-error" id="err-checklist"></p>
+        <p class="lm-privacy">0 spam. Désinscription en 1 clic.</p>
+      </form>
+    </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════ BIAIS SECTION ═══════ -->
+<section class="biais-section">
+  <div class="container">
+    <span class="label-tag">Psychologie de crise</span>
+    <h2 style="font-family:'Outfit',sans-serif;font-weight:700;font-size:clamp(1.2rem,3vw,1.7rem);line-height:1.2;margin-bottom:.5rem">
+      Pourquoi le cerveau sabote l'investisseur
+    </h2>
+    <p style="font-size:.85rem;color:var(--muted);max-width:560px;line-height:1.75;margin-bottom:0">
+      Les erreurs en crise ne sont pas des accidents. Elles sont câblées dans la neurologie humaine. Les connaître est le premier pas pour ne pas les reproduire.
+    </p>
+    <div class="biais-grid">
+      <div class="biais-card">
+        <div class="biais-name">Aversion à la perte</div>
+        <p class="biais-body">Perdre 1 000 € fait deux fois plus mal psychologiquement que gagner 1 000 € fait plaisir. Ce déséquilibre pousse à vendre trop tôt pour stopper la douleur, même quand c'est rationellement absurde.</p>
+        <span class="biais-tag">Kahneman &amp; Tversky</span>
+      </div>
+      <div class="biais-card">
+        <div class="biais-name">Biais de récence</div>
+        <p class="biais-body">Le cerveau surpondère ce qui vient de se passer. Après 3 semaines de chute, il semble évident que ça va continuer. Après 3 mois de hausse, une correction paraît impossible. C'est l'inverse qu'il faut faire.</p>
+        <span class="biais-tag">Biais cognitif</span>
+      </div>
+      <div class="biais-card">
+        <div class="biais-name">Comportement grégaire</div>
+        <p class="biais-body">Quand tout le monde vend, il devient psychologiquement douloureux de ne pas vendre. Appartenir au groupe dominant rassure. C'est cette mécanique qui transforme une baisse en panique.</p>
+        <span class="biais-tag">Psychologie sociale</span>
+      </div>
+      <div class="biais-card">
+        <div class="biais-name">Biais de disponibilité</div>
+        <p class="biais-body">Les crashes récents (2008, 2020) sont plus accessibles en mémoire que les décennies de hausse qui ont suivi. Ce déséquilibre mémoriel fait surestimer le risque de ruine et sous-estimer la résilience des marchés.</p>
+        <span class="biais-tag">Biais cognitif</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ CTA ═══════ -->
+<section class="cta-section" id="plan-action">
+  <div class="container">
+    <div class="cta-box">
+      <span class="label-tag" style="position:relative;z-index:1">Programme MasterInvest</span>
+      <h2 class="cta-title" id="cta-title-checklist" style="position:relative;z-index:1">
+        Savoir quoi faire, c'est bien.<br>Avoir la méthode, c'est autre chose.
+      </h2>
+      <p class="cta-sub" style="position:relative;z-index:1">
+        Cette checklist te montre les comportements. MasterInvest te donne la méthode structurée pour que ces réflexes deviennent automatiques — même sous la pression d'une vraie crise.
+      </p>
+      <div class="cta-features">
+        <span class="cta-feat"><i class="fas fa-check"></i> 10 modules complets</span>
+        <span class="cta-feat"><i class="fas fa-check"></i> Accès à vie</span>
+        <span class="cta-feat"><i class="fas fa-check"></i> Club Discord inclus</span>
+      </div>
+      <p style="font-size:.85rem;color:var(--muted);margin:0 0 .6rem 0">Ton plan d'action arrive par email.</p>
+      <a href="https://masteriagroup.com" style="color:var(--gold-l);font-weight:600;font-size:.9rem;text-decoration:underline;text-decoration-color:rgba(212,175,55,.35)">
+        En savoir plus sur MasterInvest &#8594;
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer>
+  <div class="disclaimer">
+    <strong>Avertissement légal</strong> —
+    Les informations présentées sont à titre éducatif uniquement. Les statistiques citées (DALBAR, J.P. Morgan) sont des données historiques et ne constituent pas une garantie de performance future. Investir en bourse comporte des risques de perte en capital, y compris totale. Ce contenu ne constitue pas un conseil en investissement au sens de la réglementation AMF.
+    © 2026 Masteria — Tous droits réservés.
+  </div>
+</footer>
+
+<!-- Score widget flottant -->
+<div class="score-wrap" id="score-wrap">
+  <div class="score-pill">
+    <i class="fas fa-check-circle" style="color:var(--green);font-size:.85rem"></i>
+    <span id="score-text"><span class="score-count">0</span> / 12 points cochés</span>
+  </div>
+</div>
+
+<!-- ═══════ JS ═══════ -->
+<script>
+  /* ── Lead Gate : mémorise le déblocage pour les visites suivantes ── */
+  if (localStorage.getItem('lm_unlocked_checklist') === '1') {
+    document.body.classList.add('lm-unlocked');
+  }
+
+  const TOTAL = 12;
+  let checked = 0;
+
+  function toggleCheck(el) {
+    const isChecked = el.classList.contains('checked');
+    if (isChecked) {
+      el.classList.remove('checked');
+      el.setAttribute('aria-checked', 'false');
+      checked--;
+    } else {
+      el.classList.add('checked');
+      el.setAttribute('aria-checked', 'true');
+      checked++;
+    }
+    updateProgress();
+  }
+
+  // Keyboard accessibility
+  document.querySelectorAll('.check-item').forEach(item => {
+    item.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleCheck(item);
+      }
+    });
+  });
+
+  function updateProgress() {
+    const pct = Math.round((checked / TOTAL) * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = checked + ' / ' + TOTAL + ' étapes';
+    document.getElementById('score-text').innerHTML = '<span class="score-count">' + checked + '</span> / ' + TOTAL + ' étapes cochées';
+
+    const completion = document.getElementById('completion');
+    const warning    = document.getElementById('score-warning');
+    const gate       = document.getElementById('verdict-gate');
+
+    if (checked >= TOTAL) {
+      // Tous cochés
+      document.getElementById('completion-title').textContent = 'Checklist complétée — bonne base.';
+      document.getElementById('completion-body').innerHTML =
+        'Tu connais les comportements. La vraie question : est-ce que tu les appliquerais en pleine crise, sous pression émotionnelle, avec -25 % affiché sur ton compte ? La connaissance ne suffit pas — <strong style="color:var(--text)">une méthode systématique qui rend ces réflexes automatiques, c\'est autre chose.</strong>';
+      completion.classList.add('visible');
+      warning.style.display = 'none';
+      gate.classList.add('lm-gate-active');
+      completion.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      updateCTAByScore('high');
+    } else if (checked >= 7) {
+      // Score moyen
+      completion.classList.remove('visible');
+      warning.style.display = 'none';
+      gate.classList.remove('lm-gate-active');
+      updateCTAByScore('medium');
+    } else if (checked >= 1 && checked <= 4) {
+      // Score faible — afficher le warning
+      completion.classList.remove('visible');
+      document.getElementById('warning-title').textContent = checked + ' / ' + TOTAL + ' — des lacunes importantes détectées.';
+      document.getElementById('warning-body').innerHTML =
+        'DALBAR mesure que 91 % des investisseurs prennent les mauvaises décisions en crise. Les points que tu n\'as pas encore cochés correspondent exactement à ce qui sépare les 9 % qui restent disciplinés. <strong style="color:var(--text)">Ce n\'est pas une question d\'intelligence — c\'est une question de méthode.</strong>';
+      warning.style.display = 'block';
+      gate.classList.add('lm-gate-active');
+      updateCTAByScore('low');
+    } else {
+      completion.classList.remove('visible');
+      warning.style.display = 'none';
+      gate.classList.remove('lm-gate-active');
+    }
+  }
+
+  function updateCTAByScore(level) {
+    const titles = {
+      low:    'Tu sais où sont les lacunes.<br>La méthode pour les combler est ici.',
+      medium: 'Bonne progression.<br>MasterInvest va plus loin que la checklist.',
+      high:   'Savoir quoi faire, c\'est bien.<br>Avoir la méthode, c\'est autre chose.'
+    };
+    const btns = {
+      low:    'Obtenir la méthode complète',
+      medium: 'Aller plus loin avec MasterInvest',
+      high:   'Rendre ces réflexes automatiques'
+    };
+    const t = document.getElementById('cta-title-checklist');
+    const b = document.getElementById('cta-btn-checklist');
+    if (t) t.innerHTML = titles[level];
+    if (b) b.innerHTML = btns[level] + ' <i class="fas fa-arrow-right" style="font-size:.8rem"></i>';
+  }
+
+  /* ── Lead Gate ── */
+  async function lmSubmit(e, source) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('.lm-submit');
+    const errEl = form.querySelector('.lm-error');
+    const name = form.elements['name'].value.trim();
+    const email = form.elements['email'].value.trim();
+    const originalLabel = btn.textContent;
+    btn.textContent = 'Un instant…';
+    btn.disabled = true;
+    errEl.style.display = 'none';
+    try {
+      const r = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, source })
+      });
+      const d = await r.json();
+      if (d.success) {
+        document.body.classList.add('lm-unlocked');
+        localStorage.setItem('lm_unlocked_checklist', '1');
+        return;
+      }
+      throw new Error(d.error || 'Erreur');
+    } catch(err) {
+      errEl.textContent = 'Une erreur est survenue, réessaie.';
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = originalLabel;
+    }
+  }
+</script>
+
+</body>
+</html>
