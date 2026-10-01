@@ -45,6 +45,7 @@ body {
   color: var(--text-primary); line-height: 1.6; overflow-x: hidden;
 }
 img, svg { display:block; max-width:100%; }
+img { height:auto; }
 a { color:inherit; text-decoration:none; }
 ul { list-style:none; }
 
@@ -861,12 +862,12 @@ ul { list-style:none; }
 }
 .footer-logo span { color:var(--gold); }
 .footer-links { display:flex; gap:24px; }
-.footer-links a { font-size:14px; color:var(--text-muted); transition:color .25s; }
+.footer-links a { font-size:14px; color:#5f6479; transition:color .25s; }
 .footer-links a:hover { color:var(--text-secondary); }
-.footer-copy { width:100%; text-align:center; margin-top:28px; font-size:13px; color:var(--text-muted); }
+.footer-copy { width:100%; text-align:center; margin-top:28px; font-size:13px; color:#5f6479; }
 .footer-disclaimer {
   width:100%; text-align:center; margin-top:12px;
-  font-size:11px; color:var(--text-muted); max-width:600px; margin-left:auto; margin-right:auto; line-height:1.6;
+  font-size:11px; color:#5f6479; max-width:600px; margin-left:auto; margin-right:auto; line-height:1.6;
 }
 
 /* ═══════ GOLD-INCLUSIVE GRADIENTS ═══════ */

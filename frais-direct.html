@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
@@ -14,7 +15,6 @@
   <style>@font-face { font-family: 'Outfit'; font-style: normal; font-weight: 300 900; font-display: swap; src: url(/assets/fonts/outfit-normal-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; } @font-face { font-family: 'Outfit'; font-style: normal; font-weight: 300 900; font-display: swap; src: url(/assets/fonts/outfit-normal-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; } @font-face { font-family: 'Plus Jakarta Sans'; font-style: italic; font-weight: 400; font-display: swap; src: url(/assets/fonts/plus-jakarta-sans-italic-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; } @font-face { font-family: 'Plus Jakarta Sans'; font-style: italic; font-weight: 400; font-display: swap; src: url(/assets/fonts/plus-jakarta-sans-italic-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; } @font-face { font-family: 'Plus Jakarta Sans'; font-style: normal; font-weight: 300 800; font-display: swap; src: url(/assets/fonts/plus-jakarta-sans-normal-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; } @font-face { font-family: 'Plus Jakarta Sans'; font-style: normal; font-weight: 300 800; font-display: swap; src: url(/assets/fonts/plus-jakarta-sans-normal-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }</style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -612,7 +612,7 @@
       text-align: center;
     }
     .disclaimer {
-      font-size: .72rem; color: rgba(148,163,184,.45);
+      font-size: .72rem; color: #8b95a7;
       line-height: 1.9; max-width: 860px; margin: 0 auto;
     }
 
@@ -879,7 +879,7 @@
     .lm-fields input:focus { border-color: #d4af37; background: rgba(255,255,255,.09); }
     .lm-submit { width: 100%; justify-content: center; position: relative; z-index: 1; }
     .lm-submit:disabled { opacity: .6; cursor: not-allowed; transform: none !important; }
-    .lm-privacy { color: rgba(148,163,184,.5); font-size: .72rem; margin-top: .6rem; position: relative; z-index: 1; }
+    .lm-privacy { color: rgba(148,163,184,.8); font-size: .72rem; margin-top: .6rem; position: relative; z-index: 1; }
     .lm-error { color: #f87171; font-size: .82rem; margin-top: .5rem; display: none; }
     .lm-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
     .lm-privacy a { color: inherit; text-decoration: underline; }
@@ -905,7 +905,7 @@
 <!-- ═══════ NAV ═══════ -->
 <nav>
   <div class="nav-inner">
-    <a href="https://www.masteriagroup.com" style="display:inline-flex;align-items:center;text-decoration:none"><img src="/logo-masteria-480.webp" alt="Masteria" style="height:28px;width:auto;"></a>
+    <a href="https://www.masteriagroup.com" style="display:inline-flex;align-items:center;text-decoration:none"><img width="480" height="96" src="/logo-masteria-480.webp" alt="Masteria" style="height:28px;width:auto;"></a>
     <a href="#decouvrir" class="nav-cta">
       <span>Accéder au programme</span>
       <i class="fas fa-arrow-right" style="font-size:.7rem"></i>
@@ -969,21 +969,21 @@
             <span class="ctrl-name">Capital déjà investi</span>
             <span class="ctrl-val" id="v-capital">15 000 €</span>
           </div>
-          <input type="range" id="s-capital" min="0" max="100000" step="1000" value="15000">
+          <input type="range" id="s-capital" aria-label="Capital de départ" min="0" max="100000" step="1000" value="15000">
         </div>
         <div class="ctrl-row">
           <div class="ctrl-head">
             <span class="ctrl-name">Versement mensuel</span>
             <span class="ctrl-val" id="v-monthly">200 €/mois</span>
           </div>
-          <input type="range" id="s-monthly" min="0" max="1000" step="50" value="200">
+          <input type="range" id="s-monthly" aria-label="Épargne mensuelle" min="0" max="1000" step="50" value="200">
         </div>
         <div class="ctrl-row">
           <div class="ctrl-head">
             <span class="ctrl-name">Horizon de placement</span>
             <span class="ctrl-val" id="v-years">20 ans</span>
           </div>
-          <input type="range" id="s-years" min="5" max="30" step="1" value="20">
+          <input type="range" id="s-years" aria-label="Horizon de placement" min="5" max="30" step="1" value="20">
         </div>
       </div>
 
@@ -999,7 +999,7 @@
       <!-- Champ custom -->
       <div class="custom-frais-wrap" id="custom-wrap">
         <label>Frais annuels de votre contrat</label>
-        <input type="number" id="frais-custom" value="1.8" min="0.1" max="5" step="0.1">
+        <input type="number" id="frais-custom" aria-label="Frais annuels personnalisés (%)" value="1.8" min="0.1" max="5" step="0.1">
         <span class="pct">%/an</span>
       </div>
 
@@ -1439,6 +1439,8 @@
 </footer>
 
 <!-- ═══════ JS ═══════ -->
+<!-- Chart.js chargé en fin de page : ne bloque plus l'affichage du contenu au-dessus -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
   /* ── Lead Gate : mémorise le déblocage pour les visites suivantes ── */
   if (localStorage.getItem('lm_unlocked_frais') === '1') {
