@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /merci
+Disallow: /masterinvest-paiement
+
+Sitemap: https://masteriagroup.com/sitemap.xml

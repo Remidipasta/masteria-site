@@ -2,17 +2,20 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <meta name="robots" content="noindex, follow">
   <title>Simulateur d'Investissement — MasterInvest</title>
   <meta name="description" content="Découvrez combien vaut votre épargne dans 20 ans selon 3 stratégies. Simulation basée sur 30 ans de données réelles, pas de promesses.">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="preload" href="/assets/fonts/outfit-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/plus-jakarta-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <style>@font-face { font-family: 'Outfit'; font-style: normal; font-weight: 300 900; font-display: swap; src: url(/assets/fonts/outfit-normal-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; } @font-face { font-family: 'Outfit'; font-style: normal; font-weight: 300 900; font-display: swap; src: url(/assets/fonts/outfit-normal-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; } @font-face { font-family: 'Plus Jakarta Sans'; font-style: italic; font-weight: 400; font-display: swap; src: url(/assets/fonts/plus-jakarta-sans-italic-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; } @font-face { font-family: 'Plus Jakarta Sans'; font-style: italic; font-weight: 400; font-display: swap; src: url(/assets/fonts/plus-jakarta-sans-italic-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; } @font-face { font-family: 'Plus Jakarta Sans'; font-style: normal; font-weight: 300 800; font-display: swap; src: url(/assets/fonts/plus-jakarta-sans-normal-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; } @font-face { font-family: 'Plus Jakarta Sans'; font-style: normal; font-weight: 300 800; font-display: swap; src: url(/assets/fonts/plus-jakarta-sans-normal-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }</style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -231,7 +234,7 @@
     }
 
     .legend-name { font-weight: 600; }
-    .legend-rate { color: var(--slate); font-size: .72rem; margin-left: .3rem; }
+    .legend-rate { color: var(--muted); font-size: .72rem; margin-left: .3rem; }
 
     /* ── CHART CARD ── */
     .chart-card {
@@ -397,11 +400,11 @@
     }
 
     .metric-sub {
-      font-size: .68rem; color: var(--slate); margin-top: .2rem;
+      font-size: .68rem; color: var(--muted); margin-top: .2rem;
     }
 
     .metrics-footnote {
-      font-size: .68rem; color: rgba(148,163,184,.45); margin-top: 1.2rem;
+      font-size: .68rem; color: #8b95a7; margin-top: 1.2rem;
       padding-top: 1rem; border-top: 1px solid rgba(255,255,255,.04);
       line-height: 1.6;
     }
@@ -525,7 +528,7 @@
     }
 
     .disclaimer {
-      font-size: .68rem; color: rgba(148,163,184,.45);
+      font-size: .68rem; color: #8b95a7;
       line-height: 1.75; max-width: 820px; margin: 0 auto;
     }
 
@@ -708,11 +711,15 @@
     .lm-fields input:focus { border-color: #d4af37; background: rgba(255,255,255,.09); }
     .lm-submit { width: 100%; justify-content: center; position: relative; z-index: 1; }
     .lm-submit:disabled { opacity: .6; cursor: not-allowed; transform: none !important; }
-    .lm-privacy { color: rgba(148,163,184,.5); font-size: .72rem; margin-top: .6rem; position: relative; z-index: 1; }
+    .lm-privacy { color: rgba(148,163,184,.8); font-size: .72rem; margin-top: .6rem; position: relative; z-index: 1; }
     .lm-value-list { list-style: none; margin: .75rem 0 1.1rem; padding: 0; }
     .lm-value-list li { font-size: .82rem; color: rgba(212,175,55,.85); display: flex; align-items: flex-start; gap: .45rem; margin-bottom: .35rem; line-height: 1.45; }
     .lm-value-list li::before { content: '✓'; font-weight: 700; flex-shrink: 0; }
     .lm-error { color: #f87171; font-size: .82rem; margin-top: .5rem; display: none; }
+    .lm-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .lm-privacy a { color: inherit; text-decoration: underline; }
+    .lm-legal-links { margin-top: .8rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; font-size: .75rem; }
+    .lm-legal-links a { color: inherit; opacity: .75; text-decoration: underline; }
     /* ── Lead Gate (résultat flouté jusqu'à l'email) ── */
     body:not(.lm-unlocked) .lm-blur-target { filter: blur(13px); user-select: none; pointer-events: none; transition: filter .4s ease; }
     .lm-gate-host { position: relative; }
@@ -734,7 +741,7 @@
 <!-- ═══════ HEADER ═══════ -->
 <header>
   <a href="https://www.masteriagroup.com" class="logo">
-    <img src="/logo-masteria.webp" alt="Masteria" style="height:30px;width:auto;">
+    <img width="480" height="96" src="/logo-masteria-480.webp" alt="Masteria" style="height:30px;width:auto;">
   </a>
   <a href="#decouvrir" class="btn-gold">
     Découvrir la méthode <i class="fas fa-arrow-right" style="font-size:.75rem"></i>
@@ -800,7 +807,7 @@
             <span class="ctrl-name">Capital de départ</span>
             <span class="ctrl-val" id="v-capital">5 000 €</span>
           </div>
-          <input type="range" id="s-capital" min="0" max="50000" step="500" value="5000">
+          <input type="range" id="s-capital" aria-label="Capital de départ" min="0" max="50000" step="500" value="5000">
         </div>
 
         <div class="ctrl">
@@ -808,7 +815,7 @@
             <span class="ctrl-name">Épargne mensuelle</span>
             <span class="ctrl-val" id="v-monthly">200 €</span>
           </div>
-          <input type="range" id="s-monthly" min="50" max="2000" step="50" value="200">
+          <input type="range" id="s-monthly" aria-label="Épargne mensuelle" min="50" max="2000" step="50" value="200">
         </div>
 
         <div class="ctrl">
@@ -816,7 +823,7 @@
             <span class="ctrl-name">Horizon de placement</span>
             <span class="ctrl-val" id="v-years">20 ans</span>
           </div>
-          <input type="range" id="s-years" min="5" max="35" step="1" value="20">
+          <input type="range" id="s-years" aria-label="Horizon de placement" min="5" max="35" step="1" value="20">
         </div>
 
         <div class="legend">
@@ -881,12 +888,13 @@
             <div class="lm-gate-title">Débloque ton résultat</div>
             <p class="lm-gate-sub">Ton prénom et ton email, et ta simulation s'affiche immédiatement.</p>
             <div class="lm-fields">
-              <input type="text" name="name" placeholder="Ton prénom" required autocomplete="given-name">
+              <div class="lm-hp" aria-hidden="true"><label>Ne pas remplir <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+          <input type="text" name="name" placeholder="Ton prénom" required autocomplete="given-name">
               <input type="email" name="email" placeholder="Ton email" required autocomplete="email">
             </div>
             <button type="submit" class="cta-btn lm-submit" style="display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.6rem;font-size:.9rem;border-radius:.65rem;background:linear-gradient(135deg,#9a6f0a,#d4af37 55%,#f3e5ab);color:#050914;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;border:none;cursor:pointer">Voir mon résultat →</button>
             <p class="lm-error" id="err-simulateur"></p>
-            <p class="lm-privacy">0 spam. Désinscription en 1 clic.</p>
+            <p class="lm-privacy">0 spam. Désinscription en 1 clic. Tes données servent uniquement à t'envoyer ce contenu et les emails Masteria (<a href="/confidentialite" target="_blank" rel="noopener">confidentialité</a>).</p>
           </form>
         </div>
       </div>
@@ -1041,7 +1049,7 @@
 <!-- ═══════ FOOTER ═══════ -->
 <footer>
   <div class="disclaimer">
-    <strong style="color:rgba(148,163,184,.6)">Avertissement légal</strong> —
+    <strong style="color:#a3adbd">Avertissement légal</strong> —
     Les simulations présentées sont calculées à partir des taux annuels historiques suivants :
     Livret A 2,5 % (moyenne historique), S&P 500 9,5 % (CAGR historique dividendes réinvestis),
     Stratégie MasterInvest 17,11 % (CAGR backtest 1994-2024).
@@ -1050,9 +1058,17 @@
     Ce simulateur est fourni à titre strictement éducatif et ne constitue pas un conseil en investissement au sens de la réglementation AMF.
     © 2026 Masteria — Tous droits réservés.
   </div>
+  <nav class="lm-legal-links" aria-label="Informations légales">
+    <a href="/mentions-legales">Mentions légales</a>
+    <a href="/cgv">CGV</a>
+    <a href="/cgu">CGU</a>
+    <a href="/confidentialite">Confidentialité</a>
+  </nav>
 </footer>
 
 <!-- ═══════ JAVASCRIPT ═══════ -->
+<!-- Chart.js chargé en fin de page : ne bloque plus l'affichage du contenu au-dessus -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
   /* ── Lead Gate : mémorise le déblocage pour les visites suivantes ── */
   if (localStorage.getItem('lm_unlocked_simulateur') === '1') {
@@ -1210,7 +1226,6 @@
     else if (renteMaster >= 1400) renteCtx = ` — plus d'un SMIC net par mois`;
     else if (renteMaster >= 700) renteCtx = ` — la moitié d'un SMIC net en passif`;
     else if (renteMaster >= 200) renteCtx = ` — des revenus passifs réels`;
-    setNum('insight-pill-rente', renteMaster);
     document.getElementById('insight-pill').innerHTML =
       `<strong style="color:var(--gold-l)">${renteMaster.toLocaleString('fr-FR')} €/mois avec MasterInvest</strong>${renteCtx}<br><span style="color:var(--muted);font-size:.78rem">vs ${renteLivret.toLocaleString('fr-FR')} €/mois avec le Livret A</span>`;
   }
@@ -1243,6 +1258,7 @@
   update();
 
   /* ── Lead Gate ── */
+  const LM_LOADED_AT = Date.now();
   async function lmSubmit(e, source) {
     e.preventDefault();
     const form = e.target;
@@ -1258,7 +1274,7 @@
       const r = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, source })
+        body: JSON.stringify({ name, email, source, website: form.elements['website'].value, elapsed: Date.now() - LM_LOADED_AT })
       });
       const d = await r.json();
       if (d.success) {
@@ -1268,7 +1284,7 @@
       }
       throw new Error(d.error || 'Erreur');
     } catch(err) {
-      errEl.textContent = 'Une erreur est survenue, réessaie.';
+      errEl.textContent = (err && err.message && err.message !== 'Erreur' && err.message !== 'Failed to fetch') ? err.message : 'Une erreur est survenue, réessaie.';
       errEl.style.display = 'block';
       btn.disabled = false;
       btn.textContent = originalLabel;
