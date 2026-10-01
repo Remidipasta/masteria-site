@@ -6,12 +6,15 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <meta name="robots" content="noindex, follow">
   <title>Audit de portefeuille — MasterInvest</title>
   <meta name="description" content="5 questions pour identifier ton profil d'investisseur et les problèmes cachés de ton portefeuille actuel. Résultat personnalisé en 2 minutes.">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preload" href="/assets/fonts/outfit-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/plus-jakarta-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <style>@font-face { font-family: 'Outfit'; font-style: normal; font-weight: 300 900; font-display: swap; src: url(/assets/fonts/outfit-normal-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; } @font-face { font-family: 'Outfit'; font-style: normal; font-weight: 300 900; font-display: swap; src: url(/assets/fonts/outfit-normal-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; } @font-face { font-family: 'Plus Jakarta Sans'; font-style: italic; font-weight: 400; font-display: swap; src: url(/assets/fonts/plus-jakarta-sans-italic-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; } @font-face { font-family: 'Plus Jakarta Sans'; font-style: italic; font-weight: 400; font-display: swap; src: url(/assets/fonts/plus-jakarta-sans-italic-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; } @font-face { font-family: 'Plus Jakarta Sans'; font-style: normal; font-weight: 300 800; font-display: swap; src: url(/assets/fonts/plus-jakarta-sans-normal-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; } @font-face { font-family: 'Plus Jakarta Sans'; font-style: normal; font-weight: 300 800; font-display: swap; src: url(/assets/fonts/plus-jakarta-sans-normal-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }</style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -478,6 +481,10 @@
     .lm-submit:disabled { opacity: .6; cursor: not-allowed; transform: none !important; }
     .lm-privacy { color: rgba(148,163,184,.5); font-size: .72rem; margin-top: .6rem; position: relative; z-index: 1; }
     .lm-error { color: #f87171; font-size: .82rem; margin-top: .5rem; display: none; }
+    .lm-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .lm-privacy a { color: inherit; text-decoration: underline; }
+    .lm-legal-links { margin-top: .8rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; font-size: .75rem; }
+    .lm-legal-links a { color: inherit; opacity: .75; text-decoration: underline; }
     .lm-value-list { list-style: none; margin: .75rem 0 1.1rem; padding: 0; }
     .lm-value-list li { font-size: .82rem; color: rgba(212,175,55,.85); display: flex; align-items: flex-start; gap: .45rem; margin-bottom: .35rem; line-height: 1.45; }
     .lm-value-list li::before { content: '✓'; font-weight: 700; flex-shrink: 0; }
@@ -499,7 +506,7 @@
 <nav>
   <div class="nav-inner">
     <a href="https://www.masteriagroup.com" class="logo">
-      <img src="/logo-masteria.webp" alt="Masteria" style="height:28px;width:auto;">
+      <img src="/logo-masteria-480.webp" alt="Masteria" style="height:28px;width:auto;">
     </a>
     <a href="#resultat" class="nav-cta" id="nav-cta" style="display:none">
       Voir mon profil <i class="fas fa-arrow-right" style="font-size:.65rem"></i>
@@ -842,12 +849,13 @@
         <div class="lm-gate-title">Débloque ton profil</div>
         <p class="lm-gate-sub">Ton prénom et ton email, et ton diagnostic complet s'affiche immédiatement.</p>
         <div class="lm-fields">
+          <div class="lm-hp" aria-hidden="true"><label>Ne pas remplir <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
           <input type="text" name="name" placeholder="Ton prénom" required autocomplete="given-name">
           <input type="email" name="email" placeholder="Ton email" required autocomplete="email">
         </div>
         <button type="submit" class="cta-btn lm-submit" style="display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.6rem;font-size:.9rem;border-radius:.65rem;background:linear-gradient(135deg,#9a6f0a,#d4af37 55%,#f3e5ab);color:#050914;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;border:none;cursor:pointer">Voir mon profil →</button>
         <p class="lm-error" id="err-audit"></p>
-        <p class="lm-privacy">0 spam. Désinscription en 1 clic.</p>
+        <p class="lm-privacy">0 spam. Désinscription en 1 clic. Tes données servent uniquement à t'envoyer ce contenu et les emails Masteria (<a href="/confidentialite" target="_blank" rel="noopener">confidentialité</a>).</p>
       </form>
     </div>
     </div>
@@ -886,6 +894,12 @@
     Ce questionnaire est à titre éducatif uniquement. Il ne constitue pas un conseil en investissement au sens de la réglementation AMF. Les profils et diagnostics présentés sont indicatifs et ne se substituent pas à une analyse personnalisée par un conseiller financier réglementé. Investir en bourse comporte des risques de perte en capital. Les performances passées ne préjugent pas des performances futures.
     © 2026 Masteria — Tous droits réservés.
   </div>
+  <nav class="lm-legal-links" aria-label="Informations légales">
+    <a href="/mentions-legales">Mentions légales</a>
+    <a href="/cgv">CGV</a>
+    <a href="/cgu">CGU</a>
+    <a href="/confidentialite">Confidentialité</a>
+  </nav>
 </footer>
 
 <!-- ═══════ JS ═══════ -->
@@ -1089,6 +1103,7 @@
   }
 
   /* ── Lead Gate ── */
+  const LM_LOADED_AT = Date.now();
   async function lmSubmit(e, source) {
     e.preventDefault();
     const form = e.target;
@@ -1104,7 +1119,7 @@
       const r = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, source })
+        body: JSON.stringify({ name, email, source, website: form.elements['website'].value, elapsed: Date.now() - LM_LOADED_AT })
       });
       const d = await r.json();
       if (d.success) {
@@ -1114,7 +1129,7 @@
       }
       throw new Error(d.error || 'Erreur');
     } catch(err) {
-      errEl.textContent = 'Une erreur est survenue, réessaie.';
+      errEl.textContent = (err && err.message && err.message !== 'Erreur' && err.message !== 'Failed to fetch') ? err.message : 'Une erreur est survenue, réessaie.';
       errEl.style.display = 'block';
       btn.disabled = false;
       btn.textContent = originalLabel;

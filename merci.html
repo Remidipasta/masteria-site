@@ -10,9 +10,11 @@
   <meta name="description" content="Ton contenu Masteria est en route. La prochaine étape pour construire ton patrimoine.">
   <meta name="robots" content="noindex, nofollow">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preload" href="/assets/fonts/outfit-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/plus-jakarta-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <style>@font-face { font-family: 'Outfit'; font-style: normal; font-weight: 300 900; font-display: swap; src: url(/assets/fonts/outfit-normal-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; } @font-face { font-family: 'Outfit'; font-style: normal; font-weight: 300 900; font-display: swap; src: url(/assets/fonts/outfit-normal-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; } @font-face { font-family: 'Plus Jakarta Sans'; font-style: italic; font-weight: 400; font-display: swap; src: url(/assets/fonts/plus-jakarta-sans-italic-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; } @font-face { font-family: 'Plus Jakarta Sans'; font-style: italic; font-weight: 400; font-display: swap; src: url(/assets/fonts/plus-jakarta-sans-italic-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; } @font-face { font-family: 'Plus Jakarta Sans'; font-style: normal; font-weight: 300 800; font-display: swap; src: url(/assets/fonts/plus-jakarta-sans-normal-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; } @font-face { font-family: 'Plus Jakarta Sans'; font-style: normal; font-weight: 300 800; font-display: swap; src: url(/assets/fonts/plus-jakarta-sans-normal-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }</style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -269,7 +271,7 @@
 <!-- ═══════ NAV ═══════ -->
 <nav>
   <a href="https://www.masteriagroup.com">
-    <img src="/logo-masteria.webp" alt="Masteria" style="height:28px;width:auto;">
+    <img src="/logo-masteria-480.webp" alt="Masteria" style="height:28px;width:auto;">
   </a>
 </nav>
 
@@ -391,9 +393,10 @@
 <!-- ═══════ FOOTER ═══════ -->
 <footer>
   <div class="footer-links">
-    <a href="https://www.masteriagroup.com/mentions-legales">Mentions légales</a>
-    <a href="https://www.masteriagroup.com/confidentialite">Confidentialité</a>
-    <a href="https://www.masteriagroup.com/cgv">CGV</a>
+    <a href="https://masteriagroup.com/mentions-legales">Mentions légales</a>
+    <a href="https://masteriagroup.com/confidentialite">Confidentialité</a>
+    <a href="https://masteriagroup.com/cgv">CGV</a>
+    <a href="https://masteriagroup.com/cgu">CGU</a>
   </div>
   <p class="footer-copy">© 2026 Masteria — Tous droits réservés.</p>
 </footer>

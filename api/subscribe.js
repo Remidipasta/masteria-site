@@ -29,9 +29,22 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, email, source } = req.body;
+  const { name, email, source, website, elapsed } = req.body || {};
 
-  if (!email || typeof email !== 'string' || !EMAIL_REGEX.test(email.trim())) {
+  // Anti-spam : champ piège invisible rempli, ou formulaire soumis en moins de
+  // 2 s après le chargement de la page. On répond "succès" pour ne pas
+  // apprendre au robot qu'il a été détecté, mais rien n'est créé dans Brevo.
+  if ((typeof website === 'string' && website.trim() !== '') ||
+      (typeof elapsed === 'number' && elapsed < 2000)) {
+    console.warn('Subscribe spam blocked:', { source, elapsed, honeypot: !!website });
+    return res.status(200).json({ success: true });
+  }
+
+  if (name !== undefined && (typeof name !== 'string' || name.length > 60 || /[<>{}]|https?:\/\//i.test(name))) {
+    return res.status(400).json({ error: 'Prénom invalide' });
+  }
+
+  if (!email || typeof email !== 'string' || email.length > 254 || !EMAIL_REGEX.test(email.trim())) {
     return res.status(400).json({ error: 'Email invalide' });
   }
 
@@ -79,7 +92,7 @@ export default async function handler(req, res) {
         email: normalizedEmail,
         updateEnabled: true,
         listIds: listId ? [listId] : [],
-        attributes: name ? { PRENOM: name } : {},
+        attributes: name ? { PRENOM: name.trim() } : {},
       }),
     });
 
